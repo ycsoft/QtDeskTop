@@ -1,0 +1,14 @@
+2
+0,8
+我的电脑=::{20D04FE0-3AEA-1069-A2D8-08002B30309D}
+控制面板=::{21EC2020-3AEA-1069-A2DD-08002B30309D}
+回收站=::{645FF040-5081-101B-9F08-00AA002F954E}
+QQ.exe=D:/Program Files (x86)/Tencent/QQ/Bin/QQ.exe
+XSkyWalker.lnk=C:/Users/yang-chen/Desktop/XSkyWalker.lnk
+EditPlus.exe=D:/Program Files (x86)/EditPlus 3/EditPlus.exe
+Swift.exe=D:/Program Files (x86)/Swift/Swift.exe
+优酷客户端.lnk=C:/Users/yang-chen/Desktop/优酷客户端.lnk
+1,3
+我的电脑=::{20D04FE0-3AEA-1069-A2D8-08002B30309D}
+EditPlus.exe=D:/Program Files (x86)/EditPlus 3/EditPlus.exe
+上网导航.lnk=C:/Users/yang-chen/Desktop/上网导航.lnk
