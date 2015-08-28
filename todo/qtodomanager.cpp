@@ -6,6 +6,7 @@
 #include "winFactory/qwinfactory.h"
 #include "skin/iconbutton.h"
 #include "utils/qapputils.h"
+#include "data/qtododata.h"
 
 
 
@@ -40,12 +41,13 @@ void QTodoManager::initUI()
     m_wid_alldo = new QToDoContent(this);//QWinFactory::ref().createWindow(QWinFactory::Widget);
     m_wid_alldo->setTitle(QStringList()<<LOCAL("所有事项")<<LOCAL("选择"));
 
-    m_wid_todo =  new QToDoContent(this);//QWinFactory::ref().createWindow(QWinFactory::Widget);
+    m_wid_todo =  new QToDoContent(this,QToDoContent::ToDo);//QWinFactory::ref().createWindow(QWinFactory::Widget);
     m_wid_todo->setTitle(QStringList()<<LOCAL("待办事项")<<LOCAL("选择"));
 
-    m_wid_done =  new QToDoContent(this);//QWinFactory::ref().createWindow(QWinFactory::Widget);
+    m_wid_done =  new QToDoContent(this,QToDoContent::Done);//QWinFactory::ref().createWindow(QWinFactory::Widget);
     m_wid_done->setTitle(QStringList()<<LOCAL("已办事项")<<LOCAL("选择"));
 
+    m_wid_alldo->flushData(QToDoData::ref().getAll());
     //按钮
     m_allcando = new QPureColorButton(this);
     m_todobtn  = new QPureColorButton(this);
@@ -104,10 +106,12 @@ void QTodoManager::stack_change(int i)
         }
         case ToDoTask:{
             m_lbtip->setText(LOCAL("当前位置 >> ") + LOCAL("待办事项"));
+            m_wid_todo->flushData(QToDoData::ref().getToDo());
             break;
         }
         case DoneTask:
             m_lbtip->setText(LOCAL("当前位置 >> ")+LOCAL("已办事项"));
+            m_wid_done->flushData(QToDoData::ref().getDone());
             break;
         }
     }

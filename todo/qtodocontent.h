@@ -23,15 +23,16 @@ private:
 signals:
 
 public slots:
-
+    void    ok_clicked();
     void    tree_clicked(const QModelIndex &index);
 private:
     QTreeView           *m_tree;
     QStandardItemModel  *m_model;
+    QStringList         m_taskList;
 
     QPureColorButton    *m_okBtn;
     QPureColorButton    *m_cancelBtn;
-
+    QStringList         m_title;
     int                 m_type;
 };
 

@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     todo/qtodowidget.cpp \
     uiframe/qpurecolorbutton.cpp \
     todo/qtodomanager.cpp \
-    todo/qtodocontent.cpp
+    todo/qtodocontent.cpp \
+    data/qtododata.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -81,7 +82,8 @@ HEADERS  += maindialog.h \
     todo/qtodowidget.h \
     uiframe/qpurecolorbutton.h \
     todo/qtodomanager.h \
-    todo/qtodocontent.h
+    todo/qtodocontent.h \
+    data/qtododata.h
 
 FORMS    += \
     dialog.ui \

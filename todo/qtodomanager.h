@@ -18,23 +18,26 @@ public:
     enum    TaskManager{ ALLTask,ToDoTask,DoneTask};
     explicit QTodoManager(QWidget *parent = 0);
 
+    void                initUI();
+
 signals:
 
 private:
-    void                initUI();
+
     void                initUI2();
 public slots:
     void                stack_change(int i);
 private:
-    QToDoContent             *m_wid_alldo;
-    QToDoContent             *m_wid_todo;
-    QToDoContent             *m_wid_done;
 
     QStackedWidget      *m_stacked;
     QPureColorButton    *m_allcando;
     QPureColorButton    *m_todobtn;
     QPureColorButton    *m_donebtn;
     QLabel              *m_lbtip;
+public:
+    QToDoContent             *m_wid_alldo;
+    QToDoContent             *m_wid_todo;
+    QToDoContent             *m_wid_done;
 
 };
 

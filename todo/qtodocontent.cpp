@@ -2,6 +2,7 @@
 #include "utils/defines.h"
 #include "skin/iconbutton.h"
 #include "utils/qapputils.h"
+#include "data/qtododata.h"
 
 #include <QGridLayout>
 #include <QSpacerItem>
@@ -23,6 +24,7 @@ void QToDoContent::setTitle(const QStringList &title)
 {
     int ct = title.count();
     int i = 0;
+    m_title = title;
 
     for ( i = 0 ; i < ct; ++i)
     {
@@ -42,6 +44,8 @@ void QToDoContent::initUI()
 
     m_okBtn = new QPureColorButton(centerWidget);
     m_cancelBtn = new QPureColorButton(centerWidget);
+    connect(m_okBtn,SIGNAL(clicked()),this,SLOT(ok_clicked()));
+    connect(m_cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
     m_okBtn->setButtonText(LOCAL("确认选择"));
     m_cancelBtn->setButtonText(LOCAL("取消"));
     m_okBtn->setMaximumWidth(80);
@@ -71,7 +75,8 @@ void QToDoContent::resizeEvent(QResizeEvent *evt)
 void QToDoContent::flushData(const QStringList &data)
 {
     int i = 0;
-
+    m_model->clear();
+    setTitle(m_title);
     for ( i = 0 ; i < data.count(); ++i)
     {
         QList<QStandardItem*> row;
@@ -97,11 +102,30 @@ void QToDoContent::tree_clicked(const QModelIndex &index)
         qDebug()<<"Checked:";
         QString data = m_model->data( m_model->index(r,0)).toString();
         qDebug()<<data;
+        m_taskList.append(data);
+        m_taskList.removeDuplicates();
 
     }else
     {
         qDebug()<<"UnChecked";
     }
+}
 
-
+void QToDoContent::ok_clicked()
+{
+    switch( m_type )
+    {
+    case AllTask:
+    {
+        QToDoData::ref().setToDo(m_taskList);
+        m_taskList.clear();
+        break;
+    }
+    case ToDo:
+    {
+        QToDoData::ref().setDone(m_taskList);
+        m_taskList.clear();
+        break;
+    }
+    }
 }

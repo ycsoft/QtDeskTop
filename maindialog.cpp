@@ -10,6 +10,7 @@
 #include "winFactory/qwinfactory.h"
 #include "test/qtest.h"
 #include "todo/qtodomanager.h"
+#include "data/qtododata.h"
 
 #include <QPainter>
 #include <QDateTime>
@@ -38,6 +39,7 @@ MainDialog::MainDialog(QWidget *parent) :
     m_cur_row = 0;
     m_cur_col = 0;
     //setUi2();
+
 
     setUi3();
     startTimer(1000);
@@ -644,6 +646,8 @@ void MainDialog::setUi3()
 {
     int wid,hei,px,py;
 
+    QToDoData::ref().appendAll(LOCAL("国库单据")).appendAll(LOCAL("项目拨款"))
+                               .appendAll(LOCAL("国库处项目审批"));
     QVBoxLayout *mainLay = new QVBoxLayout(this);
     m_appiconpanel = dynamic_cast<QAppIconPanel*>(
                 QWinFactory::ref().createWindow(QWinFactory::APPIconPanel,this)
@@ -680,8 +684,8 @@ void MainDialog::setUi3()
     m_all->setWindowTitle(LOCAL("所有事项"));
     m_all->setWindowFlags( m_all->windowFlags() | Qt::WindowStaysOnTopHint );
     m_all->setTitle(QStringList()<<LOCAL("所有事项")<<LOCAL("选择"));
-    m_all->flushData(QStringList()<<LOCAL("国库单据")<<LOCAL("项目拨款")
-                                    <<LOCAL("国库处项目审批"));
+    m_all->flushData(QToDoData::ref().getAll());
+
 
     m_todo = new QToDoContent();
     m_todo->setWindowTitle(LOCAL("待办事项"));
@@ -692,6 +696,15 @@ void MainDialog::setUi3()
     m_done->setWindowTitle(LOCAL("已办事项"));
     m_done->setTitle(QStringList()<<LOCAL("已办事项")<<LOCAL("选择"));
     m_done->setWindowFlags( m_done->windowFlags() | Qt::WindowStaysOnTopHint );
+
+    m_all->setWindowFlags(m_all->windowFlags() | Qt::WindowStaysOnTopHint);
+    m_todo->setWindowFlags(m_todo->windowFlags() | Qt::WindowStaysOnTopHint);
+    m_done->setWindowFlags(m_done->windowFlags() | Qt::WindowStaysOnTopHint);
+
+//    m_todoManager->m_wid_alldo = m_all;
+//    m_todoManager->m_wid_todo = m_todo;
+//    m_todoManager->m_wid_done = m_done;
+//    m_todoManager->initUI();
 
     connect(m_todoWidget,SIGNAL(clicked()),this,SLOT(showToDoManager()));
 }
