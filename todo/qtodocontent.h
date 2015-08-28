@@ -23,6 +23,8 @@ private:
 signals:
 
 public slots:
+
+    void    tree_clicked(const QModelIndex &index);
 private:
     QTreeView           *m_tree;
     QStandardItemModel  *m_model;

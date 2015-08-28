@@ -7,11 +7,14 @@
 #include <QSpacerItem>
 #include <QTreeWidget>
 #include <QResizeEvent>
+#include <QDebug>
 
 QToDoContent::QToDoContent(QWidget *parent,int type) : QWidget(parent)
 {
     initUI();
     m_type = type;
+
+    connect(m_tree,SIGNAL(clicked(QModelIndex)),this,SLOT(tree_clicked(QModelIndex)));
 //    setWindowFlags(Qt::FramelessWindowHint);
 //    setAttribute(Qt::WA_TranslucentBackground);
 }
@@ -80,6 +83,25 @@ void QToDoContent::flushData(const QStringList &data)
         check->setCheckable(true);
         row<<item<<check;
         m_model->appendRow(row);
-
     }
+}
+
+void QToDoContent::tree_clicked(const QModelIndex &index)
+{
+    int r = index.row();
+    QStandardItem *item = m_model->item(r,1);
+    QStandardItem *item2 = m_model->item(r,0);
+
+    if ( item->checkState() == Qt::Checked )
+    {
+        qDebug()<<"Checked:";
+        QString data = m_model->data( m_model->index(r,0)).toString();
+        qDebug()<<data;
+
+    }else
+    {
+        qDebug()<<"UnChecked";
+    }
+
+
 }

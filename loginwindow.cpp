@@ -22,9 +22,9 @@ Loginwindow::Loginwindow(QWidget *parent) :
     ShadowDlg(parent)
 {
     //ui->setupUi(this);
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GBK"));
-    QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
-    QTextCodec::setCodecForTr(QTextCodec::codecForName("GBK"));
+//    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GBK"));
+//    QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
+//    QTextCodec::setCodecForTr(QTextCodec::codecForName("GBK"));
     this->resize(435,330);
     QWidget *Top = initTopSkin();
     QVBoxLayout *mainLay = new QVBoxLayout();

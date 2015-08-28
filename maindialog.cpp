@@ -680,6 +680,8 @@ void MainDialog::setUi3()
     m_all->setWindowTitle(LOCAL("所有事项"));
     m_all->setWindowFlags( m_all->windowFlags() | Qt::WindowStaysOnTopHint );
     m_all->setTitle(QStringList()<<LOCAL("所有事项")<<LOCAL("选择"));
+    m_all->flushData(QStringList()<<LOCAL("国库单据")<<LOCAL("项目拨款")
+                                    <<LOCAL("国库处项目审批"));
 
     m_todo = new QToDoContent();
     m_todo->setWindowTitle(LOCAL("待办事项"));
