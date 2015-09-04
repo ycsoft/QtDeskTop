@@ -2,11 +2,12 @@
 #define QTODODATA_H
 
 #include <QStringList>
+#include <lua.hpp>
 
 class QToDoData
 {
 public:
-    ~QToDoData() {}
+    ~QToDoData();
 
     static QToDoData& ref()
     {
@@ -75,6 +76,8 @@ private:
     QStringList         m_allList;
     QStringList         m_todoList;
     QStringList         m_doneList;
+    lua_State           *m_Lua;
+    char                *m_buf;
 };
 
 #endif // QTODODATA_H
