@@ -34,7 +34,5 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("desk");
     QTest test;
     test.run(new MainDialog());
-//    QString str = QToDoData::ref().getData("127.0.0.1","fasp_yz","postgres","postgres");
-//    qDebug()<<str;
     return a.exec();
 }

@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     uiframe/qpurecolorbutton.cpp \
     todo/qtodomanager.cpp \
     todo/qtodocontent.cpp \
-    data/qtododata.cpp
+    data/qtododata.cpp \
+    data/hfpgsql.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -83,7 +84,8 @@ HEADERS  += maindialog.h \
     uiframe/qpurecolorbutton.h \
     todo/qtodomanager.h \
     todo/qtodocontent.h \
-    data/qtododata.h
+    data/qtododata.h \
+    data/hfpgsql.h
 
 FORMS    += \
     dialog.ui \
@@ -100,5 +102,10 @@ RC_FILE = app.rc
 #QMAKE_APP_FLAG -= UNICODE
 INCLUDEPATH += "D:\Program Files (x86)\LuaJIT-2.0.3\include"
 INCLUDEPATH += ".\\rapidjson"
+INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\WIN32-Code"
+INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\include"
+INCLUDEPATH += "D:\PostgreSQL\9.3\include"
+
 LIBS += "D:\Program Files (x86)\LuaJIT-2.0.3\lib\lua51.lib"
+LIBS += "D:\PostgreSQL\9.3\lib\libpq.lib"
 
