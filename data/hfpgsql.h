@@ -18,6 +18,10 @@ struct PGConfigure
         port = conf.port;
         connected = conf.connected;
     }
+    PGConfigure()
+    {
+        port = 5432;
+    }
 
     string host;
     string dbname;

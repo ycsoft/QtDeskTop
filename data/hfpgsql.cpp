@@ -20,7 +20,7 @@ bool HFPGSql::connectDB(PGConfigure *config)
     ostringstream ostr;
     _configure = (*config);
     //memcpy(&_configure,config,sizeof(PGConfigure));
-    ostr<<"host="<<config->host.c_str()<<" port="<<config->port
+    ostr<<"hostaddr="<<config->host.c_str()<<" port="<<config->port
         <<" dbname="<<config->dbname.c_str()<<" user="<<config->usr
           <<" password="<<config->pwd;
     string connstr = ostr.str();
