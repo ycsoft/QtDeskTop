@@ -54,6 +54,7 @@ public:
             appendDone(lst.at(i));
         }
     }
+    QString  getData(QString host, QString db,QString usr,QString pwd);
 
     QStringList &   getAll()
     {

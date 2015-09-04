@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTreeView>
 #include <QStandardItemModel>
+#include <QTextEdit>
 
 #include "uiframe/qpurecolorbutton.h"
 
@@ -27,6 +28,7 @@ public slots:
     void    tree_clicked(const QModelIndex &index);
 private:
     QTreeView           *m_tree;
+    QTextEdit           *m_edit;
     QStandardItemModel  *m_model;
     QStringList         m_taskList;
 

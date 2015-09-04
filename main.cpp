@@ -21,6 +21,8 @@
 #include "uiframe/qpurecolorbutton.h"
 #include "todo/qtodomanager.h"
 #include "todo/qtodocontent.h"
+#include "data/qtododata.h"
+#include <QDebug>
 
 #include <Windows.h>
 
@@ -32,6 +34,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("desk");
     QTest test;
     test.run(new MainDialog());
-
+//    QString str = QToDoData::ref().getData("127.0.0.1","fasp_yz","postgres","postgres");
+//    qDebug()<<str;
     return a.exec();
 }

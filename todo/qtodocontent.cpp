@@ -9,6 +9,7 @@
 #include <QTreeWidget>
 #include <QResizeEvent>
 #include <QDebug>
+#include <QMessageBox>
 
 QToDoContent::QToDoContent(QWidget *parent,int type) : QWidget(parent)
 {
@@ -39,11 +40,17 @@ void QToDoContent::initUI()
     QWidget *centerWidget = new QWidget(this);
     QGridLayout *grid = new QGridLayout(centerWidget);
 
+    vlay->setContentsMargins(0,0,0,0);
+    grid->setContentsMargins(0,0,0,0);
+    grid->setSpacing(5);
     m_tree = new QTreeView(centerWidget);
     m_tree->setGeometry(QRect(0,0,400,300));
-
+    m_tree->setMaximumWidth(200);
+    m_edit = new QTextEdit(centerWidget);
     m_okBtn = new QPureColorButton(centerWidget);
     m_cancelBtn = new QPureColorButton(centerWidget);
+    m_okBtn->setMaximumHeight(40);
+    m_cancelBtn->setMaximumHeight(40);
     connect(m_okBtn,SIGNAL(clicked()),this,SLOT(ok_clicked()));
     connect(m_cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
     m_okBtn->setButtonText(LOCAL("确认选择"));
@@ -53,11 +60,12 @@ void QToDoContent::initUI()
     m_model = new QStandardItemModel(this);
     m_model->setColumnCount(2);
     m_tree->setModel(m_model);
-
     m_tree->setColumnWidth(0,600);
-    grid->addWidget(m_tree,0,0,1,4);
-    grid->addWidget(m_okBtn,1,2,1,1);
-    grid->addWidget(m_cancelBtn,1,3,1,1);
+
+    grid->addWidget(m_tree,0,0,3,1,Qt::AlignLeft);
+    grid->addWidget(m_edit,0,1,2,8);
+    grid->addWidget(m_okBtn,2,6,1,1);
+    grid->addWidget(m_cancelBtn,2,7,1,1);
 
     vlay->addWidget(centerWidget);
 }
@@ -75,12 +83,14 @@ void QToDoContent::resizeEvent(QResizeEvent *evt)
 void QToDoContent::flushData(const QStringList &data)
 {
     int i = 0;
+    QStringList  sdata = data;
+    sdata.removeDuplicates();
     m_model->clear();
     setTitle(m_title);
-    for ( i = 0 ; i < data.count(); ++i)
+    for ( i = 0 ; i < sdata.count(); ++i)
     {
         QList<QStandardItem*> row;
-        QStandardItem *item = new QStandardItem(data.at(i));
+        QStandardItem *item = new QStandardItem(sdata.at(i));
         QStandardItem *check = new QStandardItem();
 
         item->setIcon(QIcon(":/ui/desk.ico"));
@@ -97,10 +107,16 @@ void QToDoContent::tree_clicked(const QModelIndex &index)
     QStandardItem *item = m_model->item(r,1);
     QStandardItem *item2 = m_model->item(r,0);
 
+    QString data = QToDoData::ref().getData("127.0.0.1","fasp_yz","postgres","postgres");
+    m_edit->setText(data);
     if ( item->checkState() == Qt::Checked )
     {
         qDebug()<<"Checked:";
         QString data = m_model->data( m_model->index(r,0)).toString();
+        if ( m_type == ToDo )
+        {
+            QToDoData::ref().getToDo().removeAll(data);
+        }
         qDebug()<<data;
         m_taskList.append(data);
         m_taskList.removeDuplicates();
@@ -118,12 +134,15 @@ void QToDoContent::ok_clicked()
     case AllTask:
     {
         QToDoData::ref().setToDo(m_taskList);
+        QMessageBox::information(this,LOCAL("提示"),LOCAL("已选择"),0);
         m_taskList.clear();
         break;
     }
     case ToDo:
     {
         QToDoData::ref().setDone(m_taskList);
+        flushData(QToDoData::ref().getToDo());
+        QMessageBox::information(this,LOCAL("提示"),LOCAL("已处理"),0);
         m_taskList.clear();
         break;
     }

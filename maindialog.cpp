@@ -680,19 +680,19 @@ void MainDialog::setUi3()
     m_todoWidget->setVisible(true);
     m_todoManager = new QTodoManager();
 
-    m_all = new QToDoContent();
+    m_all = new QToDoContent(0);
     m_all->setWindowTitle(LOCAL("所有事项"));
     m_all->setWindowFlags( m_all->windowFlags() | Qt::WindowStaysOnTopHint );
     m_all->setTitle(QStringList()<<LOCAL("所有事项")<<LOCAL("选择"));
     m_all->flushData(QToDoData::ref().getAll());
 
 
-    m_todo = new QToDoContent();
+    m_todo = new QToDoContent(0,QToDoContent::ToDo);
     m_todo->setWindowTitle(LOCAL("待办事项"));
     m_todo->setTitle(QStringList()<<LOCAL("待办事项")<<LOCAL("选择"));
     m_todo->setWindowFlags( m_todo->windowFlags() | Qt::WindowStaysOnTopHint );
 
-    m_done = new QToDoContent();
+    m_done = new QToDoContent(0,QToDoContent::Done);
     m_done->setWindowTitle(LOCAL("已办事项"));
     m_done->setTitle(QStringList()<<LOCAL("已办事项")<<LOCAL("选择"));
     m_done->setWindowFlags( m_done->windowFlags() | Qt::WindowStaysOnTopHint );

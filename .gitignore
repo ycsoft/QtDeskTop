@@ -27,3 +27,5 @@
 *.out
 *.app
 #Qt
+*.user
+*.pdb

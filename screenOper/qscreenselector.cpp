@@ -5,6 +5,7 @@
 #include "utils/qapputils.h"
 #include "winFactory/qwinfactory.h"
 #include "screenOper/qscreenshort.h"
+#include "data/qtododata.h"
 
 #include <QSpacerItem>
 #include <QPainter>
@@ -145,10 +146,13 @@ void QScreenSelector::slot_showall(QString)
 void QScreenSelector::slot_showtodo(QString)
 {
     setVisible(false);
+
+    MainDialog::ref().m_todo->flushData( QToDoData::ref().getToDo() );
     MainDialog::ref().m_todo->showMaximized();
 }
 void QScreenSelector::slot_showdone(QString)
 {
     setVisible(false);
+    MainDialog::ref().m_done->flushData( QToDoData::ref().getDone() );
     MainDialog::ref().m_done->showMaximized();
 }
