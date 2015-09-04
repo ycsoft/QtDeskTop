@@ -99,5 +99,6 @@ LIBS += user32.lib shell32.lib ole32.lib
 RC_FILE = app.rc
 #QMAKE_APP_FLAG -= UNICODE
 INCLUDEPATH += "D:\Program Files (x86)\LuaJIT-2.0.3\include"
+INCLUDEPATH += ".\\rapidjson"
 LIBS += "D:\Program Files (x86)\LuaJIT-2.0.3\lib\lua51.lib"
 

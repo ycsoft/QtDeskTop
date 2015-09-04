@@ -2,6 +2,9 @@
 
 #include <lua.hpp>
 
+#include <rapidjson.h>
+#include <rapidjson/document.h>
+
 QToDoData::QToDoData()
 {
 
@@ -22,5 +25,6 @@ QString QToDoData::getData(QString host, QString db, QString usr, QString pwd)
     lua_call(L,4,1);
     strncpy(buf,lua_tostring(L,-1),1023);
     lua_pop(L,1);
+
     return QString::fromUtf8(buf);
 }
