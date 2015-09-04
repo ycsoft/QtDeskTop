@@ -26,5 +26,10 @@
     x == LOCAL("控制面板") ? QPixmap(CONTROL_ICON) : \
     x == LOCAL("回收站")   ? QPixmap(CYCLE_ICON) : QPixmap()
 
+#define         KB      1024
+#define         MB      1048576
+#define         GB      1073741824
+
+
 #endif // DEFINES
 
