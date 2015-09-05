@@ -9,7 +9,6 @@ QToDoData::QToDoData()
 {
     m_Lua = luaL_newstate();
     luaL_openlibs(m_Lua);
-    luaL_dofile(m_Lua,"lua\\getResult.lua");
     m_buf = new char[3*MB];
 }
 
@@ -24,6 +23,7 @@ QString QToDoData::getData(QString host, QString db, QString usr, QString pwd)
     QString result;    
     memset(m_buf,0,3*MB);
 
+    luaL_dofile(m_Lua,"lua\\getResult.lua");
     lua_getglobal(m_Lua,"getResult");
     lua_pushstring(m_Lua,host.toLocal8Bit().data());
     lua_pushstring(m_Lua,db.toLocal8Bit().data());
