@@ -79,7 +79,6 @@ void QToDoContent::resizeEvent(QResizeEvent *evt)
     m_tree->setColumnWidth(1,wid1);
 }
 
-
 void QToDoContent::flushData(const QStringList &data)
 {
     int i = 0;

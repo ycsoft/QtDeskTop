@@ -45,5 +45,6 @@
         <file>ui/alltask.png</file>
         <file>ui/todo.png</file>
         <file>ui/done.png</file>
+        <file>ui/setting.png</file>
     </qresource>
 </RCC>

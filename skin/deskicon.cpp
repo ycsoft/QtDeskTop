@@ -25,7 +25,7 @@ DeskIcon::DeskIcon(QWidget *parent,QString icon, int type) :
         QFileInfo info(icon);
         QFileIconProvider provider;
         QIcon icon = provider.icon(info);
-        m_icon = icon.pixmap(40,40);
+        m_icon = icon.pixmap(20,20);
     }
     QString sheet;
     sheet = "border-image: url(" + icon + ");";
