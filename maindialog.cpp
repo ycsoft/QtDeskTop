@@ -123,18 +123,23 @@ QWidget*    MainDialog::createTaskBar()
 
     DeskIcon    *start = new DeskIcon(task,":/ui/start.png",DeskIcon::NO_TEXT);
     DeskIcon    *screens = new DeskIcon(task,":/ui/screens.png",DeskIcon::NO_TEXT);
+    DeskIcon    *settings = new DeskIcon(task,":/ui/setting.png",DeskIcon::NO_TEXT);
+    DeskIcon    *todo  = new DeskIcon(task,":/ui/govment.png",DeskIcon::NO_TEXT);
+    settings->setToolTip(LOCAL("设置"));
+    todo->setToolTip(LOCAL("事项管理"));
+    connect(todo,SIGNAL(clicked()),this,SLOT(showToDoManager()));
 
     connect(start,SIGNAL(clicked()),this,SLOT(showStart()));
     connect(screens,SIGNAL(clicked()),this,SLOT(showScreens()));
-
+    connect(settings,SIGNAL(clicked()),this,SLOT(action_prop()));
     screens->setToolTip(LOCAL("窗口视图"));
-
     start->setToolTip(LOCAL("开始"));
     taskLay->setSpacing(20);
     taskLay->setContentsMargins(0,0,0,0);
     taskLay->addWidget(start,0,Qt::AlignLeft|Qt::AlignVCenter);
     taskLay->addWidget(search);
     taskLay->addWidget(screens,0,Qt::AlignLeft);
+    taskLay->addWidget(settings);
     DeskIcon    *home =new DeskIcon(task,":/ui/room.png",DeskIcon::NO_TEXT);
     home->scaled(20,20);
     home->setToolTip(LOCAL("返回系统桌面"));
@@ -178,6 +183,7 @@ QWidget*    MainDialog::createTaskBar()
 
     taskLay->addWidget(home,0,Qt::AlignRight);
     taskLay->addWidget(notify,0,Qt::AlignRight);
+    taskLay->addWidget(todo,0,Qt::AlignRight);
     taskLay->addWidget(timewd);
     task->setLayout(taskLay);
 
@@ -258,30 +264,31 @@ void MainDialog::popupMsgWin()
 
 }
 
-void MainDialog::createMenu()
+void MainDialog::createMenu( QWidget *parent)
 {
-    m_menu = new QMenu(this);
+    m_menu = new QMenu(parent);
 
-    QAction *create = new QAction(LOCAL("添加快捷方式"),this);
-    QAction *prop = new QAction(LOCAL("属性"),this);
-    QAction *exit = new QAction(LOCAL("退出"),this);
+    QAction *create = new QAction(LOCAL("添加快捷方式"),parent);
+    QAction *changeMode = new QAction(LOCAL("切换精简模式"),parent);
+    QAction *prop = new QAction(LOCAL("属性"),parent);
+    QAction *exit = new QAction(LOCAL("退出"),parent);
 
     connect( create, SIGNAL(triggered()),this,SLOT(action_add_app()));
     connect(prop,SIGNAL(triggered()),this,SLOT(action_prop()));
     connect(exit,SIGNAL(triggered()),qApp,SLOT(quit()));
 
     m_menu->addAction(create);
+    m_menu->addAction(changeMode);
     m_menu->addAction(prop);
     m_menu->addSeparator();
     m_menu->addAction(exit);
-
 }
 
 void MainDialog::contextMenuEvent(QContextMenuEvent *)
 {
-    QCursor cur = cursor();
+//    QCursor cur = cursor();
 
-    m_menu->exec( cur.pos());
+//    m_menu->exec( cur.pos());
 }
 
 //隐藏系统任务栏
@@ -669,7 +676,9 @@ void MainDialog::setUi3()
     mainLay->setContentsMargins(0,0,0,0);
     mainLay->addWidget(m_stacked);
     mainLay->addWidget(m_task);
-    createMenu();
+    createMenu(m_appiconpanel);
+
+    m_appiconpanel->setMenu(m_menu);
     m_todoWidget = dynamic_cast<QToDoWidget*>(
                 QWinFactory::ref().createWindow(QWinFactory::ToDoWidget,this));
     px = wid - 200;
@@ -677,7 +686,8 @@ void MainDialog::setUi3()
     m_todoWidget->resize(200,20);
     m_todoWidget->setWindowFlags( m_todoWidget->windowFlags() | Qt::WindowStaysOnTopHint );
     m_todoWidget->move(px,py);
-    m_todoWidget->setVisible(true);
+    m_todoWidget->setVisible(false);
+
     m_todoManager = new QTodoManager();
 
     m_all = new QToDoContent(0);

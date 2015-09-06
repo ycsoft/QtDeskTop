@@ -226,7 +226,7 @@ private:
      * 创建右键的弹出菜单
      *
      */
-    void    createMenu();
+    void    createMenu(QWidget *parent = 0);
     /**
      * @brief timerEvent
      * 定时事件
