@@ -9,6 +9,7 @@
 #include <QStyleOption>
 #include <QStyle>
 #include <QSettings>
+#include <QContextMenuEvent>
 
 
 
@@ -23,9 +24,14 @@ QAppIconPanel::QAppIconPanel(QWidget *parent) : QWidget(parent)
     QString deskstyle = sets.value("desk-style","").toString();
     setObjectName("iconpanel");
     if ( deskstyle.isEmpty())
+    {
         setStyleSheet("QWidget#iconpanel{border-image: url(./ui/mac-desk.jpg);}");
+    }
     else
+    {
         setStyleSheet("QWidget#iconpanel{"+deskstyle+"}");
+    }
+    m_menu = NULL;
 
 }
 
@@ -67,4 +73,12 @@ void QAppIconPanel::paintEvent(QPaintEvent *)
 
     op.init(this);
     style()->drawPrimitive(QStyle::PE_Widget,&op,&p,this);
+}
+void QAppIconPanel::contextMenuEvent(QContextMenuEvent *evt)
+{
+    QCursor cur = cursor();
+    if(m_menu)
+    {
+        m_menu->exec(cur.pos());
+    }
 }

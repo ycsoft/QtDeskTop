@@ -2,6 +2,7 @@
 #define QAPPICONPANEL_H
 
 #include <QWidget>
+#include <QMenu>
 
 #define ROW_LIMIT   8
 #define COL_LIMIT   10
@@ -21,9 +22,14 @@ public:
      * @param path
      */
     void     addApp(QPixmap &pix,QString title, QString path);
+    void     setMenu( QMenu *menu)
+    {
+        m_menu = menu;
+    }
 
 protected:
     void     paintEvent(QPaintEvent *);
+    void     contextMenuEvent(QContextMenuEvent *evt);
 signals:
 
 public slots:
@@ -34,6 +40,7 @@ private:
 
     int     m_currow;
     int     m_curcol;
+    QMenu   *m_menu;
 };
 
 #endif // QAPPICONPANEL_H
