@@ -1,4 +1,4 @@
-#ifndef QSIMPLEMODE_H
+﻿#ifndef QSIMPLEMODE_H
 #define QSIMPLEMODE_H
 
 #include <QWidget>
@@ -9,6 +9,8 @@ class QSimpleMode : public QWidget
 public:
     explicit QSimpleMode(QWidget *parent = 0);
 
+private:
+    void initUI();
 signals:
 
 public slots:
