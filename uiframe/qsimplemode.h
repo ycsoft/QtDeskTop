@@ -2,6 +2,9 @@
 #define QSIMPLEMODE_H
 
 #include <QWidget>
+#include <QWebView>
+#include <QWebSettings>
+#include <QWebFrame>
 
 class QSimpleMode : public QWidget
 {
@@ -14,6 +17,12 @@ private:
 signals:
 
 public slots:
+    void addObject();
+
+    QString invoke();
+
+private:
+    QWebView *web;
 };
 
 #endif // QSIMPLEMODE_H
