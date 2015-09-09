@@ -46,6 +46,10 @@ void QAppUtils::getAppList(QHash<QString, QString> &mapapp)
     QFile file("app-list.txt");
     int   id[4],count[4],i = 0 , j = 0,indexcount ;
 
+    if ( !file.exists())
+    {
+        return;
+    }
     if ( file.open(QIODevice::ReadOnly) )
     {
         QString line = file.readLine();
