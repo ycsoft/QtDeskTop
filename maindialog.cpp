@@ -43,7 +43,7 @@ MainDialog::MainDialog(QWidget *parent) :
 
     setUi3();
     startTimer(1000);
-    this->showFullScreen();
+//    this->showFullScreen();
     //this->show();
     connect(m_prop,SIGNAL(signal_change(QString)),this,SLOT(slot_change_desk(QString)));
 
@@ -66,6 +66,7 @@ MainDialog::MainDialog(QWidget *parent) :
     QAppUtils::ref().getAppList(m_map_app);
     hideSysTask();
 
+    setVisible(false);
 }
 
 void MainDialog::addNotify()
@@ -659,6 +660,7 @@ void MainDialog::setUi3()
 {
     int wid,hei,px,py;
 
+    QLoginDesktop *login = new QLoginDesktop(this);
     QToDoData::ref().appendAll(LOCAL("国库单据")).appendAll(LOCAL("项目拨款"))
                                .appendAll(LOCAL("国库处项目审批"));
     QVBoxLayout *mainLay = new QVBoxLayout(this);
@@ -677,7 +679,8 @@ void MainDialog::setUi3()
     m_stacked->addWidget(m_appiconpanel);
     m_stacked->addWidget(panel);
     m_stacked->addWidget(smode);
-    m_stacked->setCurrentIndex(0);
+    m_stacked->addWidget(login);
+    m_stacked->setCurrentIndex(3);
     m_stacked->setContentsMargins(0,0,0,0);
 
     m_appiconpanel->resize(wid,hei - m_task->height());
