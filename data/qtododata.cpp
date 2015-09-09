@@ -5,7 +5,7 @@
 #include <rapidjson.h>
 #include <rapidjson/document.h>
 
-QToDoData::QToDoData()
+QToDoData::QToDoData():QObject(0)
 {
     m_Lua = luaL_newstate();
     luaL_openlibs(m_Lua);

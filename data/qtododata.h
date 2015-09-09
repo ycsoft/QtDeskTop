@@ -3,9 +3,11 @@
 
 #include <QStringList>
 #include <lua.hpp>
+#include <QObject>
 
-class QToDoData
+class QToDoData:public QObject
 {
+    Q_OBJECT
 public:
     ~QToDoData();
 
