@@ -13,7 +13,7 @@
 #include "screenOper/qscreenselector.h"
 #include "uiframe/qtransparentwin.h"
 #include "todo/qtodowidget.h"
-
+#include "uiframe/qsimplemode.h"
 class QWinFactory : public QObject
 {
     Q_OBJECT
