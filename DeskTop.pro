@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network xml
+QT       += core gui network xml webkit
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -47,7 +47,8 @@ SOURCES += main.cpp\
     todo/qtodomanager.cpp \
     todo/qtodocontent.cpp \
     data/qtododata.cpp \
-    data/hfpgsql.cpp
+    data/hfpgsql.cpp \
+    uiframe/qsimplemode.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -85,7 +86,8 @@ HEADERS  += maindialog.h \
     todo/qtodomanager.h \
     todo/qtodocontent.h \
     data/qtododata.h \
-    data/hfpgsql.h
+    data/hfpgsql.h \
+    uiframe/qsimplemode.h
 
 FORMS    += \
     dialog.ui \
