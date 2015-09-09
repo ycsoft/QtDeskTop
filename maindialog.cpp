@@ -274,6 +274,7 @@ void MainDialog::createMenu( QWidget *parent)
     QAction *exit = new QAction(LOCAL("退出"),parent);
 
     connect( create, SIGNAL(triggered()),this,SLOT(action_add_app()));
+    connect(changeMode,SIGNAL(triggered()),this,SLOT(switch_simple()));
     connect(prop,SIGNAL(triggered()),this,SLOT(action_prop()));
     connect(exit,SIGNAL(triggered()),qApp,SLOT(quit()));
 
@@ -366,6 +367,11 @@ void MainDialog::action_prop()
         //QString sheet = m_prop->styleSheet();
     }
 }
+void MainDialog::switch_simple()
+{
+    m_stacked->setCurrentIndex(2);
+}
+
 void MainDialog::slot_change_desk(QString spic)
 {
     QString pic = "QWidget#iconpanel{" +spic+"};";
@@ -664,10 +670,13 @@ void MainDialog::setUi3()
             (QWinFactory::ref().createWindow(QWinFactory::APPIconPanel,this));
     QAppUtils::ref().getScreenSize(wid,hei);
 
+    QSimpleMode *smode = new QSimpleMode(this);
+
     createTaskBar();
     m_stacked = new QStackedWidget(this);
     m_stacked->addWidget(m_appiconpanel);
     m_stacked->addWidget(panel);
+    m_stacked->addWidget(smode);
     m_stacked->setCurrentIndex(0);
     m_stacked->setContentsMargins(0,0,0,0);
 

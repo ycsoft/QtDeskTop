@@ -119,6 +119,11 @@ public slots:
      *
      */
     void    action_prop();
+    /**
+     * @brief switch_simple
+     * 切换至精简模式
+     */
+    void    switch_simple();
 
     void trayIconActive(QSystemTrayIcon::ActivationReason reason);//托盘
 
