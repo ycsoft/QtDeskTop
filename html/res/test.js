@@ -1,10 +1,10 @@
 // JavaScript Document
 //改变对象的背景颜色
-var cur = 0;
-var colMax = 4;
 
-var curRow = 1;
-var curCol = 3;
+var colMax = 5;
+
+var curRow = 0;
+var curCol = 0;
 
 function mouseIn( obj )
 {
@@ -24,47 +24,62 @@ function clickTask(txt)
 function addTask()
 {
 	
-	if ( curCol < colMax)
+	var test = "<h3>项目支出明细</h3><p>单位：国库处</p><p>审核：张三</p><p>摘要:2014年度总共支付543万元，其中....</p>";
+	if ( curCol < colMax && curRow > 0)
 	{
-	var listElem = document.getElementById('row');
-	var lastElem = listElem.nextSibling;
-	if( curRow  > 1)
-	{
-		while(lastElem != undefined)
+		if( curRow  >= 1)
 		{
-			listElem = lastElem;
-			lastElem = lastElem.nextSibling;
+			var listElem = document.getElementById('row');
+			var lastElem = listElem.nextSibling;
+			if( curRow > 1)
+			{
+				while(lastElem != undefined)
+				{
+					listElem = lastElem;
+					lastElem = lastElem.nextSibling;
+				}
+			}
+		
+			var curText = listElem.innerHTML;
+			curText = curText + 
+			"<div class=\"listtext\">"+
+			"<div class=\"block-left\" onclick=\"clickTask(this)\" onmousemove=\"taskMouseIn(this)\" onmouseout=\"taskMouseOut(this)\">"+
+			test+
+			"</div>"+
+			"<div class=\"block-right\"> <hr class=\"vertical\" /></div>"+
+			"</div>";
+			curCol += 1;
+			listElem.innerHTML = curText;
 		}
-	}
-	var curText = listElem.innerHTML;
-	curText = curText + 
-"<div class=\"listtext\">"+
-"<div class=\"block-left\" onclick=\"clickTask(this)\">"+
-"121312312321313124334353453454365465467fsdfsfsfsdfsfasfsafasnifhadfoasdnfowefjqofnasldfnlaksdfnoiefnaslkdf"+
-"</div>"+
-"<div class=\"block-right\"> <hr class=\"vertical\" /></div>"+
-"</div>";
-curCol += 1;
-listElem.innerHTML = curText;
 	}else{
 		curCol = 1;
-			var elemContent = document.getElementById('content');
+		var elemContent = document.getElementById('content');
 			
-			curText = elemContent.innerHTML + 
-			"<hr /><div class=\"row\" id=\"row\">"+
-"<div class=\"listtext\">"+
-"<div class=\"block-left\" onclick=\"clickTask(this)\">"+
-"121312312321313124334353453454365465467fsdfsfsfsdfsfasfsafasnifhadfoasdnfowefjqofnasldfnlaksdfnoiefnaslkdf"+
-"</div>"+
-"<div class=\"block-right\"> <hr class=\"vertical\" /></div>"+
-"</div></div>";
-elemContent.innerHTML = curText;
-curRow += 1;
+		curText = elemContent.innerHTML + 
+		"<hr class=\"hor\" align=\"center\"/><div class=\"row\" id=\"row\">"+
+		"<div class=\"listtext\">"+
+		"<div class=\"block-left\" onclick=\"clickTask(this)\" onmousemove=\"taskMouseIn(this)\" onmouseout=\"taskMouseOut(this)\">"+
+		test+
+		"</div>"+
+		"<div class=\"block-right\"> <hr class=\"vertical\" /></div>"+
+		"</div></div>";
+		elemContent.innerHTML = curText;
+		curRow += 1;
 	}
 	
 }
-
-function listList( obj )
+function taskMouseIn(obj)
 {
-	
+	bgstyle = obj.style.backgroundColor;
+	obj.style.backgroundColor = "#8080FF"; 
+}
+function taskMouseOut(obj)
+{
+	obj.style.backgroundColor = "#D4D4D4";
+}
+
+function runQt()
+{
+	var s = QSimpleMode.invoke();
+	alert(s);
 }

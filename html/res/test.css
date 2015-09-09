@@ -3,11 +3,13 @@ html,body{
 margin:0em;
 height:100%;
 width:100%;
+background-attachment:fixed;
+overflow:hide;
 }
 div#head-nav{
 padding-left:0px;
 padding-right:0px;
-height:40px;
+height:7%;
 width:100%;
 background-color:#2F2F2F;
 }
@@ -15,21 +17,21 @@ div#all{
 position:absolute;
 left:35%;
 padding-top:10px;
-padding-bottom:10px;
+padding-bottom:15px;
 cursor:pointer;
 }
 div#todo{
 position:absolute;
 left:45%;
 padding-top:10px;
-padding-bottom:10px;
+padding-bottom:15px;
 cursor:pointer;
 }
 div#done{
 position:absolute;
 left:55%;
 padding-top:10px;
-padding-bottom:10px;
+padding-bottom:15px;
 cursor:pointer;
 }
 
@@ -41,17 +43,17 @@ background:#FF8040;
 div#content{
 	position:absolute;
 	width:100%;
-	height:100%;
-	padding-left:10%;
-	padding-right:10%;
+	height:93%;
+	overflow:scroll;
 }
-div img{
+img{
 position:absolute;
 left:0;
 right:0;
 width:100%;
 height:100%;
 z-index:-1;
+background-attachment:fixed;
 filter:alpha(opacity=35);
 -moz-opacity:0.35;
 opacity:0.35;
@@ -76,6 +78,8 @@ div.row{
 width:100%;
 height:30%;
 display:line-block;
+margin-left:20px;
+margin-right:20px;
 }
 
 div.listtext{
@@ -92,9 +96,6 @@ word-wrap:break-word;
 word-break:normal;
 overflow:hidden;
 text-overflow: ellipsis;
-filter:alpha(opacity=75);
--moz-opacity:0.75;
-opacity:0.75;
 }
 div.block-right{
 display:inline-block;
@@ -105,15 +106,23 @@ float:right;
 div.block-left{
 display:inline-block;
 height:100%;
-width:80%;
+width:85%;
 overflow:hidden;
 word-wrap:break-word; 
 word-break:normal;
 margin-top:5px;
-margin-right:20px;
+padding-left:20px;
 cursor:pointer;
-}
+background:#D4D4D4;
 
+filter:alpha(opacity=65);
+-moz-opacity:0.65;
+opacity:0.65;
+}
+hr.hor{
+position:relative;
+width:90%;
+}
 hr.vertical{
 width:1px;
 height:100%;
@@ -124,4 +133,4 @@ float:right;
 div.hspace{
 width:100%;
 height:5px;
-}
+}  
