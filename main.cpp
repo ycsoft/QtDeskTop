@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("HF-Soft");
     QCoreApplication::setOrganizationDomain("hf.com");
     QCoreApplication::setApplicationName("desk");
-    QTest test;
-    test.run(new MainDialog());
+
+    MainDialog main;
+    main.showFullScreen();
     return a.exec();
 }

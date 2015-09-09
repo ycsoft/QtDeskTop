@@ -14,6 +14,8 @@
 #include "uiframe/qtransparentwin.h"
 #include "todo/qtodowidget.h"
 #include "uiframe/qsimplemode.h"
+#include "login/qlogindesktop.h"
+
 class QWinFactory : public QObject
 {
     Q_OBJECT

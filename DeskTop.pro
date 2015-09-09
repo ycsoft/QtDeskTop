@@ -48,7 +48,8 @@ SOURCES += main.cpp\
     todo/qtodocontent.cpp \
     data/qtododata.cpp \
     data/hfpgsql.cpp \
-    uiframe/qsimplemode.cpp
+    uiframe/qsimplemode.cpp \
+    login/qlogindesktop.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -87,7 +88,8 @@ HEADERS  += maindialog.h \
     todo/qtodocontent.h \
     data/qtododata.h \
     data/hfpgsql.h \
-    uiframe/qsimplemode.h
+    uiframe/qsimplemode.h \
+    login/qlogindesktop.h
 
 FORMS    += \
     dialog.ui \
