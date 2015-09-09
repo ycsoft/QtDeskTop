@@ -16,11 +16,16 @@ private:
     void initUI();
 signals:
 
+protected:
+    void contextMenuEvent(QContextMenuEvent *evt);
 public slots:
     void addObject();
 
-    QString invoke();
 
+    QStringList invoke();
+    QStringList getAllCanDoList();
+    QString     get(QString sql);
+    void    returnToAll();
 private:
     QWebView *web;
 };

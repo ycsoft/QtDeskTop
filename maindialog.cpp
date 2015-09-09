@@ -720,11 +720,6 @@ void MainDialog::setUi3()
     m_todo->setWindowFlags(m_todo->windowFlags() | Qt::WindowStaysOnTopHint);
     m_done->setWindowFlags(m_done->windowFlags() | Qt::WindowStaysOnTopHint);
 
-//    m_todoManager->m_wid_alldo = m_all;
-//    m_todoManager->m_wid_todo = m_todo;
-//    m_todoManager->m_wid_done = m_done;
-//    m_todoManager->initUI();
-
     connect(m_todoWidget,SIGNAL(clicked()),this,SLOT(showToDoManager()));
 }
 
