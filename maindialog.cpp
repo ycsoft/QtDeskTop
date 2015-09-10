@@ -27,6 +27,8 @@
 #include <QMessageBox>
 
 #include <Windows.h>
+#include <ShellAPI.h>
+
 MainDialog* MainDialog::m_mainDlg = NULL;
 
 
@@ -220,7 +222,7 @@ void MainDialog::viewURL()
     QString url = m_viewEdit->text();
     if ( url.isEmpty() )
         return;
-    ShellExecute(this->winId(),
+    ShellExecuteA(this->winId(),
                  "open",
                  url.toLocal8Bit().data(),
                  NULL,NULL,SW_SHOWNORMAL);
@@ -298,7 +300,7 @@ void MainDialog::contextMenuEvent(QContextMenuEvent *)
 void MainDialog::hideSysTask()
 {
     HWND task;
-    task = FindWindow("Shell_TrayWnd",NULL);
+    task = FindWindow(TEXT("Shell_TrayWnd"),NULL);
     ShowWindow(task,SW_HIDE);
 }
 
@@ -307,7 +309,7 @@ void MainDialog::hideSysTask()
 void MainDialog::showSysTask()
 {
     HWND task;
-    task = FindWindow("Shell_TrayWnd",NULL);
+    task = FindWindow(TEXT("Shell_TrayWnd"),NULL);
     ShowWindow(task,SW_SHOW);
 }
 
@@ -409,7 +411,7 @@ void MainDialog::readyRead()
 
 void MainDialog::click(QString txt)
 {
-    ShellExecute(this->winId(),
+    ShellExecuteA(this->winId(),
                  NULL,
                  txt.toLocal8Bit().data(),
                  NULL,NULL,SW_SHOWNORMAL);
@@ -533,7 +535,7 @@ void MainDialog::dbclick_icon( QString txt )
     hideSysTask();
     if ( txt == LOCAL("我的电脑"))
     {
-        ShellExecute(this->winId(),
+        ShellExecuteA(this->winId(),
                      NULL,
                      "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}",
                      NULL,NULL,SW_SHOWNORMAL);
@@ -541,7 +543,7 @@ void MainDialog::dbclick_icon( QString txt )
     else if ( txt == LOCAL("控制面板"))
     {
         //.{21EC2020-3AEA-1069-A2DD-08002B30309D}
-        ShellExecute(this->winId(),
+        ShellExecuteA(this->winId(),
                      NULL,
                      "::{21EC2020-3AEA-1069-A2DD-08002B30309D}",
                      NULL,NULL,SW_SHOWNORMAL);
@@ -549,14 +551,14 @@ void MainDialog::dbclick_icon( QString txt )
     else if ( txt == LOCAL("回收站"))
     {
         //{645FF040-5081-101B-9F08-00AA002F954E}
-        ShellExecute(this->winId(),
+        ShellExecuteA(this->winId(),
                      NULL,
                      "::{645FF040-5081-101B-9F08-00AA002F954E}",
                      NULL,NULL,SW_SHOWNORMAL);
     }else
     {
         QString path = m_map_app[txt];
-        ShellExecute(this->winId(),
+        ShellExecuteA(this->winId(),
                      NULL,
                      path.toLocal8Bit().data(),
                      NULL,NULL,SW_SHOWNORMAL);
@@ -594,7 +596,7 @@ void MainDialog::trayIconActive(QSystemTrayIcon::ActivationReason reason)
 
 void MainDialog::click_mycomputer()
 {
-    ShellExecute(this->winId(),
+    ShellExecuteA(this->winId(),
                  NULL,
                  "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}",
                  NULL,NULL,SW_SHOWNORMAL);
