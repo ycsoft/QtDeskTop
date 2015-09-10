@@ -58,7 +58,7 @@ QString CAOper::buildAuthRequest(const QString strRootDN, const QString strorigi
     QString sAuthRequest = QString::fromWCharArray(TEXT(""));
     HINSTANCE hDll;
     long lReturn;
-    hDll = LoadLibrary(_T("JITVCTK_SDll.dll"));
+    hDll = LoadLibrary(TEXT("JITVCTK_SDll.dll"));
     if (FAILED(hDll))
     {
         return sAuthRequest;

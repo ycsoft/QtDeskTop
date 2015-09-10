@@ -12,6 +12,7 @@ typedef long (WINAPI*lpSetCertChooseType)(HANDLE , long);
 typedef long (WINAPI*lpAttachSignBase64)(HANDLE , const char *, const char* , char *, long *);
 typedef long (WINAPI*lpDetachSignBase64)(HANDLE , const char *, const char* , char *, long *);
 typedef long (WINAPI*lpReleaseHandle)(HANDLE);
+
 class CAOper : public QObject
 {
     Q_OBJECT

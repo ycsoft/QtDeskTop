@@ -22,6 +22,7 @@
 #include "todo/qtodomanager.h"
 #include "todo/qtodocontent.h"
 #include "data/qtododata.h"
+#include "data/qluaconf.h"
 #include <QDebug>
 
 #include <Windows.h>
@@ -33,7 +34,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("hf.com");
     QCoreApplication::setApplicationName("desk");
 
-    MainDialog main;
-    main.showFullScreen();
+    //MainDialog main;
+    //main.showFullScreen();
+    QLuaConf    conf;
+    qDebug()<<conf.getString("downIP");
+    qDebug()<<conf.getString("serverip");
+    qDebug()<<conf.getString("servername");
+    qDebug()<<conf.getInteger("xmpp_port");
+    QList<QLuaConf::srvconf> res;
+    res = conf.getSrvList("srvlist");
+
     return a.exec();
 }
