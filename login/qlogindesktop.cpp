@@ -3,6 +3,10 @@
 #include <QHBoxLayout>
 #include <QWebSettings>
 #include <QApplication>
+#include <QMessageBox>
+#include <QDebug>
+#include <QSettings>
+
 QLoginDesktop::QLoginDesktop(QWidget *parent) : QWidget(parent)
 {
     initUI();
@@ -35,4 +39,36 @@ void QLoginDesktop::showMain()
 void QLoginDesktop::exitApp()
 {
     qApp->exit(0);
+}
+void QLoginDesktop::msgBox(QString title, QString txt)
+{
+    QMessageBox::information(this,title,txt,0);
+}
+void QLoginDesktop::caLogin()
+{
+
+
+}
+QStringList  QLoginDesktop::readConfig()
+{
+    QSettings   set;
+    downloadSvrList();
+    QString usr = set.value("usr","").toString();
+    QString svr = set.value("svr","").toString();
+    QString ip  = set.value("ip","127.0.0.1").toString();
+    QString pwd = set.value("pwd","").toString();
+    if (ip.isEmpty())
+    {
+        ip = "127.0.0.1";
+        set.setValue("ip",ip);
+    }
+    return QStringList()<<usr<<pwd<<svr<<ip;
+}
+void QLoginDesktop::downloadSvrList()
+{
+
+}
+void QLoginDesktop::onSvrDownloadFinish(const char *, const char *)
+{
+
 }

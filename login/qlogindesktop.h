@@ -16,8 +16,14 @@ public slots:
     void    showMain();
     void    addObject();
     void    exitApp();
+    void    msgBox(QString title,QString txt);
+    void    caLogin();
+    QStringList readConfig();
+
+    void    onSvrDownloadFinish(const char*, const char*);
 protected:
     void    initUI();
+    void    downloadSvrList();
 private:
 
     QWebView    *m_web;
