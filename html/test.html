@@ -2,21 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>我的页面</title>
+<title>精简桌面</title>
 <link  rel="stylesheet" type="text/css" href="res/test.css" />
 <script type="text/javascript" src="res/test.js"></script>
 </head>
 <body>
+<script language="javascript">
+var txt = cfunc_get("select getbydate('c016','2015-01-01','');");
+</script>
 <img src="img/back.jpg" />
 <div id="head-nav">
-<div  align="center" id="all" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="addTask()">可办事项</div>
+<div  align="center" id="all" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="addTask(txt)">可办事项</div>
 <div  align="center" id="todo" class="nav"  onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="runQt()">待办事项</div>
-<div  align="center" id="done" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)">已办事项</div>
+<div  align="center" id="done" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="test()">已办事项</div>
 </div>
 <div id="content" align="center">
 
 </div>
-
 
 </body>
 </html>
