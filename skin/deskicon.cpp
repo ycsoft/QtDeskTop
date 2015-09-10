@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 
 #include <Windows.h>
+#include <ShellAPI.h>
 
 DeskIcon::DeskIcon(QWidget *parent,QString icon, int type) :
     QPushButton(parent),m_type(type)
@@ -97,8 +98,8 @@ void DeskIcon::mouseDoubleClickEvent(QMouseEvent *evt)
     if ( m_type == HAVE_TEXT)
     {
         QString txt = m_lb_txt->text();
-//        emit dbclick(txt);
-        ShellExecute(this->winId(),"open",m_path.toLocal8Bit().data(),NULL,NULL,SW_SHOWNORMAL);
+        emit dbclick(txt);
+        ShellExecuteA(this->winId(),"open",m_path.toLocal8Bit().data(),NULL,NULL,SW_SHOWNORMAL);
     }
 }
 
