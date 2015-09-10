@@ -1,0 +1,10 @@
+--XMPP服务器的虚拟主机名
+servername="hostname"
+--XMPP服务器IP地址,无DNS时需要手工设置
+--serverip="127.0.0.1"
+--文件下载的服务器地址
+--downIP="127.0.0.1"
+--XMPP服务器端口
+--xmpp_port=5222
+--服务列表
+srvlist={["yang"]="123456",["chen"]="5678"}
