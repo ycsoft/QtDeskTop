@@ -5,12 +5,11 @@
 #-------------------------------------------------
 
 QT       += core gui network xml webkit
-
+DEFINES += _UNICODE
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = DeskTop
 TEMPLATE = app
-
 
 SOURCES += main.cpp\
         maindialog.cpp \
@@ -49,7 +48,10 @@ SOURCES += main.cpp\
     data/qtododata.cpp \
     data/hfpgsql.cpp \
     uiframe/qsimplemode.cpp \
-    login/qlogindesktop.cpp
+    login/qlogindesktop.cpp \
+    http/qhttpdownload.cpp \
+    login/caoper.cpp \
+    data/qluaconf.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -89,27 +91,35 @@ HEADERS  += maindialog.h \
     data/qtododata.h \
     data/hfpgsql.h \
     uiframe/qsimplemode.h \
-    login/qlogindesktop.h
-
-FORMS    += \
-    dialog.ui \
-    addnotifymsg.ui
+    login/qlogindesktop.h \
+    http/qhttpdownload.h \
+    login/caoper.h \
+    data/qluaconf.h
 
 RESOURCES += \
     res.qrc
 
-DEFINES -= UNICODE
-
 LIBS += user32.lib shell32.lib ole32.lib
 
 RC_FILE = app.rc
-#QMAKE_APP_FLAG -= UNICODE
+#QMAKE_APP_FLAG += UNICODE
 INCLUDEPATH += "D:\Program Files (x86)\LuaJIT-2.0.3\include"
 INCLUDEPATH += ".\\rapidjson"
 INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\WIN32-Code"
 INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\include"
 INCLUDEPATH += "D:\PostgreSQL\9.3\include"
 
+DEFINES +=  WIN32_LEAN_AND_MEAN BOOST_ALL_NO_LIB BOOST_SYSTEM_NO_DEPRECATED _WIN32_WINNT=0x0501
+
+INCLUDEPATH += "E:\Workspace\QT\qxmpp-master\src\client"
+INCLUDEPATH += "E:\Workspace\QT\qxmpp-master\src\base"
+INCLUDEPATH += "E:\swift-2.0\3rdParty\Boost\src"
+
+LIBS += "E:\swift-2.0\3rdParty\Boost\Swiften_Boost.lib"
+LIBS += "E:\Workspace\QT\build-qxmpp-unknown-Debug\src\qxmpp_d0.lib"
+
 LIBS += "D:\Program Files (x86)\LuaJIT-2.0.3\lib\lua51.lib"
 LIBS += "D:\PostgreSQL\9.3\lib\libpq.lib"
+
+
 
