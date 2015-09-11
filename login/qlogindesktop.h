@@ -27,6 +27,7 @@ public slots:
 
     void    connected();
     void    connectedError();
+    void    csleep(int millisec);
 protected:
     void    initUI();
     void    downloadSvrList();

@@ -99,7 +99,10 @@ void QLoginDesktop::connectedError()
     msgBox(LOCAL("错误"),LOCAL("未登陆"));
 }
 
-
+void QLoginDesktop::csleep(int millisec)
+{
+    Sleep(millisec);
+}
 
 void QLoginDesktop::downloadSvrList()
 {
