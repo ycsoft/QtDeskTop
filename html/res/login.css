@@ -13,7 +13,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=
 }
 div.panel{
 width:32%;
-height:35%;
+height:40%;
 background:#CDCDCD;
 filter:alpha(opacity=65);
 -moz-opacity:0.65;
@@ -43,7 +43,7 @@ div.hspace{
 	width:50px;
 	background:#FF8000;
 }
-input.text{
+.text{
 display:inline-block;
 width:40%;
 height:20px;
@@ -55,10 +55,10 @@ width:80px;
 margin-left:10px;
 }
 div.button{
-padding-left:18%;
+padding-left:10%;
 }
 div.label{
-margin-left:25%;
+margin-left:20%;
 position:relative;
 display:inline-block;
 width:15%;
