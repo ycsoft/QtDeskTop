@@ -1,9 +1,10 @@
-#include "qfiletrans.h"
+﻿#include "qfiletrans.h"
 #include "session.h"
 
 #include <QBuffer>
 #include <QXmppUtils.h>
 #include <QTextCodec>
+#include <QSettings>
 
 
 QFileTrans::QFileTrans(QObject *parent):QXmppClient(parent),transferManager(0)
@@ -16,7 +17,6 @@ QFileTrans::QFileTrans(QObject *parent):QXmppClient(parent),transferManager(0)
     addExtension(transferManager);
     transferManager->setSupportedMethods(QXmppTransferJob::SocksMethod);
     transferManager->setSupportedMethods(QXmppTransferJob::InBandMethod);
-
 
 }
 void QFileTrans::setRecipient(const QString &recipient)
@@ -106,6 +106,12 @@ void QFileTrans::login(QString usr, QString pwd, QString domain, QString host,Lo
 
     configuration().setSaslAuthMechanism("PLAIN");
     connectToServer( configuration() );
+    Session::Instance()->setJID(jid);
+    Session::Instance()->SetPassWord(pwd);
+    QSettings   set;
+    set.setValue("usr",usr);
+    set.setValue("pwd",pwd);
+    set.setValue("svr",host);
 }
 
 void QFileTrans::qxmpp_sendMessage(QString to, QString msg)

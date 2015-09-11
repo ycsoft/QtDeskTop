@@ -4,8 +4,6 @@
 #include <QFile>
 
 #include "tcpserver.h"
-#include "maindialog.h"
-#include "confirmdlg.h"
 
 #define  MAX_MESSAGE_LENGTH 1024
 
@@ -19,18 +17,6 @@ TCPServer::TCPServer(asio::io_service &ios, int port, QWidget *parent):io_(ios),
     start();
     run();
     qRegisterMetaType<QList<QString>>("QList<QString>");
-    //consle_ = ConsleFactory::instance( PacketConsle::SOCK );
-    //connect(this,SIGNAL(onInit(QString)),parent,SLOT(onInitSock(QString)));
-    //connect(this,SIGNAL(onNewConnect(QString)),parent,SLOT(onNewConnect(QString)));
-    //connect(this,SIGNAL(onConfirm(QList<QString>)),parent,SLOT(onConfirm(QList<QString>)),Qt::BlockingQueuedConnection);
-    //connect(this,SIGNAL(onRecvData(QString)),parent,SLOT(onRecvData(QString)));
-    //connect(this,SIGNAL(onSendData(QString)),parent,SLOT(onSendData(QString)));
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    //connect(this,SIGNAL(onSendRawData(QString)),consle_,SLOT(onSendPacket(QString)));
-    //connect(this,SIGNAL(onRecvData(QString)),consle_,SLOT(onRecvPacket(QString)));
-    //connect(consle_,SIGNAL(sendRawData(QString)),this,SLOT(sendRawData(QString)));
-    //emit onInit(QString("Init OK"));
-
 }
 TCPServer::~TCPServer()
 {
@@ -60,24 +46,14 @@ void TCPServer::handle_accept(const system::error_code &ec, socket_pointer sock)
        return;
     }
     qDebug()<<"New Client Accepted";
-    //std::cout<<"accept:"<<sock->remote_endpoint().address()<<endl;
     memset(buf_,0,MAX_MEM);
     sock->async_receive(asio::buffer(buf_,MAX_MEM),boost::bind(&TCPServer::handle_read,this,asio::placeholders::error,sock));
     socklist_.push_back(sock);
-
     start(); //继续接受连接
-    emit onNewConnect(QString::fromLocal8Bit("已接受一个新的连接"));
 }
 void TCPServer::handle_write(const system::error_code &ec, socket_pointer sock)
 {
     QString str = QString::fromAscii((const char*)buf_);
-    //onSendData(str);
-    QFile fd("log.txt");
-    fd.open(QIODevice::Append);
-    fd.write("In:");
-    fd.write((const char*)buf_);
-    fd.write("\r\n");
-    fd.close();
     onSendRawData(str);
     memset(buf_,0,MAX_MEM);
     sock->async_receive(asio::buffer(buf_,MAX_MEM),boost::bind(&TCPServer::handle_read,this,asio::placeholders::error,sock));
@@ -95,7 +71,6 @@ void TCPServer::handle_read(const system::error_code &ec, socket_pointer sock)
     QString qstr = QString::fromAscii((const char*)(buf_));
     onRecvData(qstr);
     qDebug()<<"SockServer: Received New Data:"<<ccc;
-
     QString  result;
     //sock->async_receive(asio::buffer(buf_,MAX_MEM),boost::bind(&TCPServer::handle_read,this,asio::placeholders::error,sock));
     ret = CommandParse::parsegetAuth(qstr,result);

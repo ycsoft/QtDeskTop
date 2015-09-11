@@ -18,7 +18,6 @@
 
 #include "CommandParse.hpp"
 #include "datatypes.h"
-#include "maindialog.h"
 
 
 #define     BUFLEN  512

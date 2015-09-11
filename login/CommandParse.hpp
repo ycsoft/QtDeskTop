@@ -2,8 +2,6 @@
 #define COMMANDPARSE_H
 
 #include "session.h"
-#include "maindialog.h"
-#include "qfloaticon.h"
 #include "qutil.h"
 #include "caoper.h"
 
@@ -385,8 +383,8 @@ public:
             QString str = LOCAL("是否允许 '")+app + LOCAL("' 启动?");
             //int iret = QMessageBox::information(MainDialog::Instance()->getFloatDlg(),LOCAL("通知"),str,
             //                         QMessageBox::YesAll);
-            HWND wnd = MainDialog::Instance()->getFloatDlg()->winId();
-            if (MessageBox(wnd,str.toStdWString().data(),TEXT("Warning"),MB_YESNO) == IDYES)
+//            HWND wnd = MainDialog::Instance()->getFloatDlg()->winId();
+            if (MessageBox(0,str.toStdWString().data(),TEXT("Warning"),MB_YESNO) == IDYES)
             //if(iret == QMessageBox::Yes)
             {
                 ret = "<userAuth>" + Session::Instance()->getJID().split("@").at(0) + "</userAuth>";

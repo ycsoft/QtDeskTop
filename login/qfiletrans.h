@@ -1,4 +1,4 @@
-#ifndef QFILETRANS_H
+﻿#ifndef QFILETRANS_H
 #define QFILETRANS_H
 
 #include <QXmppClient.h>

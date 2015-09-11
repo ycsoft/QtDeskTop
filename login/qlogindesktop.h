@@ -1,6 +1,8 @@
 ﻿#ifndef QLOGINDESKTOP_H
 #define QLOGINDESKTOP_H
 
+#include "login/qfiletrans.h"
+
 #include <QWidget>
 #include <QWebView>
 
@@ -17,16 +19,21 @@ public slots:
     void    addObject();
     void    exitApp();
     void    msgBox(QString title,QString txt);
-    void    caLogin();
+    void    caLogin(QString host,QString ip);
+    void    upLogin(QString usr, QString pwd, QString host,QString ip);
     QStringList readConfig();
 
     void    onSvrDownloadFinish(const char*, const char*);
+
+    void    connected();
+    void    connectedError();
 protected:
     void    initUI();
     void    downloadSvrList();
 private:
 
-    QWebView    *m_web;
+    QWebView                    *m_web;
+    QFileTrans                  *m_client;
 };
 
 #endif // QLOGINDESKTOP_H
