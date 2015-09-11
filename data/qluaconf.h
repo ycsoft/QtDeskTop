@@ -5,6 +5,16 @@
 #include <lua.hpp>
 #include <QDebug>
 #include <QList>
+#include <QStringList>
+
+
+struct   srvconf
+{
+    QString key;
+    QString value;
+};
+
+typedef QList<srvconf>  SrvList;
 
 /**
  * @brief The QLuaConf class
@@ -14,15 +24,12 @@ class QLuaConf : public QObject
 {
     Q_OBJECT
 public:
-
-    struct   srvconf
-    {
-        QString key;
-        QString value;
-    };
-
     explicit QLuaConf(QObject *parent = 0);
     ~QLuaConf();
+
+signals:
+
+public slots:
     /**
      * @brief getString
      * 获取字符串数据项
@@ -37,11 +44,11 @@ public:
      * @return
      */
     int      getInteger(QString key);
-    QList<srvconf>   getSrvList(QString key);
+    QStringList   getSrvList(QString key);
+    QString  getSrvJson(QString key);
 
-signals:
-
-public slots:
+    void     setValue(QString key, QString value);
+    QString  getValue(QString key);
 private:
     lua_State   *m_lua;
 };
