@@ -7,4 +7,4 @@ servername="hostname"
 --XMPP服务器端口
 --xmpp_port=5222
 --服务列表
-srvlist={["yang"]="123456",["chen"]="5678"}
+srvlist='{"yang":"123456","chen":"5678"}'
