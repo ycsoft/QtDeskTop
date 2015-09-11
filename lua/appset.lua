@@ -7,4 +7,4 @@ servername="hostname"
 --XMPP服务器端口
 --xmpp_port=5222
 --服务列表
-srvlist='{"yang":"123456","chen":"5678"}'
+srvlist='{"西安":"10.185.64.17","咸阳":"10.89.57.152","win-86k694khk26":"127.0.0.1"}'
