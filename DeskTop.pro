@@ -51,7 +51,10 @@ SOURCES += main.cpp\
     login/qlogindesktop.cpp \
     http/qhttpdownload.cpp \
     login/caoper.cpp \
-    data/qluaconf.cpp
+    data/qluaconf.cpp \
+    login/qfiletrans.cpp \
+    login/session.cpp \
+    login/tcpserver.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -94,7 +97,13 @@ HEADERS  += maindialog.h \
     login/qlogindesktop.h \
     http/qhttpdownload.h \
     login/caoper.h \
-    data/qluaconf.h
+    data/qluaconf.h \
+    login/qfiletrans.h \
+    login/session.h \
+    login/tcpserver.h \
+    login/CommandParse.hpp \
+    login/datatypes.h \
+    login/qutil.h
 
 RESOURCES += \
     res.qrc
