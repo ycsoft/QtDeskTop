@@ -54,7 +54,8 @@ SOURCES += main.cpp\
     data/qluaconf.cpp \
     login/qfiletrans.cpp \
     login/session.cpp \
-    login/tcpserver.cpp
+    login/tcpserver.cpp \
+    uiframe/qdocker.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -103,7 +104,8 @@ HEADERS  += maindialog.h \
     login/tcpserver.h \
     login/CommandParse.hpp \
     login/datatypes.h \
-    login/qutil.h
+    login/qutil.h \
+    uiframe/qdocker.h
 
 RESOURCES += \
     res.qrc

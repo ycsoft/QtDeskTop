@@ -36,6 +36,8 @@ int main(int argc, char *argv[])
 
     MainDialog main;
     main.showFullScreen();
+//    QDocker dock;
+//    dock.show();
     QLuaConf    conf;
     QStringList     res;
 //    qDebug()<<conf.getString("downIP");
