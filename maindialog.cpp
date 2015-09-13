@@ -11,6 +11,7 @@
 #include "test/qtest.h"
 #include "todo/qtodomanager.h"
 #include "data/qtododata.h"
+#include "uiframe/qdocker.h"
 
 #include <QPainter>
 #include <QDateTime>
@@ -670,6 +671,7 @@ void MainDialog::setUi3()
                 QWinFactory::ref().createWindow(QWinFactory::APPIconPanel,this)
                 );
 
+    m_appiconpanel->addDock();
     QAppIconPanel *panel = dynamic_cast<QAppIconPanel*>
             (QWinFactory::ref().createWindow(QWinFactory::APPIconPanel,this));
     QAppUtils::ref().getScreenSize(wid,hei);
