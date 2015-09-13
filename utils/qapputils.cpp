@@ -104,3 +104,13 @@ IconButton *QAppUtils::getCloseIconBtn(QWidget *parent)
     return closeB;
 }
 
+QPixmap& QAppUtils::getAppIcon(const QString &path)
+{
+    QFileInfo info(path);
+    QFileIconProvider prod;
+    QIcon icon =  prod.icon(info);
+    static QPixmap pix;
+    pix = icon.pixmap(40,40);
+    return pix;
+
+}

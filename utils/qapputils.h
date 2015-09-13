@@ -57,6 +57,8 @@ public:
      */
     IconButton*  getCloseIconBtn(QWidget *parent);
 
+    QPixmap      &getAppIcon(const QString &path);
+
 signals:
 
 public slots:
