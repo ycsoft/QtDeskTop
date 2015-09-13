@@ -15,6 +15,7 @@
 #include "todo/qtodowidget.h"
 #include "uiframe/qsimplemode.h"
 #include "login/qlogindesktop.h"
+#include "uiframe/qdocker.h"
 
 class QWinFactory : public QObject
 {
