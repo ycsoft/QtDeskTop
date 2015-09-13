@@ -7,6 +7,7 @@
 #define ROW_LIMIT   8
 #define COL_LIMIT   10
 
+class QDocker;
 class QAppIconPanel : public QWidget
 {
     Q_OBJECT
@@ -22,6 +23,7 @@ public:
      * @param path
      */
     void     addApp(QPixmap &pix,QString title, QString path);
+    void     addDock();
     void     setMenu( QMenu *menu)
     {
         m_menu = menu;

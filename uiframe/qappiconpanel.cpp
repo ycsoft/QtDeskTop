@@ -1,5 +1,6 @@
 ﻿#include "qappiconpanel.h"
 
+#include "uiframe/qdocker.h"
 #include "skin/deskicon.h"
 #include "test/qtest.h"
 #include "utils/qapputils.h"
@@ -33,6 +34,15 @@ QAppIconPanel::QAppIconPanel(QWidget *parent) : QWidget(parent)
     }
     m_menu = NULL;
 
+}
+void QAppIconPanel::addDock()
+{
+    int x = (m_screenWidth - DOCK_WID)/2;
+    int y = m_screenHight - 200;
+    QDocker *dock = new QDocker(this);
+    dock->setAttribute(Qt::WA_TranslucentBackground);
+    dock->move(x,y);
+    dock->show();
 }
 
 void QAppIconPanel::addApp(QPixmap &pix,QString title, QString path)
