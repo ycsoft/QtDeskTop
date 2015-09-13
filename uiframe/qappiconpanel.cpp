@@ -5,6 +5,7 @@
 #include "test/qtest.h"
 #include "utils/qapputils.h"
 #include "utils/defines.h"
+#include "uiframe/qhtmldock.h"
 
 #include <QPainter>
 #include <QStyleOption>
@@ -39,7 +40,8 @@ void QAppIconPanel::addDock()
 {
     int x = (m_screenWidth - DOCK_WID)/2;
     int y = m_screenHight - 200;
-    QDocker *dock = new QDocker(this);
+    QHtmlDock *dock = new QHtmlDock(this);
+
     dock->setAttribute(Qt::WA_TranslucentBackground);
     dock->move(x,y);
     dock->show();
