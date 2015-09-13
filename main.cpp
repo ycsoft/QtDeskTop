@@ -17,7 +17,7 @@
 #include "test/qtest.h"
 #include "utils/defines.h"
 #include "winFactory/qwinfactory.h"
-
+#include "uiframe/qhtmldock.h"
 #include "uiframe/qpurecolorbutton.h"
 #include "todo/qtodomanager.h"
 #include "todo/qtodocontent.h"
@@ -34,6 +34,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("hf.com");
     QCoreApplication::setApplicationName("desk");
 
+//    QHtmlDock   dock;
+
+//    dock.show();
     MainDialog main;
     main.showFullScreen();
 //    QDocker dock;
