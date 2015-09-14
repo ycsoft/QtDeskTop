@@ -5,11 +5,13 @@ height:100%;
 width:100%;
 margin:0;
 overflow:hidden;
+/*
 background:#800080;
-background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#800080), to(#fafafa));/*¹È¸è*/ 
-background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #15A216),color-stop(1, #fafafa));/* Safari & Chrome*/ 
-filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa'); /*IE6 & IE7*/ 
--ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa')"; /* IE8 */ 
+background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#800080), to(#fafafa));¹È¸è
+background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #15A216),color-stop(1, #fafafa));Safari & Chrome*
+filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa'); IE6 & IE7
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#15A216', endColorstr='#fafafa')";  IE8 
+*/
 }
 div.panel{
 width:32%;
@@ -64,4 +66,16 @@ display:inline-block;
 width:15%;
 height:40px;
 display:inline-block;
+}
+body img{
+position:absolute;
+left:0;
+right:0;
+width:100%;
+height:100%;
+z-index:-1;
+background-attachment:fixed;
+filter:alpha(opacity=35);
+-moz-opacity:0.35;
+opacity:0.35;
 }

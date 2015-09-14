@@ -10,6 +10,12 @@
 <script language="javascript">
 var SrvObj;
 
+$(document).keydown(function( evt){ 
+	if(evt.keyCode == 13){
+		loginclick();
+	}
+}
+);
 $(document).ready(function(){
 	var hm="";
 	SrvObj = JSON.parse(Conf.getSrvJson('srvlist'));
@@ -20,9 +26,21 @@ $(document).ready(function(){
 	}
 	$("#srvlist").html(hm);
 	//OK按钮单击事件
-	$("input#ok").click(function(){loginclick();});
+	$("input#ok").click(function(){
+	var div = $("div.panel");
+	    div.animate({height:'300px',opacity:'0.4'},"slow");
+    	div.animate({width:'300px',opacity:'0.8'},"slow");
+    	div.animate({height:'200px',opacity:'0.4'},"slow");
+    	div.animate({width:'100px',opacity:'0.8'},"slow");
+		div.animate({width:'32%',opacity:'0.8'},"slow");
+		div.animate({height:'40%',opacity:'0.8'},"slow");
+	loginclick();
+	});
 	//取消按钮单击事件
-	$("input#cancel").click(function(){closeClick();});
+	$("input#cancel").click(function(){
+	closeClick();
+	});
+	//$("input#pwd").keydown(function(e){ if (e.keyCode == 13){loginclick();}});
 	//CA
 	$("#ca").click(function()
 	{
@@ -31,11 +49,16 @@ $(document).ready(function(){
 	);
 	
 	var usr = Conf.getValue("usrname");
-
+	var svr = Conf.getValue("svr2");
 	if ( usr != "" && usr != null )
 	{
 		$("input#usr").val(usr);
 	}
+	if ( svr != "" && svr != null )
+	{
+		$("select").val(svr);
+	}
+	
 });
 
 function loginclick()
@@ -49,6 +72,7 @@ function loginclick()
 	if( usr == "")
 	{
 		Login.msgBox("财政桌面","用户名不能为空");
+		//alert('用户名为空');
 		return;
 	}
 	if ( pwd == "" )
@@ -59,6 +83,7 @@ function loginclick()
 	$.cookie('usrname',usr,{expires:7});
 	$.cookie('password',pwd,{expires:7});
 	Conf.setValue('usrname',usr);
+	Conf.setValue('svr2', $("select").val());
 	Login.upLogin(usr,pwd,host,ip);
 }
 function closeClick()
@@ -68,6 +93,7 @@ function closeClick()
 </script>
 </head>
 <body>
+<img src="img/back.jpg" />
  <div id="tips" style=" font-size:12px;position:absolute;border:1px solid #ccc;padding:0px 3px;color:#0A0A0A;display:none;height:20px;line-height:20px;background:#fcfcfc"></div>
  <div class="panel">
    <div class="title" align="center" onclick="divclick()"><strong>财政安全桌面</strong></div>

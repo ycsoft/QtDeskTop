@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>Dock</title>
+<script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var rgb;
+	$("div.app").mouseover(function(){
+		rgb = ($(this).css("background-color"));
+		$(this).css("background-color","#B3CACC");
+	});
+	$("div.app").mouseout(function(){
+		$(this).css("background-color",rgb);
+	});
+	$("img.appimg").mouseover(function(){
+	 $(this).attr("class","appimgbig");
+	});
+	$("img.appimg").mouseout(function(){
+	$(this).attr("class","appimg");
+	})
+});
+
+</script>
+<style type="text/css">
+html,body{
+overflow:hidden;
+background-color:transparent;
+}
+div.dock{
+position:relative;
+padding-top:20px;
+width:600px;
+height:100px;
+}
+div.app{
+display:inline-block;
+position:relative;
+padding-bottom:0px;
+bottom:110px;
+width:70px;;
+opacity:1.0;
+}
+#backimg{
+position:relative;
+width:100%;
+height:100%;
+}
+.appimg{
+position:relative;
+width:60px;
+height:70px;
+opacity:1.0
+}
+.appimgbig{
+position:relative;
+width:80px;
+height:80px;
+opacity:1.0
+}
+.txt{
+font-family:"宋体";
+font-size:12px;
+color:#000040;
+font-weight:bolder;
+}
+</style>
+
+</head>
+<body>
+<div align="center">
+<div align="center" class="dock">
+<img id="backimg" src="img/docker.png"/>
+<div class="app"><div><img src="img/gwk.png" class="appimg" /></div><div class="txt">公务卡</div></div>
+<div class="app"><div><img src="img/mana.png" class="appimg" /></div><div class="txt">系统管理</div></div>
+<div class="app"><div><img src="img/kjzw.png" class="appimg" /></div><div class="txt">会计账务</div></div>
+<div class="app"><div><img src="img/dwzw.png" class="appimg" /></div><div class="txt">单位账务</div></div>
+<div class="app"><div><img src="img/dtjk.png" class="appimg" /></div><div class="txt">动态监控</div></div>
+<div class="app"><div><img src="img/yszx.png" class="appimg" /></div><div class="txt">预算执行</div></div>
+<div class="app"><div><img src="img/bank.png" class="appimg" /></div><div class="txt">银行支付</div></div>
+</div>
+</div>
+</body>
+</html>
