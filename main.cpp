@@ -37,10 +37,12 @@ int main(int argc, char *argv[])
 //    QHtmlDock   dock;
 
 //    dock.show();
-    MainDialog main;
-    main.showFullScreen();
+//    MainDialog main;
+//    main.showFullScreen();
 //    QDocker dock;
 //    dock.show();
+    QSoftCenter soft;
+    soft.show();
     QLuaConf    conf;
     QStringList     res;
 //    qDebug()<<conf.getString("downIP");

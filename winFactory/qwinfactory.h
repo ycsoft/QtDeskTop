@@ -16,6 +16,7 @@
 #include "uiframe/qsimplemode.h"
 #include "login/qlogindesktop.h"
 #include "uiframe/qdocker.h"
+#include "softCenter/qsoftcenter.h"
 
 class QWinFactory : public QObject
 {

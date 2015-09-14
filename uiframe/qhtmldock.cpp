@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QStyle>
 #include <QStyleOption>
+#include <QDebug>
 
 QHtmlDock::QHtmlDock(QWidget *parent) : QWidget(parent)
 {
@@ -39,6 +40,7 @@ void QHtmlDock::mousePressEvent(QMouseEvent *evt)
 
         m_pressed = true;
         m_movePoint = evt->globalPos() - pos();
+        qDebug()<<"Press";
     }
 }
 

@@ -30,7 +30,7 @@
 #define         MB      1048576
 #define         GB      1073741824
 
-#define         DOCK_WID    600
+#define         DOCK_WID    800
 #define         DOCK_HEI    150
 
 
