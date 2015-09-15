@@ -6,6 +6,7 @@
 <script type="text/javascript" src="res/login.js"></script>
 <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="res/jquery.cookie.js"></script>
+<script type="text/javascript" src="res/jquery-multidownload.js"></script>
 <script type="text/javascript">
 
 $(document).ready( function(){
@@ -42,13 +43,37 @@ $(this).css("background","url(img/menu.png) no-repeat")
 });
 $("div.menuTxt").mouseout(function(){
 $(this).css("background-color",menucolor);
-$(this).css("background","")
+$(this).css("background","");
 });
 
+$("a.download").click(function( evt){
+//evt.preventDefault();
+//alert("download");
+//$(this).multiDownload();
+var url = $(this).attr("href");
+alert(url);
+//download(url);
+});
 
 }
 );
 
+
+function download(url)
+{
+	var form = $("<form>");
+	form.attr("style","display:none");
+	form.attr("target","");
+	form.attr("method","post");
+	form.attr("action",url);
+	var input1=$("<input>");
+	input1.attr("type","hidden");
+	input1.attr("name","exportData");
+	input1.attr("value",(new Date()).getMilliseconds());
+	$("body").append(form);//将表单放置在web中
+	form.append(input1);
+	form.submit();//表单提交
+}
 
 </script>
 
@@ -125,12 +150,12 @@ position:relative;
 width:100px;
 height:100%;
 top:-40%;
-
 }
 hr.vertical{
 position:relative;
+top:-10px;
 width:1px;
-height:100%;
+height:50%;
 display:inline-block;
 }
 div.ver{
@@ -234,7 +259,7 @@ cursor:pointer;
 <div class="appicon"><img src="img/dwzw.png" class="appimg" /></div><div class="txt">单位账务<div class="download">下载</div></div>
 </div>
 <div class="app">
-<div class="appicon"><img src="img/dtjk.png" class="appimg" /></div><div class="txt">动态监控<div class="download">下载</div></div>
+<div class="appicon"><img src="img/dtjk.png" class="appimg" /></div><div class="txt">动态监控<div class="download"><a href="http://localhost/files/LICENSE.txt" class="download">下载</a></div></div>
 </div>
 <div class="app">
 <div class="appicon"><img src="img/yszx.png" class="appimg" /></div><div class="txt">预算执行<div class="download">下载</div></div>
