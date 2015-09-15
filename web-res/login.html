@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>登录</title>
+<link type="text/css" rel="stylesheet" href="res/login.css"/>
+<script type="text/javascript" src="res/login.js"></script>
+<script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="res/jquery.cookie.js"></script>
+<script language="javascript">
+var SrvObj;
+
+$(document).keydown(function( evt){ 
+	if(evt.keyCode == 13){
+		loginclick();
+	}
+}
+);
+$(document).ready(function(){
+	var hm="";
+	SrvObj = JSON.parse(Conf.getSrvJson('srvlist'));
+	for ( key  in SrvObj)
+	{
+		value = key + ":" + SrvObj[key];
+		hm += '<option value="'+ value + '">' + value + "</option>";
+	}
+	$("#srvlist").html(hm);
+	//OK按钮单击事件
+	$("input#ok").click(function(){
+	var div = $("div.panel");
+	    div.animate({height:'300px',opacity:'0.4'},"slow");
+    	div.animate({width:'300px',opacity:'0.8'},"slow");
+    	div.animate({height:'200px',opacity:'0.4'},"slow");
+    	div.animate({width:'100px',opacity:'0.8'},"slow");
+		div.animate({width:'32%',opacity:'0.8'},"slow");
+		div.animate({height:'40%',opacity:'0.8'},"slow");
+	loginclick();
+	});
+	//取消按钮单击事件
+	$("input#cancel").click(function(){
+	closeClick();
+	});
+	//$("input#pwd").keydown(function(e){ if (e.keyCode == 13){loginclick();}});
+	//CA
+	$("#ca").click(function()
+	{
+		Login.caLogin("localhost","127.0.0.1");
+	}
+	);
+	
+	var usr = Conf.getValue("usrname");
+	var svr = Conf.getValue("svr2");
+	if ( usr != "" && usr != null )
+	{
+		$("input#usr").val(usr);
+	}
+	if ( svr != "" && svr != null )
+	{
+		$("select").val(svr);
+	}
+	
+});
+
+function loginclick()
+{
+	var usr = $("#usr").val();
+	var pwd = $("#pwd").val();
+	var  srv = $("select").val();
+	hs = srv.split(":",2);
+	host = hs[0];
+	ip = hs[1];
+	if( usr == "")
+	{
+		Login.msgBox("财政桌面","用户名不能为空");
+		//alert('用户名为空');
+		return;
+	}
+	if ( pwd == "" )
+	{
+		Login.msgBox("财政桌面","密码不能为空");
+		return;
+	}
+	$.cookie('usrname',usr,{expires:7});
+	$.cookie('password',pwd,{expires:7});
+	Conf.setValue('usrname',usr);
+	Conf.setValue('svr2', $("select").val());
+	Login.upLogin(usr,pwd,host,ip);
+}
+function closeClick()
+{
+	Login.exitApp();
+}
+</script>
+</head>
+<body>
+<img src="img/back.jpg" />
+ <div id="tips" style=" font-size:12px;position:absolute;border:1px solid #ccc;padding:0px 3px;color:#0A0A0A;display:none;height:20px;line-height:20px;background:#fcfcfc"></div>
+ <div class="panel">
+   <div class="title" align="center" onclick="divclick()"><strong>财政安全桌面</strong></div>
+   <div>
+     <div class="label">用户名</div>
+     <input name="text" type="text" class="text" id="usr" maxlength="400"/>
+     <!--证书登录按钮 -->
+     <div style=" position:relative; top:6px;display:inline-block; cursor:pointer;"  onmouseover="caMouseIn(this)" onmouseout="caMouseOut(this)" id="ca"><img src="img/certificate.png"/></div>
+   </div>
+   <div>
+        <div class="label">行政区划</div>
+     <!--input id="mycar" class="text"  type="select" list="srvlist"/-->
+	 <select class="text" id="srvlist">
+	 </select>
+   </div>
+   <div>
+     <div class="label">密码</div>
+     <input name="text2" type="password" class="text"  id="pwd" maxlength="400" />
+   </div>
+   <div class="button" align="center">
+     <input name="button" type="button" class="button" id = "ok"  value="登录" maxlength="200"/>
+     <input name="button" type="button" class="button" id ="cancel" value="取消" maxlength="200"/>
+   </div>
+ </div>
+ <!-- panel-->
+</body>
+</html>

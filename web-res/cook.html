@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+
+<script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="res/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(document).ready(
+function()
+{
+	var usr = $.cookie('name');
+	$.cookie('name','yang',{expires:7});
+}
+);
+
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=");
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 ;
+    c_end=document.cookie.indexOf(";",c_start);
+    if (c_end==-1) c_end=document.cookie.length;
+    return unescape(document.cookie.substring(c_start,c_end));
+    } 
+  }
+return "";
+}
+
+function setCookie(c_name,value,expiredays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate()+expiredays);
+document.cookie=c_name+ "=" +escape(value)+
+((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+}
+
+function checkCookie()
+{
+username=getCookie('username');
+if (username!=null && username!="")
+  {alert('Welcome again '+username+'!');}
+else 
+  {
+  username=prompt('Please enter your name:',"");
+  if (username!=null && username!="")
+    {
+    setCookie('username',username,365);
+    }
+  }
+}
+
+</script>
+</head>
+
+<body onload="checkCookie()">
+
+</body>
+</html>

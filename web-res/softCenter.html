@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>软件中心</title>
+<script type="text/javascript" src="res/login.js"></script>
+<script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="res/jquery.cookie.js"></script>
+<script type="text/javascript" src="res/jquery-multidownload.js"></script>
+<script type="text/javascript">
+
+$(document).ready( function(){
+
+var menucolor;
+
+$("div.navbutton").mouseover(function(){
+$(this).css("background-color","#005FBD");
+});
+
+$("div.navbutton").mouseout(function(){
+$(this).css("background-color","#004080");
+});
+
+$("#minimal").mouseover(function(){
+ $(this).attr("src","img/btn_mini_highlight.png")
+});
+
+$("#minimal").mouseout(function(){
+ $(this).attr("src","img/btn_mini_normal.png")
+});
+
+$("#close").mouseover(function(){
+ $(this).attr("src","img/btn_close_highlight.png")
+});
+
+$("#close").mouseout(function(){
+ $(this).attr("src","img/btn_close_normal.png")
+});
+$("div.menuTxt").mouseover(function(){
+menucolor=$(this).css("background-color");
+$(this).css("background-color","#004080");
+$(this).css("background","url(img/menu.png) no-repeat")
+});
+$("div.menuTxt").mouseout(function(){
+$(this).css("background-color",menucolor);
+$(this).css("background","");
+});
+
+$("a.download").click(function( evt){
+//evt.preventDefault();
+//alert("download");
+//$(this).multiDownload();
+var url = $(this).attr("href");
+alert(url);
+//download(url);
+});
+
+}
+);
+
+
+function download(url)
+{
+	var form = $("<form>");
+	form.attr("style","display:none");
+	form.attr("target","");
+	form.attr("method","post");
+	form.attr("action",url);
+	var input1=$("<input>");
+	input1.attr("type","hidden");
+	input1.attr("name","exportData");
+	input1.attr("value",(new Date()).getMilliseconds());
+	$("body").append(form);//将表单放置在web中
+	form.append(input1);
+	form.submit();//表单提交
+}
+
+</script>
+
+<style type="text/css">
+html body{
+width:100%;
+height:100%;
+margin:0px;
+overflow:hidden;
+}
+.nav{
+position:absolute;width:11%;height:100%;background:#004080;
+}
+.center{
+position:absolute;
+left:12%;
+width:88%;
+height:100%;
+}
+.navbutton{
+position:relative;
+width:100%;
+height:20%;
+padding-top:10px;
+padding-bottom:0px;
+}
+.navimg{
+width:35px;
+height:35px;
+}
+.headimg{
+position:absolute;
+width:2%;
+height:50%;
+display:inline-block;
+}
+.apptxt{
+font-family:"宋体";
+font-size:14px;
+font-weight:bold;
+color:#FFFFFF;
+}
+hr{
+border-bottom-width:thin;
+border-bottom-color:#0080C0;
+display:block;
+margin:0px;
+}
+div.head{
+position:absolute;
+float:right;
+/*background:#FF8040;*/
+width:100%;
+height:8%;
+padding-top:5px;
+}
+div.menu{
+display:block;
+position:absolute;
+/*background:#818181;*/
+top:10%;
+width:100%;
+height:8%;
+}
+div.menuTxt
+{
+display:inline-block;
+text-align:center;
+font-family:"宋体";
+font-weight:bold;
+font-size:12px;
+color:#1A1A1A;
+position:relative;
+width:100px;
+height:100%;
+top:-40%;
+}
+hr.vertical{
+position:relative;
+top:-10px;
+width:1px;
+height:50%;
+display:inline-block;
+}
+div.ver{
+position:relative;
+width:5px;
+height:100%;
+display:inline-block;
+left:2px;
+}
+div.list{
+display:block;
+position:absolute;
+top:16%;
+left:1%;
+width:98%;
+height:84%;
+/*background:#8080FF;*/
+overflow-x:hiden;
+overflow-y:scroll;
+scrollbar-arrow-color: #FF8040; /**//*三角箭头的颜色*/
+}
+div.app{
+position:relative;
+width:160px;
+height:110px;
+/*background:#FF8040;*/
+display:inline-block;
+margin-bottom:5px;
+margin-left:9px;
+padding-left:15px;
+}
+div.appicon{
+position:relative;
+display:inline-block;
+top:20%;
+width:60px;
+height:60px;
+}
+img.appimg{
+position:relative;
+display:inline-block;
+width:60px;
+height:60px;
+}
+div.txt{
+display:inline-block;
+padding-left:5px;
+font:"宋体";
+font-size:12px;
+font-weight:bold;
+color:#0B0B0B;
+}
+div.download{
+display:block;
+position:relative;
+top:10px;
+font-family:"宋体";
+font-size:12px;
+font-weight:bolder;
+color:#804000;
+text-align:center;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+<!--左侧导航栏-->
+<div class="nav">
+<div class="navbutton" align="center"><div style="height:40%"></div><div class="apptxt">陕西财政软件中心</div></div>
+<hr style="width:100%" align="center"/>
+<div class="navbutton" align="center"><img src="img/app.png" class="navimg"/><div class="apptxt">首页</div></div>
+<div class="navbutton" align="center"><img src="img/db.png" class="navimg"/><div class="apptxt">下载</div></div>
+<div class="navbutton" align="center"><img src="img/refresh.png" class="navimg"/><div class="apptxt">升级</div></div>
+</div>
+<!-- 中央显示区-->
+<div class="center">
+<div class="head"><!--img src="img/btn_mini_normal.png" id="minimal" class="headimg" style="right:30px"/-->
+<img src="img/btn_close_normal.png" id="close" class="headimg" style="right:45px"/></div>
+<!--菜单区域-->
+<div class="menu">
+<div class="menuTxt" align="center"><p>全部软件</p></div><div class="ver" align="center"><hr class="vertical" /></div>
+<div class="menuTxt" align="center"><p>常用工具</p></div><div class="ver" align="center"><hr class="vertical" /></div>
+<div class="menuTxt" align="center"><p>县级版</p></div><div class="ver" align="center"><hr class="vertical" /></div>
+</div>
+<!--软件列表区-->
+<div class="list">
+<div class="app">
+<div class="appicon"><img src="img/app.png" class="appimg" /></div><div class="txt">财政通行证<div class="download">下载</div></div>
+</div>
+
+<div class="app">
+<div class="appicon"><img src="img/gwk.png" class="appimg" /></div><div class="txt">公务卡<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/mana.png" class="appimg" /></div><div class="txt">系统管理<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/kjzw.png" class="appimg" /></div><div class="txt">会计账务<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/dwzw.png" class="appimg" /></div><div class="txt">单位账务<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/dtjk.png" class="appimg" /></div><div class="txt">动态监控<div class="download"><a href="http://localhost/files/LICENSE.txt" class="download">下载</a></div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/yszx.png" class="appimg" /></div><div class="txt">预算执行<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/bank.png" class="appimg" /></div><div class="txt">银行账户<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/chatapp.png" class="appimg" /></div><div class="txt">即时通信<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/app.png" class="appimg" /></div><div class="txt">财政通行证<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/app.png" class="appimg" /></div><div class="txt">财政通行证<div class="download">下载</div></div>
+</div>
+<div class="app">
+<div class="appicon"><img src="img/app.png" class="appimg" /></div><div class="txt">财政通行证<div class="download">下载</div></div>
+</div>
+
+</div> <!--列表区-->
+</div><!--中央显示区-->
+</body>
+</html>
