@@ -21,6 +21,8 @@ signals:
 public slots:
     void    linkCliced(const QUrl&);
 
+    void    registerObject();
+
 private:
     QHFWebView      *m_web;
 };
