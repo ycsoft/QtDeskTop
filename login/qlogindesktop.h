@@ -2,6 +2,7 @@
 #define QLOGINDESKTOP_H
 
 #include "login/qfiletrans.h"
+#include "utils/qhfwebview.h"
 
 #include <QWidget>
 #include <QWebView>
@@ -33,7 +34,7 @@ protected:
     void    downloadSvrList();
 private:
 
-    QWebView                    *m_web;
+    QHFWebView                  *m_web;
     QFileTrans                  *m_client;
 };
 

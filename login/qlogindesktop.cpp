@@ -3,6 +3,8 @@
 #include "data/qluaconf.h"
 #include "caoper.h"
 #include "utils/defines.h"
+#include "tcpserver.h"
+#include "taskbar.h"
 
 #include <QHBoxLayout>
 #include <QWebSettings>
@@ -25,7 +27,7 @@ void QLoginDesktop::initUI()
 {
     QHBoxLayout *lay = new QHBoxLayout(this);
     lay->setContentsMargins(0,0,0,0);
-    m_web = new QWebView(this);
+    m_web = new QHFWebView(this);
     m_web->load(QUrl("html/login.html"));
     m_web->setContextMenuPolicy(Qt::NoContextMenu);
     m_web->page()->networkAccessManager()->setCookieJar(new QNetworkCookieJar(this));
@@ -45,6 +47,7 @@ void QLoginDesktop::addObject()
 void QLoginDesktop::showMain()
 {
     static MainDialog &main = MainDialog::ref();
+    main.getTaskBar()->setVisible(true);
     main.getStackedWidget()->setCurrentIndex(0);
 }
 void QLoginDesktop::exitApp()
@@ -92,6 +95,9 @@ QStringList  QLoginDesktop::readConfig()
 void QLoginDesktop::connected()
 {
     showMain();
+    //XMPP连接建立以后启动socket本地服务
+    static boost::asio::io_service g_io;
+    TCPServer *m_svrsock = new TCPServer(g_io,5033,this);
 }
 
 void QLoginDesktop::connectedError()
