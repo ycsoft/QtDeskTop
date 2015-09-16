@@ -21,6 +21,7 @@ private:
     QString                 m_fname;
     QFile                   *m_file;
     QNetworkReply           *m_reply;
+    bool                    m_error;
 };
 
 #endif // QHTTPDOWNLOAD_H
