@@ -1,10 +1,14 @@
 ﻿#ifndef QSIMPLEMODE_H
 #define QSIMPLEMODE_H
 
+
+#include "utils/qhfwebview.h"
+
 #include <QWidget>
 #include <QWebView>
 #include <QWebSettings>
 #include <QWebFrame>
+
 
 class QSimpleMode : public QWidget
 {
@@ -27,7 +31,7 @@ public slots:
     QString     get(QString sql);
     void    returnToAll();
 private:
-    QWebView *web;
+    QHFWebView *web;
 };
 
 #endif // QSIMPLEMODE_H

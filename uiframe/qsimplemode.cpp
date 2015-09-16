@@ -21,7 +21,7 @@ QSimpleMode::QSimpleMode(QWidget *parent) : QWidget(parent)
 void QSimpleMode::initUI()
 {
     QHBoxLayout *hlay = new QHBoxLayout(this);
-    web = new QWebView(this);
+    web = new QHFWebView(this);
 
     web->setContextMenuPolicy(Qt::NoContextMenu);
     hlay->setContentsMargins(0,0,0,0);
