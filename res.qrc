@@ -47,5 +47,7 @@
         <file>ui/done.png</file>
         <file>ui/setting.png</file>
         <file>ui/mac-desk.jpg</file>
+        <file>ui/db.png</file>
+        <file>ui/db-small.png</file>
     </qresource>
 </RCC>

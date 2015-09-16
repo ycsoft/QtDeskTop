@@ -1,0 +1,4 @@
+{"公务卡":{"version":"1.0","size":10245,"img":"img/gwk.png"},"系统管理":{"version":"1.0","size":21761,"img":"img/mana.png"}
+,"会计账务":{"version":"1.0","size":21761,"img":"img/kjzw.png"},"单位账务":{"version":"1.0","size":21761,"img":"img/dwzw.png"},
+"动态监控":{"version":"1.0","size":21761,"img":"img/dtjk.png"},"预算执行":{"version":"1.0","size":21761,"img":"img/yszx.png"},
+"银行支付":{"version":"1.0","size":21761,"img":"img/bank.png"}}

@@ -11,7 +11,7 @@
 
 $(document).ready( function(){
 
-var menucolor;
+var menucolor,bground = $("div.menuText").css("background");
 
 $("div.navbutton").mouseover(function(){
 $(this).css("background-color","#005FBD");
@@ -37,13 +37,11 @@ $("#close").mouseout(function(){
  $(this).attr("src","img/btn_close_normal.png")
 });
 $("div.menuTxt").mouseover(function(){
-menucolor=$(this).css("background-color");
-$(this).css("background-color","#004080");
-$(this).css("background","url(img/menu.png) no-repeat")
+menucolor=$(this).css("color");
+$(this).css("color","#000080");
 });
 $("div.menuTxt").mouseout(function(){
-$(this).css("background-color",menucolor);
-$(this).css("background","");
+$(this).css("color",menucolor);
 });
 
 $("a.download").click(function( evt){
@@ -53,6 +51,25 @@ $("a.download").click(function( evt){
 var url = $(this).attr("href");
 alert(url);
 //download(url);
+});
+
+$("div#all").click(function(){
+$("div#common").css("background","");
+$("div#xjb").css("background","");
+$(this).css("background","url(img/menu.png) no-repeat");
+});
+
+$("div#common").click(function(){
+$("div#all").css("background","");
+$("div#xjb").css("background","");
+$(this).css("background","url(img/menu.png) no-repeat");
+Core.msgBox("Hello","Hello");
+});
+
+$("div#xjb").click(function(){
+$("div#common").css("background","");
+$("div#all").css("background","");
+$(this).css("background","url(img/menu.png) no-repeat");
 });
 
 }
@@ -150,6 +167,7 @@ position:relative;
 width:100px;
 height:100%;
 top:-40%;
+cursor:pointer;
 }
 hr.vertical{
 position:relative;
@@ -236,16 +254,12 @@ cursor:pointer;
 <img src="img/btn_close_normal.png" id="close" class="headimg" style="right:45px"/></div>
 <!--菜单区域-->
 <div class="menu">
-<div class="menuTxt" align="center"><p>全部软件</p></div><div class="ver" align="center"><hr class="vertical" /></div>
-<div class="menuTxt" align="center"><p>常用工具</p></div><div class="ver" align="center"><hr class="vertical" /></div>
-<div class="menuTxt" align="center"><p>县级版</p></div><div class="ver" align="center"><hr class="vertical" /></div>
+<div class="menuTxt" align="center" id="all"><p>全部软件</p></div><div class="ver" align="center"><hr class="vertical" /></div>
+<div class="menuTxt" align="center" id="common"><p>常用工具</p></div><div class="ver" align="center"><hr class="vertical" /></div>
+<div class="menuTxt" align="center" id="xjb"><p>县级版</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 </div>
 <!--软件列表区-->
 <div class="list">
-<div class="app">
-<div class="appicon"><img src="img/app.png" class="appimg" /></div><div class="txt">财政通行证<div class="download">下载</div></div>
-</div>
-
 <div class="app">
 <div class="appicon"><img src="img/gwk.png" class="appimg" /></div><div class="txt">公务卡<div class="download">下载</div></div>
 </div>

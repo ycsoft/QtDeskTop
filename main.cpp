@@ -1,8 +1,4 @@
 ﻿
-#include <QApplication>
-#include <QTextCodec>
-#include <QDebug>
-
 #include "maindialog.h"
 #include "loginwindow.h"
 #include "skin/deskicon.h"
@@ -23,6 +19,11 @@
 #include "todo/qtodocontent.h"
 #include "data/qtododata.h"
 #include "data/qluaconf.h"
+#include "jsCore/qjscore.h"
+
+#include <QDebug>
+#include <QApplication>
+#include <QTextCodec>
 #include <QDebug>
 
 #include <Windows.h>
@@ -37,14 +38,16 @@ int main(int argc, char *argv[])
 //    QHtmlDock   dock;
 
 //    dock.show();
-//    MainDialog main;
-//    main.showFullScreen();
+//    QJSCore core;
+//    core.open(LOCAL("xjb/公务卡系统3.4.0/GwCard.exe"));
+    MainDialog main;
+    main.showFullScreen();
 //    QDocker dock;
 //    dock.show();
-    QSoftCenter soft;
-    soft.show();
-    QLuaConf    conf;
-    QStringList     res;
+//    QSoftCenter soft;
+//    soft.show();
+//    QLuaConf    conf;
+//    QStringList     res;
 //    qDebug()<<conf.getString("downIP");
 //    qDebug()<<conf.getString("serverip");
 //    qDebug()<<conf.getString("servername");

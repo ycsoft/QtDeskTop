@@ -58,7 +58,8 @@ SOURCES += main.cpp\
     uiframe/qdocker.cpp \
     uiframe/qhtmldock.cpp \
     utils/qhfwebview.cpp \
-    softCenter/qsoftcenter.cpp
+    softCenter/qsoftcenter.cpp \
+    jsCore/qjscore.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -111,7 +112,8 @@ HEADERS  += maindialog.h \
     uiframe/qdocker.h \
     uiframe/qhtmldock.h \
     utils/qhfwebview.h \
-    softCenter/qsoftcenter.h
+    softCenter/qsoftcenter.h \
+    jsCore/qjscore.h
 
 RESOURCES += \
     res.qrc
