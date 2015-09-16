@@ -194,6 +194,12 @@ public slots:
     void showToDoManager();
 
     /**
+     * @brief showSoftCenter
+     * 软件中心
+     */
+    void showSoftCenter();
+
+    /**
      * @brief showAll
      */
 //    void showAll();

@@ -12,6 +12,7 @@
 #include "todo/qtodomanager.h"
 #include "data/qtododata.h"
 #include "uiframe/qdocker.h"
+#include "softCenter/qsoftcenter.h"
 
 
 #include <QPainter>
@@ -46,6 +47,7 @@ MainDialog::MainDialog(QWidget *parent) :
 
 
     setUi3();
+
     startTimer(1000);
 //    this->showFullScreen();
     //this->show();
@@ -130,10 +132,12 @@ QWidget*    MainDialog::createTaskBar()
     DeskIcon    *screens = new DeskIcon(task,":/ui/screens.png",DeskIcon::NO_TEXT);
     DeskIcon    *settings = new DeskIcon(task,":/ui/setting.png",DeskIcon::NO_TEXT);
     DeskIcon    *todo  = new DeskIcon(task,":/ui/govment.png",DeskIcon::NO_TEXT);
+    DeskIcon    *soft = new DeskIcon(task,":/ui/db-small.png",DeskIcon::NO_TEXT);
     settings->setToolTip(LOCAL("设置"));
     todo->setToolTip(LOCAL("事项管理"));
+    soft->setToolTip(LOCAL("软件中心"));
     connect(todo,SIGNAL(clicked()),this,SLOT(showToDoManager()));
-
+    connect(soft,SIGNAL(clicked()),this,SLOT(showSoftCenter()));
     connect(start,SIGNAL(clicked()),this,SLOT(showStart()));
     connect(screens,SIGNAL(clicked()),this,SLOT(showScreens()));
     connect(settings,SIGNAL(clicked()),this,SLOT(action_prop()));
@@ -145,6 +149,8 @@ QWidget*    MainDialog::createTaskBar()
     taskLay->addWidget(search);
     taskLay->addWidget(screens,0,Qt::AlignLeft);
     taskLay->addWidget(settings);
+    taskLay->addWidget(soft);
+
     DeskIcon    *home =new DeskIcon(task,":/ui/room.png",DeskIcon::NO_TEXT);
     home->scaled(20,20);
     home->setToolTip(LOCAL("返回系统桌面"));
@@ -239,7 +245,12 @@ void MainDialog::showToDoManager()
 {
     m_todoManager->showFullScreen();
 }
-
+void MainDialog::showSoftCenter()
+{
+    static QSoftCenter *center = new QSoftCenter();
+    center->resize(800,600);
+    center->show();
+}
 
 void MainDialog::popupMsgWin()
 {
@@ -663,6 +674,8 @@ void MainDialog::setUi()
 void MainDialog::setUi3()
 {
     int wid,hei,px,py;
+    Qt::WindowFlags flag = windowFlags();
+    setWindowFlags(flag | Qt::WindowStaysOnBottomHint);
 
     QLoginDesktop *login = new QLoginDesktop(this);
     QToDoData::ref().appendAll(LOCAL("国库单据")).appendAll(LOCAL("项目拨款"))
@@ -686,6 +699,7 @@ void MainDialog::setUi3()
     m_stacked->addWidget(smode);
     m_stacked->addWidget(login);
     m_stacked->setCurrentIndex(3);
+    m_task->setVisible(false);
     m_stacked->setContentsMargins(0,0,0,0);
 
     m_appiconpanel->resize(wid,hei - m_task->height());
