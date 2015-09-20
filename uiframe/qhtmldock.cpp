@@ -23,15 +23,16 @@ void QHtmlDock::paintEvent(QPaintEvent *evt)
 void QHtmlDock::initUI()
 {
     QVBoxLayout *vlay = new QVBoxLayout(this);
+    vlay->setContentsMargins(0,0,0,0);
+    vlay->setSpacing(0);
     setObjectName("htmldock");
     setStyleSheet("QWidget#mainwim{border-image: url(:/ui/mac-desk.jpg);}");
 
     m_web = new QHFWebView(this);
-    m_web->setContextMenuPolicy(Qt::NoContextMenu);
-    vlay->addWidget(m_web);
-
+    vlay->addWidget(m_web,0,Qt::AlignHCenter);
     m_web->load(QUrl("html/dock.html"));
     m_web->setTransparent(true);
+
 }
 void QHtmlDock::mousePressEvent(QMouseEvent *evt)
 {
