@@ -1,5 +1,6 @@
 ﻿#include "qfiletrans.h"
 #include "session.h"
+#include "utils/qapparg.h"
 
 #include <QBuffer>
 #include <QXmppUtils.h>
@@ -111,7 +112,14 @@ void QFileTrans::login(QString usr, QString pwd, QString domain, QString host,Lo
     QSettings   set;
     set.setValue("usr",usr);
     set.setValue("pwd",pwd);
+    set.setValue("domain",domain);
     set.setValue("svr",host);
+    set.setValue("xmpp_jid",jid);
+    set.setValue("xmpp_pwd",pwd);
+
+    QAppArg::ref().argCount() = 5;
+    QAppArg::ref().argList().clear();
+    QAppArg::ref().argList()<<usr<<pwd<<domain<<host;
 }
 
 void QFileTrans::qxmpp_sendMessage(QString to, QString msg)

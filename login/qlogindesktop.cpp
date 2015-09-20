@@ -5,6 +5,8 @@
 #include "utils/defines.h"
 #include "tcpserver.h"
 #include "taskbar.h"
+#include "jsCore/qjscore.h"
+#include "utils/qapparg.h"
 
 #include <QHBoxLayout>
 #include <QWebSettings>
@@ -98,6 +100,10 @@ void QLoginDesktop::connected()
     //XMPP连接建立以后启动socket本地服务
     static boost::asio::io_service g_io;
     TCPServer *m_svrsock = new TCPServer(g_io,5033,this);
+    //准备启动即时通信
+    QJSCore *jscore = new QJSCore(this);
+    QStringList arglist = QAppArg::ref().argList();
+    jscore->open("IM_QXmpp.exe",arglist);
 }
 
 void QLoginDesktop::connectedError()
