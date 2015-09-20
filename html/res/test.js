@@ -19,9 +19,17 @@ function clickTask(txt)
 {
 	alert(txt.innerHTML);	
 }
-
-//添加一件事项
 function addTask(txt)
+{
+	var content = $("#content");
+	var html = content.html();
+	
+	html += "<dia class='item'>" +txt + "</div>";
+	content.html( html );
+	
+}
+//添加一件事项
+function addTask2(txt)
 {
 	
 	var test = txt;//"<h3>项目支出明细</h3><p>单位：国库处</p><p>审核：张三</p><p>摘要:2014年度总共支付543万元，其中....</p>";
@@ -82,6 +90,10 @@ function runQt()
 {
 	var s = QSimpleMode.invoke();
 	alert(s);
+}
+function reback()
+{
+	QSimpleMode.returnToAll();
 }
 
 function  cfunc_get(sql)

@@ -1,0 +1,61 @@
+	
+	#content {
+		height:40px;
+	}
+	#left_over {
+    width:22px; height:15px;
+    float:left;
+    background:url(img/btn_precedent.bmp);
+    margin:4px 4px 0 0;
+	}
+	#right_over {
+    width:22px; height:15px;
+    float:left;
+    background:url(img/btn_suivant.bmp);
+    margin:4px 0 0 4px;
+	}
+	#left_max {
+    cursor:pointer;
+    width:22px; height:15px;
+    float:left;
+    background:url(img/btn_precedent_max.bmp);
+    margin:4px 2px 0 0;
+	}
+	#right_max {
+    cursor:pointer;
+    width:22px; height:15px;
+    float:left;
+    background:url(img/btn_suivant_max.bmp);
+    margin:4px 0 0 2px;
+	}
+	/* must set border width with px */
+	#content .paginator_p {
+	  width:25px;
+		height:18px;
+		font-weight:bold;
+		color: #007edf;
+		background-color:transparent;
+		border:none;
+		padding:3px 0 2px 0;
+	} 
+	#content .paginator_p_bloc {
+	}
+	#content .paginator_p:hover {
+		color:white;
+		background-color:#25a29e;
+	}
+	#content .paginator_p.selected {
+		color:white;
+		background-color:#dd5c78;
+	}
+	#content .paginator_slider {
+		background-color:#f2d21b;
+		left:50px;
+	}
+	#content .paginator_slider .ui-slider-handle {
+		width: 4px;
+		height: 9px;
+		top: -4px;
+		background-color:#f18fa8;
+		border: solid 1px black ;
+	}

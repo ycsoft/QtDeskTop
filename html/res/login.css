@@ -67,7 +67,7 @@ width:15%;
 height:40px;
 display:inline-block;
 }
-body img{
+#backimg{
 position:absolute;
 left:0;
 right:0;
@@ -78,4 +78,9 @@ background-attachment:fixed;
 filter:alpha(opacity=35);
 -moz-opacity:0.35;
 opacity:0.35;
+}
+#caimg{
+position:relative;
+width:25px;
+height:25px;
 }

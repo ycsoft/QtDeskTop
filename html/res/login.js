@@ -3,7 +3,7 @@
 function caMouseIn(obj)
 {
 	obj.style.backgroundColor = "#FF8040";	
-	tips(obj.id,"使用CA证书登录，无需输入用户名密码");
+	//tips(obj.id,"使用CA证书登录，无需输入用户名密码");
 }
 function caMouseOut(obj)
 {
