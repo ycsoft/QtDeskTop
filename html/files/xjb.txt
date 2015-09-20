@@ -1,0 +1,9 @@
+{
+"公务卡":{"version":"1.0","size":10245,"img":"img/gwk.png","file":"http://localhost/files/im.exe"},
+"系统管理":{"version":"1.0","size":21761,"img":"img/mana.png","file":"http://localhost/files/im.exe"},
+"会计账务":{"version":"1.0","size":21761,"img":"img/kjzw.png","file":"http://localhost/files/im.exe"},
+"单位账务":{"version":"1.0","size":21761,"img":"img/dwzw.png","file":"http://localhost/files/im.exe"},
+"动态监控":{"version":"1.0","size":21761,"img":"img/dtjk.png","file":"http://localhost/files/im.exe"},
+"预算执行":{"version":"1.0","size":21761,"img":"img/yszx.png","file":"http://localhost/files/im.exe"},
+"银行支付":{"version":"1.0","size":21761,"img":"img/bank.png","file":"http://localhost/files/im.exe"}
+}

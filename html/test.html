@@ -5,16 +5,27 @@
 <title>精简桌面</title>
 <link  rel="stylesheet" type="text/css" href="res/test.css" />
 <script type="text/javascript" src="res/test.js"></script>
+<script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 <script language="javascript">
 var txt = cfunc_get("select getbydate('c016','2015-01-01','');");
+
+$(document).ready(function(){
+ for ( i = 0 ; i < 10; ++i)
+ {
+	 addTask(txt);
+ }
+
+});
+
 </script>
 <img src="img/back.jpg" />
 <div id="head-nav">
-<div  align="center" id="all" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="addTask(txt)">可办事项</div>
-<div  align="center" id="todo" class="nav"  onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="runQt()">待办事项</div>
-<div  align="center" id="done" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="test()">已办事项</div>
+<div  align="center" id="all" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="addTask(txt)">申请任务</div>
+<div  align="center" id="todo" class="nav"  onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="runQt()">待办任务</div>
+<div  align="center" id="done" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="test()">追踪任务</div>
+<div  align="center" id="return" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="reback()">返回</div>
 </div>
 <div id="content" align="center">
 
