@@ -6,6 +6,7 @@
 #include "utils/qapputils.h"
 #include "utils/defines.h"
 #include "uiframe/qhtmldock.h"
+#include "winFactory/qwinfactory.h"
 
 #include <QPainter>
 #include <QStyleOption>
@@ -85,6 +86,10 @@ void QAppIconPanel::paintEvent(QPaintEvent *)
 
     op.init(this);
     style()->drawPrimitive(QStyle::PE_Widget,&op,&p,this);
+    if ( m_press )
+    {
+        p.fillRect(QRect(m_presssPoint,m_movePoint),QColor(80,200,100,50));
+    }
 }
 void QAppIconPanel::contextMenuEvent(QContextMenuEvent *evt)
 {
@@ -93,4 +98,23 @@ void QAppIconPanel::contextMenuEvent(QContextMenuEvent *evt)
     {
         m_menu->exec(cur.pos());
     }
+}
+void QAppIconPanel::mousePressEvent(QMouseEvent *evt)
+{
+    QWinFactory::ref().hideAllShownWindow();
+    if ( evt->button() == Qt::LeftButton )
+    {
+        m_press = true;
+        m_presssPoint = evt->pos();
+    }
+}
+void QAppIconPanel::mouseReleaseEvent(QMouseEvent *)
+{
+    m_press = false;
+    update();
+}
+void QAppIconPanel::mouseMoveEvent(QMouseEvent *evt)
+{
+    m_movePoint = evt->pos();
+    update();
 }

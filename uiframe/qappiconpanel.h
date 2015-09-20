@@ -32,6 +32,9 @@ public:
 protected:
     void     paintEvent(QPaintEvent *);
     void     contextMenuEvent(QContextMenuEvent *evt);
+    void     mousePressEvent(QMouseEvent*);
+    void     mouseReleaseEvent(QMouseEvent*);
+    void     mouseMoveEvent(QMouseEvent*);
 signals:
 
 public slots:
@@ -43,6 +46,9 @@ private:
     int     m_currow;
     int     m_curcol;
     QMenu   *m_menu;
+    QPoint  m_presssPoint;
+    QPoint  m_movePoint;
+    bool    m_press;
 };
 
 #endif // QAPPICONPANEL_H
