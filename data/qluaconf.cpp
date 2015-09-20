@@ -61,10 +61,25 @@ QStringList QLuaConf::getSrvList(QString key)
 QString QLuaConf::getSrvJson(QString key)
 {
     QString res;
-    lua_getglobal(m_lua,key.toStdString().c_str());
-    const char *cval = luaL_checkstring(m_lua,-1);
-    lua_pop(m_lua,1);
-    res = QString::fromUtf8(cval);
+    QFile   file("lua/appset.json");
+    if ( !file.exists() )
+    {
+        return res;
+    }else
+    {
+        if (!file.open(QIODevice::ReadOnly))
+        {
+            return res;
+        }else
+        {
+            res = QString::fromUtf8(file.readAll());
+            return res;
+        }
+    }
+//    lua_getglobal(m_lua,key.toStdString().c_str());
+//    const char *cval = luaL_checkstring(m_lua,-1);
+//    lua_pop(m_lua,1);
+//    res = QString::fromUtf8(cval);
     return res;
 }
 
