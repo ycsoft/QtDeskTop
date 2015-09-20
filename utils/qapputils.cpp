@@ -8,6 +8,7 @@
 #include <QDesktopWidget>
 #include <QFile>
 #include <QSettings>
+#include <QApplication>
 
 QAppUtils::QAppUtils(QObject *parent) : QObject(parent)
 {
@@ -16,8 +17,8 @@ QAppUtils::QAppUtils(QObject *parent) : QObject(parent)
 
 QSize QAppUtils::getScreenSize(int i)
 {
-    QDesktopWidget desk;
-    QRect rt = desk.screenGeometry(i);
+    QDesktopWidget *desk = QApplication::desktop();
+    QRect rt = desk->screenGeometry(i);
 
     return QSize(rt.width(),rt.height());
 }
@@ -27,6 +28,22 @@ void QAppUtils::getScreenSize(int &wid, int &hei)
     QSize sz = getScreenSize();
     wid = sz.width();
     hei = sz.height();
+}
+
+void QAppUtils::getWorkAreaSize(int &wid, int &hei)
+{
+    QDesktopWidget *desk = QApplication::desktop();
+    QRect rt = desk->availableGeometry();
+    wid = rt.width();
+    hei = rt.height();
+}
+
+int QAppUtils::getTaskBarHeight()
+{
+    int wid,wh,hei;
+    hei = getScreenHei();
+    getWorkAreaSize(wid,wh);
+    return hei - wh;
 }
 
 int QAppUtils::getScreenWid(int i)

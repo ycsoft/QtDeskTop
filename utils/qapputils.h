@@ -30,6 +30,21 @@ public:
     void     getScreenSize( int &wid, int &hei);
 
     /**
+     * @brief getWorkAreaSize
+     * 或得工作区大小
+     * @param wid
+     * @param hei
+     */
+    void     getWorkAreaSize( int &wid, int &hei);
+
+    /**
+     * @brief getTaskBarHeight
+     * 获取任务栏高度
+     * @return
+     */
+    int      getTaskBarHeight();
+
+    /**
      * @brief getScreenWid
      * 获取屏幕宽度
      * @param i:屏幕编号

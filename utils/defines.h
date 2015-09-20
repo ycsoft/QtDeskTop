@@ -33,6 +33,12 @@
 #define         DOCK_WID    800
 #define         DOCK_HEI    150
 
+#define         SHARE_MEM_SIZE      1024
+
+#define         Full_Desk       0
+#define         New_Panel       1
+#define         Simple_Desk     2
+#define         Login_Win       3
 
 #endif // DEFINES
 
