@@ -59,7 +59,10 @@ SOURCES += main.cpp\
     uiframe/qhtmldock.cpp \
     utils/qhfwebview.cpp \
     softCenter/qsoftcenter.cpp \
-    jsCore/qjscore.cpp
+    jsCore/qjscore.cpp \
+    utils/qapparg.cpp \
+    ipc/qipcmemory.cpp \
+    uiframe/qhtmltips.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -113,7 +116,10 @@ HEADERS  += maindialog.h \
     uiframe/qhtmldock.h \
     utils/qhfwebview.h \
     softCenter/qsoftcenter.h \
-    jsCore/qjscore.h
+    jsCore/qjscore.h \
+    utils/qapparg.h \
+    ipc/qipcmemory.h \
+    uiframe/qhtmltips.h
 
 RESOURCES += \
     res.qrc

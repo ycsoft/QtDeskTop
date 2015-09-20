@@ -12,6 +12,7 @@
 
 #include "test/qtest.h"
 #include "utils/defines.h"
+#include "utils/qapputils.h"
 #include "winFactory/qwinfactory.h"
 #include "uiframe/qhtmldock.h"
 #include "uiframe/qpurecolorbutton.h"
@@ -20,6 +21,8 @@
 #include "data/qtododata.h"
 #include "data/qluaconf.h"
 #include "jsCore/qjscore.h"
+#include "ipc/qipcmemory.h"
+#include "uiframe/qhtmltips.h"
 
 #include <QDebug>
 #include <QApplication>
@@ -35,25 +38,13 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("hf.com");
     QCoreApplication::setApplicationName("desk");
 
-//    QHtmlDock   dock;
+    int wid,hei;
+    QAppUtils::ref().getScreenSize(wid,hei);
+    qDebug()<<"Screen width:"<<wid<<"  Height:"<<hei;
+    QAppUtils::ref().getWorkAreaSize(wid,hei);
+    qDebug()<<"WorkArea width:"<<wid<<"  Height:"<<hei;
 
-//    dock.show();
-//    QJSCore core;
-//    core.open(LOCAL("xjb/公务卡系统3.4.0/GwCard.exe"));
     MainDialog main;
-    main.showFullScreen();
-//    QDocker dock;
-//    dock.show();
-//    QSoftCenter soft;
-//    soft.show();
-//    QLuaConf    conf;
-//    QStringList     res;
-//    qDebug()<<conf.getString("downIP");
-//    qDebug()<<conf.getString("serverip");
-//    qDebug()<<conf.getString("servername");
-//    qDebug()<<conf.getInteger("xmpp_port");
-//    QList<QLuaConf::srvconf> res;
-//      qDebug()<<conf.getString("usrname");
-
+    main.show();
     return a.exec();
 }

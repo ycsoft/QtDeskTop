@@ -49,5 +49,6 @@
         <file>ui/mac-desk.jpg</file>
         <file>ui/db.png</file>
         <file>ui/db-small.png</file>
+        <file>ui/im.png</file>
     </qresource>
 </RCC>
