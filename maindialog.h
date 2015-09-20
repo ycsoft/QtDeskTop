@@ -51,6 +51,9 @@ public:
     */
     ~MainDialog();
 
+    //override
+    void show();
+
     static MainDialog& ref()
     {
         return *m_mainDlg;
@@ -192,6 +195,11 @@ public slots:
      * 事项管理
      */
     void showToDoManager();
+    /**
+     * @brief showIM
+     * 即时通信工具
+     */
+    void showIM();
 
     /**
      * @brief showSoftCenter
@@ -254,6 +262,10 @@ private:
      * @brief mousePressEvent
      */
     void mousePressEvent(QMouseEvent*);
+    void mouseReleaseEvent(QMouseEvent*);
+    void mouseMoveEvent(QMouseEvent*);
+    QPoint m_presssPoint;
+    QPoint m_movePoint;
 
     /**
      * @brief contextMenuEvent
@@ -327,6 +339,8 @@ private:
     QToDoWidget                 *m_todoWidget;
     QTodoManager                *m_todoManager;
     static MainDialog           *m_mainDlg;
+    //////////////////////////////////////////////////////////
+    bool                        m_press;
 public:
     QToDoContent                *m_all;
     QToDoContent                *m_todo;

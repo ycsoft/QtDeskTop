@@ -13,6 +13,7 @@
 #include "data/qtododata.h"
 #include "uiframe/qdocker.h"
 #include "softCenter/qsoftcenter.h"
+#include "ipc/qipcmemory.h"
 
 
 #include <QPainter>
@@ -79,6 +80,18 @@ void MainDialog::addNotify()
 {
 
 }
+
+void MainDialog::show()
+{
+    int wid,hei,th;
+    QAppUtils::ref().getScreenSize(wid,hei);
+    th = QAppUtils::ref().getTaskBarHeight();
+    resize(wid,hei - th);
+    setWindowFlags(Qt::FramelessWindowHint);
+
+    setVisible(true);
+}
+
 MainDialog::~MainDialog()
 {
     showSysTask();
@@ -133,16 +146,22 @@ QWidget*    MainDialog::createTaskBar()
     DeskIcon    *settings = new DeskIcon(task,":/ui/setting.png",DeskIcon::NO_TEXT);
     DeskIcon    *todo  = new DeskIcon(task,":/ui/govment.png",DeskIcon::NO_TEXT);
     DeskIcon    *soft = new DeskIcon(task,":/ui/db-small.png",DeskIcon::NO_TEXT);
+    DeskIcon    *im = new DeskIcon(task,":/ui/im.png",DeskIcon::NO_TEXT);
+
     settings->setToolTip(LOCAL("设置"));
     todo->setToolTip(LOCAL("事项管理"));
     soft->setToolTip(LOCAL("软件中心"));
+    im->setToolTip(LOCAL("即时通信"));
+    screens->setToolTip(LOCAL("窗口视图"));
+    start->setToolTip(LOCAL("开始"));
+
     connect(todo,SIGNAL(clicked()),this,SLOT(showToDoManager()));
     connect(soft,SIGNAL(clicked()),this,SLOT(showSoftCenter()));
     connect(start,SIGNAL(clicked()),this,SLOT(showStart()));
     connect(screens,SIGNAL(clicked()),this,SLOT(showScreens()));
     connect(settings,SIGNAL(clicked()),this,SLOT(action_prop()));
-    screens->setToolTip(LOCAL("窗口视图"));
-    start->setToolTip(LOCAL("开始"));
+    connect(im,SIGNAL(clicked()),this,SLOT(showIM()));
+
     taskLay->setSpacing(20);
     taskLay->setContentsMargins(0,0,0,0);
     taskLay->addWidget(start,0,Qt::AlignLeft|Qt::AlignVCenter);
@@ -150,6 +169,7 @@ QWidget*    MainDialog::createTaskBar()
     taskLay->addWidget(screens,0,Qt::AlignLeft);
     taskLay->addWidget(settings);
     taskLay->addWidget(soft);
+
 
     DeskIcon    *home =new DeskIcon(task,":/ui/room.png",DeskIcon::NO_TEXT);
     home->scaled(20,20);
@@ -195,7 +215,9 @@ QWidget*    MainDialog::createTaskBar()
     taskLay->addWidget(home,0,Qt::AlignRight);
     taskLay->addWidget(notify,0,Qt::AlignRight);
     taskLay->addWidget(todo,0,Qt::AlignRight);
+    taskLay->addWidget(im);
     taskLay->addWidget(timewd);
+
     task->setLayout(taskLay);
 
     //构建通知窗体
@@ -247,9 +269,17 @@ void MainDialog::showToDoManager()
 }
 void MainDialog::showSoftCenter()
 {
+    int hei,wid;
     static QSoftCenter *center = new QSoftCenter();
-    center->resize(800,600);
+    QAppUtils::ref().getScreenSize(wid,hei);
+    center->resize(wid*0.8,hei*0.8);
     center->show();
+}
+void MainDialog::showIM()
+{
+  static QIPCMemory    ipc(0,"desktop-im");
+  ipc.Write("show");
+  qDebug()<<"Write to Memory";
 }
 
 void MainDialog::popupMsgWin()
@@ -312,9 +342,9 @@ void MainDialog::contextMenuEvent(QContextMenuEvent *)
 
 void MainDialog::hideSysTask()
 {
-    HWND task;
-    task = FindWindow(TEXT("Shell_TrayWnd"),NULL);
-    ShowWindow(task,SW_HIDE);
+//    HWND task;
+//    task = FindWindow(TEXT("Shell_TrayWnd"),NULL);
+//    ShowWindow(task,SW_HIDE);
 }
 
 //显示系统任务栏
@@ -500,6 +530,20 @@ void MainDialog::paintEvent(QPaintEvent *)
 void MainDialog::mousePressEvent(QMouseEvent *evt)
 {
     QWinFactory::ref().hideAllShownWindow();
+    if ( evt->button() == Qt::LeftButton )
+    {
+        m_press = true;
+        m_presssPoint = evt->pos();
+    }
+}
+void MainDialog::mouseReleaseEvent(QMouseEvent *)
+{
+    m_press = false;
+}
+void MainDialog::mouseMoveEvent(QMouseEvent *evt)
+{
+    m_movePoint = evt->pos();
+    update();
 }
 
 void MainDialog::keyPressEvent(QKeyEvent *evt)
@@ -706,7 +750,7 @@ void MainDialog::setUi3()
     mainLay->setSpacing(0);
     mainLay->setContentsMargins(0,0,0,0);
     mainLay->addWidget(m_stacked);
-    mainLay->addWidget(m_task);
+//    mainLay->addWidget(m_task);
     createMenu(m_appiconpanel);
 
     m_appiconpanel->setMenu(m_menu);
@@ -723,7 +767,6 @@ void MainDialog::setUi3()
 
     m_all = new QToDoContent(0);
     m_all->setWindowTitle(LOCAL("所有事项"));
-    m_all->setWindowFlags( m_all->windowFlags() | Qt::WindowStaysOnTopHint );
     m_all->setTitle(QStringList()<<LOCAL("所有事项")<<LOCAL("选择"));
     m_all->flushData(QToDoData::ref().getAll());
 
