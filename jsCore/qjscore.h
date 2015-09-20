@@ -21,6 +21,8 @@ public slots:
     void     msgBox(const QString &title,const QString &txt);
     QString  readFromFile(const QString &fn);
     void     open(const QString &path);
+    void     open(const QString &path,const QStringList &arglist);
+    void     showWindow(QString);
 };
 
 #endif // QJSCORE_H

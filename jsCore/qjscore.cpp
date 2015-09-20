@@ -1,10 +1,14 @@
 ﻿#include "qjscore.h"
+#include "softCenter/qsoftcenter.h"
+#include "maindialog.h"
+#include "utils/defines.h"
 
 #include <QFile>
 #include <QMessageBox>
 #include <QDebug>
-
 #include <QProcess>
+
+
 
 QJSCore::QJSCore(QObject *parent) : QObject(parent)
 {
@@ -45,9 +49,44 @@ void QJSCore::open(const QString &path)
         QProcess *proc = new QProcess(this);
         proc->start(path);
         proc->waitForStarted(5000);
-//        ShellExecuteA(0,"open",path.toUtf8().data(),NULL,NULL,SW_SHOW);
     }else
     {
         qDebug()<<"No File:"<<path;
+    }
+}
+void QJSCore::open(const QString &path, const QStringList &arglist)
+{
+    QFile file(path);
+    for ( int i = 0 ; i < arglist.count(); ++i)
+    {
+        qDebug()<<arglist.at(i);
+    }
+
+    if( file.exists())
+    {
+        qDebug()<<"Open:"<<path;
+        QProcess *proc = new QProcess(this);
+        proc->start(path,arglist);
+        proc->waitForStarted(5000);
+
+    }else
+    {
+        qDebug()<<"No File:"<<path;
+    }
+}
+
+void QJSCore::showWindow(QString win)
+{
+    if ( win == "softcenter" )
+    {
+        static QSoftCenter soft;
+        soft.show();
+    }else if ( win == "switch")
+    {
+        QStackedWidget *pstack = MainDialog::ref().getStackedWidget();
+
+        int idx = pstack->currentIndex();
+        idx = ( idx == Simple_Desk ? Full_Desk : Simple_Desk);
+        pstack->setCurrentIndex(idx);
     }
 }
