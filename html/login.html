@@ -4,18 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>登录</title>
 <link type="text/css" rel="stylesheet" href="res/login.css"/>
-<script type="text/javascript" src="res/login.js"></script>
 <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="res/jquery.cookie.js"></script>
+<script type="text/javascript" src="res/jquery.qtip.min.js"></script>
+<link type="text/css" rel="stylesheet" href="res/jquery.qtip.min.css" />
 <script language="javascript">
 var SrvObj;
-
-$(document).keydown(function( evt){ 
-	if(evt.keyCode == 13){
-		loginclick();
-	}
-}
-);
 $(document).ready(function(){
 	var hm="";
 	SrvObj = JSON.parse(Conf.getSrvJson('srvlist'));
@@ -34,8 +27,14 @@ $(document).ready(function(){
     	div.animate({width:'100px',opacity:'0.8'},"slow");
 		div.animate({width:'32%',opacity:'0.8'},"slow");
 		div.animate({height:'40%',opacity:'0.8'},"slow");
-	loginclick();
+		loginclick();
 	});
+	$(document).keydown(function( evt){ 
+	if(evt.keyCode == 13){
+		loginclick();
+	}
+}
+);
 	//取消按钮单击事件
 	$("input#cancel").click(function(){
 	closeClick();
@@ -58,6 +57,10 @@ $(document).ready(function(){
 	{
 		$("select").val(svr);
 	}
+	//提示信息
+	$("#ca").qtip({
+		content:{text:'直接插入UKEY，单击按钮，无需输入用户名密码'}
+		});
 	
 });
 
@@ -80,8 +83,6 @@ function loginclick()
 		Login.msgBox("财政桌面","密码不能为空");
 		return;
 	}
-	$.cookie('usrname',usr,{expires:7});
-	$.cookie('password',pwd,{expires:7});
 	Conf.setValue('usrname',usr);
 	Conf.setValue('svr2', $("select").val());
 	Login.upLogin(usr,pwd,host,ip);
@@ -93,7 +94,7 @@ function closeClick()
 </script>
 </head>
 <body>
-<img src="img/back.jpg" />
+<img src="img/back.jpg" id="backimg"/>
  <div id="tips" style=" font-size:12px;position:absolute;border:1px solid #ccc;padding:0px 3px;color:#0A0A0A;display:none;height:20px;line-height:20px;background:#fcfcfc"></div>
  <div class="panel">
    <div class="title" align="center" onclick="divclick()"><strong>财政安全桌面</strong></div>
@@ -101,7 +102,7 @@ function closeClick()
      <div class="label">用户名</div>
      <input name="text" type="text" class="text" id="usr" maxlength="400"/>
      <!--证书登录按钮 -->
-     <div style=" position:relative; top:6px;display:inline-block; cursor:pointer;"  onmouseover="caMouseIn(this)" onmouseout="caMouseOut(this)" id="ca"><img src="img/certificate.png"/></div>
+     <div style=" padding-left:5px; padding-top:2px;position:relative; top:6px;display:inline-block; cursor:pointer; width:30px; height:30px;"  onmouseover="caMouseIn(this)" onmouseout="caMouseOut(this)" id="ca"><img src="img/certificate.png" id="caimg" /></div>
    </div>
    <div>
         <div class="label">行政区划</div>
