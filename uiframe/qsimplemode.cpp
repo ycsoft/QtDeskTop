@@ -1,38 +1,39 @@
 ﻿#include "qsimplemode.h"
 #include "utils/defines.h"
-
+#include "utils/qapputils.h"
+#include "qhtmldock.h"
 #include "maindialog.h"
 
 #include <QHBoxLayout>
-
-
 #include <data/qtododata.h>
 #include <QMessageBox>
 #include <QMenu>
 #include <QCursor>
 #include <QDebug>
+#include <QPainter>
+#include <QStyle>
+#include <QStyleOption>
+
 
 QSimpleMode::QSimpleMode(QWidget *parent) : QWidget(parent)
 {
+    setAttribute(Qt::WA_TranslucentBackground);
     initUI();
-    resize(700,500);
 }
 
 void QSimpleMode::initUI()
 {
-    QHBoxLayout *hlay = new QHBoxLayout(this);
+    int wid,hei;
+    QVBoxLayout *hlay = new QVBoxLayout(this);
     web = new QHFWebView(this);
-
-    web->setContextMenuPolicy(Qt::NoContextMenu);
+    QAppUtils::ref().getScreenSize(wid,hei);
     hlay->setContentsMargins(0,0,0,0);
+    hlay->setSpacing(0);
     hlay->addWidget(web);
-    web->load(QUrl("html/test.html"));
-
+    web->load(QUrl("html/tasksManager.html"));
     QWebSettings    *webSetting = web->page()->settings();
     webSetting->setAttribute(QWebSettings::JavascriptEnabled,true);
-
     connect(web->page()->mainFrame(),SIGNAL(javaScriptWindowObjectCleared()),this,SLOT(addObject()));
-
 }
 void QSimpleMode::addObject()
 {
@@ -72,4 +73,13 @@ void QSimpleMode::contextMenuEvent(QContextMenuEvent *evt)
 void QSimpleMode::returnToAll()
 {
     MainDialog::ref().getStackedWidget()->setCurrentIndex(0);
+}
+void QSimpleMode::paintEvent(QPaintEvent *)
+{
+    QPainter p(this);
+    QStyleOption op;
+    op.init(this);
+    style()->drawPrimitive(QStyle::PE_Widget,&op,&p,this);
+
+    p.fillRect(rect(),QColor(100,0,100,50));
 }

@@ -22,6 +22,7 @@ signals:
 
 protected:
     void contextMenuEvent(QContextMenuEvent *evt);
+    void paintEvent(QPaintEvent *);
 public slots:
     void addObject();
 
@@ -29,9 +30,10 @@ public slots:
     QStringList invoke();
     QStringList getAllCanDoList();
     QString     get(QString sql);
-    void    returnToAll();
+    void        returnToAll();
 private:
     QHFWebView *web;
+
 };
 
 #endif // QSIMPLEMODE_H
