@@ -107,6 +107,7 @@ void QToDoContent::tree_clicked(const QModelIndex &index)
     QStandardItem *item2 = m_model->item(r,0);
 
     QString data = QToDoData::ref().getData("127.0.0.1","fasp_yz","postgres","postgres");
+    qDebug()<<data;
     m_edit->setText(data);
     if ( item->checkState() == Qt::Checked )
     {
