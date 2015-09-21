@@ -1,9 +1,9 @@
 # QtDeskTop
 OS desktop developed by Qt
 ====
-系统界面
+绯荤粺鐣岄潰
 ====
 <img src="https://github.com/ycsoft/QtDeskTop/blob/master/pictures/2-desktop.png" />
-系统通知
+绯荤粺閫氱煡
 ====
 <img src="https://github.com/ycsoft/QtDeskTop/blob/master/pictures/3-desktopwithnotify.png" />
