@@ -32,7 +32,7 @@ void QSoftCenter::initUI()
 
     connect(m_web,SIGNAL(linkClicked(QUrl)),this,SLOT(linkCliced(QUrl)));
     lay->addWidget(m_web);
-    resize(800,500);
+    resize(880,500);
 }
 
 void QSoftCenter::linkCliced(const QUrl &url)
