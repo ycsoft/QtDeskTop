@@ -3,13 +3,60 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>Dock</title>
+<link href="res/mac-dock.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="res/tipsy.css" />
+<link type="text/css" rel="stylesheet" href="res/jquery-ui.min.css" />
 <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="res/interface.js"></script>
-<link href="res/mac-dock.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="res/jquery.tipsy.js"></script>
+<script type="text/javascript" src="res/jquery-ui.min.js"></script>
 
+<style>
+html,body{
+	width:100%; height:100%; overflow:hidden;
+}
+div#apps{
+	background-color:rgba(0,0,0,1); font-size:12px; color:#CCC; border-radius:5px; display:inline-block; margin-left:20px;
+	}
+#lean_overlay {
+    position:absolute;
+	left:100px;
+    z-index:100;
+    top: 100px;
+    height:100px;
+    width:100px;
+    display: none;
+}
+.dock-area{
+	margin-top:250px;
+}
+div img{
+	width:40px; height:40px; margin:8px 10px 0px 0px; cursor:pointer
+	}
+	
+#window
+{
+	position:relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: none;
+	border-radius:10px;
+}
+#windowapp
+{
+	position:relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: none;
+	border-radius:10px;
+}
+</style>
 <script type="text/javascript">
 $(document).ready(function(){
-	var rgb;
+
+	var rgb,dlg,dlgapp;
 	$("div.app").mouseover(function(){
 		rgb = ($(this).css("background-color"));
 		$(this).css("background-color","#B3CACC");
@@ -29,25 +76,106 @@ $(document).ready(function(){
 	$(this).attr("class","appimg");
 	});
 	
-	$("a.dock-item").click(function(e) {
+	$("a#softcenter").click(function(e) {
         var id = $(this).attr("id");
 		Qt.showWindow(id);
     });
+	$("a#switch").click(function(e) {
+        var id = $(this).attr("id");
+		Qt.showWindow(id);
+    });
+	$("a#tools").click(function(e) {
+		dlg.dialog('open');
+    });
+	$("a#apps").click(function(e) {
+		dlgapp.dialog('open');
+    });	
+	//对话框
+	$(function(){
+		var dlgOpts= {
+			position:{my:'center bottom-40',at:'center',of:'#tools'},
+			height:'100',
+			dialogClass:'window'
+			};
+		
+		dlg = $('#window').dialog(dlgOpts);
+		dlg.dialog('close');
+		
+		var dlgOpts2= {
+			position:{my:'center right - 50',at:'center',of:'#apps'},
+			height:'100',
+			width:'400',
+			dialogClass:'windowapp'
+			};
+		
+		dlgapp = $('#windowapp').dialog(dlgOpts2);
+		dlgapp.dialog('close');
+	});
+	//提示信息
+	$(function(){
+		var apps = '<div id="apps"><h2>通知</h2><h3>预算执行</h3><p>数据已存</p></div><div id="apps"><h3>动态监控</h3><p>数据已存</p></div><div id="apps"><h3>单位账务</h3><p>数据已存</p></div><div id="apps"><h3>会计账务</h3><p>数据已存</p></div>';
+		$("#apps").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:apps
+		});
+		
+		$("#im").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>即时通信</h3>'
+			}
+		);
+		$("#gwk").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>公务卡系统</h3>'
+			}
+		);
+		$("#mana").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>系统管理</h3>'
+			}
+		);
+		$("#dtjk").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>动态监控系统</h3>'
+			}
+		);
+		$("#kjzw").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>会计账务</h3>'
+			}
+		);
+		$("#dwzw").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>单位账务</h3>'
+			}
+		);
+		$("#yszx").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>预算执行</h3>'
+			}
+		);
+		$("#bank").tipsy({
+			gravity:'s',
+			html:true,
+			fallback:'<h3>银行支付</h3>'
+			}
+		);									
+	});
+	
 });
 </script>
-<style type="text/css">
-html,body{
-	overflow:hidden; width:800px; height:150px;
-	}
-.button_wrap{
-	/*background-color:rgba(51,102,153,50);
-	width:500px;*/
-}
-</style>
 </head>
 <body>
 <div align="center">
-<div class="dock" id="dock">
+<div class="dock dock-area" id="dock">
   <div class="dock-container button_wrap">
 	  <a class="dock-item" href="#" id="softcenter"><span>软件中心</span><img src="images/home.png" alt="软件中心" /></a> 
 	  <a class="dock-item" href="#" id="switch"><span>切换桌面</span><img src="images/email.png" alt="切换桌面" /></a> 
@@ -57,10 +185,25 @@ html,body{
   </div> 
 </div>
 </div>
+
+<div id="window">
+<img src="img/chatapp.png" id="im" />
+</div>
+<div id="windowapp">
+<img src="img/gwk.png" id="gwk"/>
+<img src="img/mana.png" id="mana"/>
+<img src="img/dtjk.png" id="dtjk"/>
+<img src="img/dwzw.png" id="dwzw"/>
+<img src="img/kjzw.png" id="kjzw"/>
+<img src="img/yszx.png" id="yszx"/>
+<img src="img/bank.png" id="bank"/>
+</div>
 <script>
 $(document).ready(
+
 		function()
 		{
+			
 			$('#dock').Fisheye(
 				{
 					maxWidth: 50,
@@ -88,5 +231,6 @@ $(document).ready(
 		}
 	);
 </script>
+
 </body>
 </html>

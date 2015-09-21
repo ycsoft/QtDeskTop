@@ -15,21 +15,20 @@
 <link href="res/mac-dock.css" rel="stylesheet" type="text/css" />
 </head>
 <style type="text/css">
-html,body{
-	overflow:hidden;
-}
+
 #tabs{
 	position:relative; margin:auto; left:auto;
 }
 img {
 	border: none;
 }
-#btmdock{ position:absolute; bottom:0px; height:80px; width:100%; background-color:rgba(255,204,153,0.2);}
+
+#btmdock{ position:absolute; bottom:0px; height:100px; width:100%;}
 
 </style>
 <script language="javascript">
-
-var txt = "123";//cfunc_get("select getbydate('c016','2015-01-01','');");
+var todoNum = 0, allNum = 15, done = 0;
+var txt = "国库处";//cfunc_get("select getbydate('c016','2015-01-01','');");
 var fish = function(){ 
 			
 			$('#dock').Fisheye(
@@ -45,32 +44,51 @@ var fish = function(){
 			)
 	}
 $(document).ready(function(){
-	fish();
- for ( i = 0 ; i < 18; ++i)
+ fish();
+ for ( i = 0 ; i < 12; ++i)
  {
 	 addTask(txt);
  }
+if ( allNum > 12 )
+{
+		$("#tabs").pages(Math.ceil(allNum/12),1,clickpage);
+}
+
+
 $("a.dock-item").click(function(e) {
         var id = $(this).attr("id");
 		Qt.showWindow(id);
     });	
+$('#headall').click(function(e) {
+    $('.content').css('display','block');
+	$('.content-done').css('display','none');
+	$('.content-todo').css('display','none');
+	if ( allNum > 12 )
+	{
+		$("#tabs").pages(Math.ceil(allNum/12),1,clickpage);
+	}
+});	
+	
+$('#headtodo').click(function(e) {
+    $('.content').css('display','none');
+	$('.content-done').css('display','none');
+	$('.content-todo').css('display','block');
+	if ( todoNum < 12 )
+	{
+		$("#tabs").pages2(0,0);
+	}
+});	
+
+$('#headdone').click(function(e) {
+    $('.content').css('display','none');
+	$('.content-done').css('display','block');
+	$('.content-todo').css('display','none');
+
+});	
+
 });
 
 $(document).ready(function(){
-
-$("#tabs").jPaginator({ 
-	    nbPages:6, 
-	    selectedPage:2,
-	    overBtnLeft:'#left_over', 
-	    overBtnRight:'#right_over', 
-	    maxBtnLeft:'#left_max', 
-	    maxBtnRight:'#right_max',
-	    minSlidesForSlider:5, 
-	    onPageClicked: function(a,num) { 
-	        //$("#page1").html("demo1 - page : "+num); 
-	    	alert(a);
-		}
-	});  
 	
 $("div.nav").mouseover(function(){
 $(this).css('backgroundColor','#666666');
@@ -79,18 +97,42 @@ $(this).css('backgroundColor','#666666');
 $("div.nav").mouseout(function(){
 $(this).css('backgroundColor','#2F2F2F');
 })	
+
 });
+
+function  clickpage( a,page )
+{
+	var count = allNum - (page-1)*12;
+	if (count > 12)
+	{
+		count = 12;	
+	}
+	$('.content').html('');
+	 for ( i = 0 ; i < count; ++i)
+	 {
+	 	addTask(txt);
+ 	 }
+}
 
 </script>
 <body>
 <img src="img/back.jpg" id="back">
 <div id="head-nav" align="center">
-<div  align="center" id="all" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)">申请任务</div>
-<div  align="center" id="todo" class="nav"  onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="alert('123')">待办任务</div>
-<div  align="center" id="done" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="test()">追踪任务</div>
+<div  align="center" id="headall" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" title="申请任务">申请任务</div>
+<div  align="center" id="headtodo" class="nav"  onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" title="待办任务">待办任务</div>
+<div  align="center" id="headdone" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" title="追踪任务">追踪任务</div>
 <div  align="center" id="return" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="reback()">返回</div>
 </div>
-<div id="content" align="center">
+<!--申请任务-->
+<div class="content" align="center">
+
+</div>
+<!--待办任务-->
+<div class="content-todo" align="center">
+
+</div>
+<!--追踪任务-->
+<div class="content-done" align="center">
 
 </div>
 <div id="tabs">

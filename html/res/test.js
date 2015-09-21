@@ -1,6 +1,4 @@
 // JavaScript Document
-//改变对象的背景颜色
-
 var colMax = 5;
 
 var curRow = 0;
@@ -11,6 +9,7 @@ function mouseIn( obj )
 //	var elem = document.getElementById("all");
 	obj.style.backgroundColor = "#666666"; 
 }
+
 function mouseOut(obj)
 {
 	obj.style.backgroundColor = "#2F2F2F"; 
@@ -21,12 +20,29 @@ function clickTask(txt)
 }
 function addTask(txt)
 {
-	var content = $("#content");
+	var content = $(".content");
 	var html = content.html();
 	
-	html += "<dia class='item'>" +txt + "</div>";
+	html += "<div class='item'>"+ '<div>' + txt + '</div>' + "<a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />申请处理</a>"+"</div>";
 	content.html( html );
-	
+ $('.item').mouseover(function(e) {
+     	var itm = $(this);
+		var btn = itm.children("a");
+		btn.css('display','block');
+});
+ $('.item').mouseout(function(e) {
+     	var itm = $(this);
+		var btn = itm.children("a");
+		btn.css('display','none');
+});
+
+$('.content').find('a').click(function(e) {
+    todoNum += 1;
+	var txt = $(this).parent("div").children("div").html();
+	$('#headtodo').setNumber(todoNum);
+	$('.content-todo').addToDo(txt,'处理发送');
+	//$('a').addToDo(txt,todoNum);
+});	
 }
 //添加一件事项
 function addTask2(txt)
@@ -111,3 +127,127 @@ function showMenu()
 	  pop.show(event.clientX-1,event.clientY,200,2,document.body);
 				
 }
+$.fn.extend({
+    setNumber:function(count){
+			var numstr = $(this).attr('title') + '<div class="number">' +'<img src="img/numback.png" /><div id="number">'+ count + '	</div></div>';
+			$(this).html(numstr);
+			var snum = count.toString().length - 1;
+			var sr = parseInt(20-snum*2);
+			$('#number').css('right',sr);
+			if ( count <= 0){
+				$(this).find('img').css("display","none");	
+				$(this).find('div#number').css("display","none");	
+			}
+		}	
+	
+});
+
+$.fn.extend({
+	addItem:function (txt,btnname){
+	var numstr = $(this).html();
+			numstr += "<div class='item'><div>" + txt + "</div><a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a></div>";
+			
+			$(this).html(numstr);
+			
+			 $('.item').mouseover(function(e) {
+     		var itm = $(this);
+			var btn = itm.children("a");
+				btn.css('display','block');
+			});
+			$('.item').mouseout(function(e) {
+     		var itm = $(this);
+			var btn = itm.children("a");
+				btn.css('display','none');
+			});
+			if (btnname != '处理发送')
+			{
+				$(this).find('a').click(function(e) {
+                	$(this).parent('div').css("display","none");
+					if( btnname == '删除'){
+						done -= 1;
+						$('#headdone').setNumber(done);
+						}
+            	});
+			}
+		}
+	
+});
+
+$.fn.extend({
+	addToDo: function (txt,btnname){
+		/*
+			var numstr = $('.content-todo').html();
+			numstr += "<div class='item'><div>" + txt + "</div><a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />处理发送</a></div>";
+			$('.content-todo').html(numstr);
+			
+			 $('.item').mouseover(function(e) {
+     		var itm = $(this);
+			var btn = itm.children("a");
+				btn.css('display','block');
+			});
+			$('.item').mouseout(function(e) {
+     		var itm = $(this);
+			var btn = itm.children("a");
+				btn.css('display','none');
+			});*/
+			$(this).addItem(txt,btnname);
+			
+			$('.content-todo').find('a').click(function(e) {
+                var itm = $(this).parent("div");
+				itm.css("display","none");
+				todoNum -= 1;
+				done += 1;
+				if ( todoNum < 0)
+				{
+					todoNum = 0;
+				}
+				$('#headtodo').setNumber(todoNum);
+				$('#headdone').setNumber(done);
+				$('.content-done').addItem(txt,'删除');
+            });
+			
+		}
+	
+	});
+$.fn.extend({
+	pages:function(total,cur,fun){
+		$(this).jPaginator({ 
+	    nbPages:total, 
+	    selectedPage:cur,
+	    overBtnLeft:'#left_over', 
+	    overBtnRight:'#right_over', 
+	    maxBtnLeft:'#left_max', 
+	    maxBtnRight:'#right_max',
+	    minSlidesForSlider:5, 
+	    onPageClicked: fun
+		//function(a,num) { 
+	        //$("#page1").html("demo1 - page : "+num); 
+	    //	alert(a);
+		//}
+	});  
+		}
+		
+});
+
+$.fn.extend({
+
+	pages2:function(total,cur){
+		$(this).jPaginator({ 
+	    nbPages:total, 
+	    selectedPage:cur,
+	    overBtnLeft:'#left_over', 
+	    overBtnRight:'#right_over', 
+	    maxBtnLeft:'#left_max', 
+	    maxBtnRight:'#right_max',
+	    minSlidesForSlider:5, 
+	    onPageClicked: function(a,num) { 
+
+		}
+	});  
+		}	
+	
+});
+
+/////加载任务列表
+
+
