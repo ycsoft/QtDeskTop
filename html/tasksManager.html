@@ -24,8 +24,11 @@ img {
 }
 
 #btmdock{ position:absolute; bottom:0px; height:100px; width:100%;}
-
 </style>
+<script>
+var  num_perpage = 12;
+var tasklist = getTaskList('127.0.0.1','fasp_yz','postgres','postgres');
+</script>
 <script language="javascript">
 var todoNum = 0, allNum = 15, done = 0;
 var txt = "¹ú¿â´¦";//cfunc_get("select getbydate('c016','2015-01-01','');");
@@ -45,13 +48,15 @@ var fish = function(){
 	}
 $(document).ready(function(){
  fish();
- for ( i = 0 ; i < 12; ++i)
- {
-	 addTask(txt);
+ allNum = tasklist.length;
+ for ( var i = 0 ; i < num_perpage; ++i)
+ {   //$('.debug').debug(i);
+	 addTask(tasklist[i]);
+	 //$('.debug').debug(i);
  }
-if ( allNum > 12 )
+if ( allNum > num_perpage )
 {
-		$("#tabs").pages(Math.ceil(allNum/12),1,clickpage);
+		$("#tabs").pages(Math.ceil(allNum/num_perpage),1,clickpage);
 }
 
 
@@ -63,9 +68,9 @@ $('#headall').click(function(e) {
     $('.content').css('display','block');
 	$('.content-done').css('display','none');
 	$('.content-todo').css('display','none');
-	if ( allNum > 12 )
+	if ( allNum > num_perpage )
 	{
-		$("#tabs").pages(Math.ceil(allNum/12),1,clickpage);
+		$("#tabs").pages(Math.ceil(allNum/num_perpage),1,clickpage);
 	}
 });	
 	
@@ -73,7 +78,7 @@ $('#headtodo').click(function(e) {
     $('.content').css('display','none');
 	$('.content-done').css('display','none');
 	$('.content-todo').css('display','block');
-	if ( todoNum < 12 )
+	if ( todoNum < num_perpage )
 	{
 		$("#tabs").pages2(0,0);
 	}
@@ -102,15 +107,16 @@ $(this).css('backgroundColor','#2F2F2F');
 
 function  clickpage( a,page )
 {
-	var count = allNum - (page-1)*12;
-	if (count > 12)
+	var count = allNum - (page-1)*num_perpage;
+	if (count > num_perpage)
 	{
-		count = 12;	
+		count = num_perpage;	
 	}
+	var pre = (page-1) * num_perpage;
 	$('.content').html('');
-	 for ( i = 0 ; i < count; ++i)
+	 for ( var i = 0 ; i < count; ++i)
 	 {
-	 	addTask(txt);
+	 	addTask(tasklist[pre + i]);
  	 }
 }
 
@@ -159,5 +165,6 @@ function  clickpage( a,page )
   </div> 
 </div>
 </div>
+<div class="debug"></div>
 </body>
 </html>

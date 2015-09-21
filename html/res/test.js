@@ -20,8 +20,11 @@ function clickTask(txt)
 }
 function addTask(txt)
 {
+	//$('.debug').debug('addTask');
 	var content = $(".content");
 	var html = content.html();
+	var txt = translate2txt(txt);
+	//$('.debug').debug(txt);
 	
 	html += "<div class='item'>"+ '<div>' + txt + '</div>' + "<a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />申请处理</a>"+"</div>";
 	content.html( html );
@@ -43,6 +46,7 @@ $('.content').find('a').click(function(e) {
 	$('.content-todo').addToDo(txt,'处理发送');
 	//$('a').addToDo(txt,todoNum);
 });	
+	//$('.debug').debug('addTask Over');
 }
 //添加一件事项
 function addTask2(txt)
@@ -247,7 +251,135 @@ $.fn.extend({
 		}	
 	
 });
+$.fn.extend({
+
+	debug:function(text){
+		var ht = $(this).html()+'<br />';
+		 $(this).html(ht + text);
+		 $(this).css("display","block");
+		}	
+	
+});
 
 /////加载任务列表
+function getTaskList(host, dbname,usr,pwd)
+{
+	var res = Qt.connectDB(host,dbname,usr,pwd);
+	if ( res == 0 )
+	{
+		Qt.executeSQL("select getbydate('c016','2015-02-01','')");
+		res = Qt.fieldValue(0,0);
+		res = json2Array(res);
+		return res;
+	}else
+	{
+		Qt.msgBox('Ok','数据库连接失败');	
+	}
+}
 
+function  json2Array(jstr)
+{
+	var jsobj = JSON.parse(jstr);
+	var res = new Array;
+	if ( jsobj instanceof Array)
+	{
+		
+	}
+	for ( key in jsobj )
+	{
+		//ss = JSON.stringify(jsobj[key]);
+		//ss = ss.substr(0,100);
+		ss = jsobj[key];
+		res.push(ss);
+	}
+	return res;
+}
+function getType(obj)
+{
+	if ( obj instanceof Array )
+	{
+		return 'array';	
+	}else{
+		if ( obj == null )
+		{
+			return 'null';
+		}else
+		{
+			return typeof(obj);
+		}
+	}
+}
 
+function transObject( jsobj)
+{
+	//$('.debug').debug('object');
+	var result = '';
+	for ( key in jsobj)
+	{
+		var tp = getType(jsobj[key]);
+		//$('.debug').debug(key + ':' + tp);
+		if ( tp == 'object' )
+		{
+			result += '<br />' + key + '为</br>' + transObject(jsobj[key]);	
+		}else if ( tp == 'array' )
+		{
+			result += '<br />' + key + '分别为<br />' + transArray(jsobj[key]);
+		}else if ( tp != 'null' ){
+			result += key + '为' + jsobj[key] + ',';	
+		}
+	}
+	//$('.debug').debug(result[result.length-1]);
+	//$('.debug').debug(result.substr(result.length-1,1));
+	if ( result[result.length-1] == ',' )
+		{
+			result = result.substr(0,result.length-1);	
+		}
+	result += '<br />';
+	return result;
+}
+function transArray(jsarray)
+{
+	var result = '';
+	for (i in jsarray)
+	{
+		for ( key in jsarray[i])
+		{
+			var tp = getType(jsarray[i][key]);
+			//$('.debug').debug(key + ':' +tp);
+			if ( tp  == 'object' )
+			{
+				result += key + '为<br />' + transObject(jsarray[i][key]);	
+			}else if ( tp  == 'array' )
+			{
+				result += key + '分别为<br />' + transArray(jsarray[i][key]);
+			}else if ( tp != 'null' )
+			{
+				result += key + '为' + jsarray[i][key] + ',';	
+			}
+		}
+		if ( result[result.length-1] == ',' )
+		{
+			result = result.substr(0,result.length-1);	
+		}
+		//$('.debug').debug(result[result.length-1]);
+		//$('.debug').debug(result.indexOf(',',result.length-2));
+		result += ';<br />';
+	}	
+	
+	result += '<br />';
+	return result;
+}
+function translate2txt(jsobj)
+{
+	var result = '';
+	if (  getType(jsobj) == 'object' )
+	{
+		
+		return transObject( jsobj);
+		
+	}else if (  getType(jsobj) == 'array')
+	{
+		
+		return transArray( jsobj)
+	}
+}

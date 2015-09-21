@@ -163,10 +163,11 @@ float:right;
 div.hspace{
 width:100%;
 height:5px;
-}  
+}
+  
 .item{
 	position:relative;width:15%; height:150px; background:rgba(153,153,102,50); display:inline-block;
-	margin:5px 5px 5px 5px; padding:50px 0px 10px 0px;
+	margin:5px 5px 5px 5px; padding:50px 0px 10px 0px; overflow:hidden;
 }
 a.itembutton{
 	position:absolute;
@@ -185,7 +186,7 @@ a.itembutton-done{
 }
 a:hover{ color:#00F;}
 
-.item div { color:#000; font-size:12px; font-weight:300;}
+.item div { color:#000; font-size:12px; font-weight:300; padding: 0px 5px 15px 5px; word-break:break-all; word-wrap:normal; overflow:hidden}
 .applyimg{width:30px; height:30px; position:absolute; top:2px; left:20px;}
 .jPaginatorOver {
             float:left;
@@ -203,3 +204,5 @@ a:hover{ color:#00F;}
             cursor:pointer;
             text-align:center;
         }
+
+.debug{position:absolute; top:200px; left:50px; width:700px; height:400px; background-color:#966; z-index:3; display:none; overflow:scroll}
