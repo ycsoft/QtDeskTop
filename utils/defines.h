@@ -31,7 +31,7 @@
 #define         GB      1073741824
 
 #define         DOCK_WID    800
-#define         DOCK_HEI    150
+#define         DOCK_HEI    400
 
 #define         SHARE_MEM_SIZE      1024
 

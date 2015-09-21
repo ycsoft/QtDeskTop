@@ -40,9 +40,8 @@ QAppIconPanel::QAppIconPanel(QWidget *parent) : QWidget(parent)
 void QAppIconPanel::addDock()
 {
     int x = (m_screenWidth - DOCK_WID)/2;
-    int y = m_screenHight - 150;
+    int y = m_screenHight - DOCK_HEI;
     QHtmlDock *dock = new QHtmlDock(this);
-
     dock->setAttribute(Qt::WA_TranslucentBackground);
     dock->move(x,y);
     dock->show();
