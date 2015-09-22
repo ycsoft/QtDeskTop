@@ -27,7 +27,7 @@ public slots:
     void     open(const QString &path);
     void     open(const QString &path,const QStringList &arglist);
     void     showWindow(QString);
-
+    void     close();
     int      connectDB(QString host, QString dbname,QString usr,QString pwd);
     void     executeSQL(QString sql);
 

@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <QProcess>
 #include <string>
+#include <QApplication>
+
 using namespace std;
 
 
@@ -44,6 +46,10 @@ void QJSCore::msgBox(const QString &title,const QString &txt)
 {
     qDebug()<<"MsgBox";
     QMessageBox::information(NULL,title,txt,0);
+}
+void QJSCore::close()
+{
+    qApp->exit(0);
 }
 
 void QJSCore::open(const QString &path)
