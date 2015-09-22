@@ -3,16 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>精简桌面</title>
-
-    <!--[if lt IE 9]><script type="text/javascript" src="/js/css3-mediaqueries.js"></script><![endif]-->
-    <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="res/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="res/jPaginator-min.js"></script>
-	<script type="text/javascript" src="res/test.js"></script>
-    <script type="text/javascript" src="res/interface.js"></script>
 <link  rel="stylesheet" type="text/css" href="res/test.css" />
 <link href="res/jPaginator.css" rel="stylesheet" type="text/css" />
 <link href="res/mac-dock.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="res/jquery-ui.min.css" />  
+    <!--[if lt IE 9]><script type="text/javascript" src="/js/css3-mediaqueries.js"></script><![endif]-->
+    <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="res/jPaginator-min.js"></script>
+	<script type="text/javascript" src="res/test.js"></script>
+    <script type="text/javascript" src="res/interface.js"></script>
+    <script type="text/javascript" src="res/jquery-ui.min.js"></script>  
+
 </head>
 <style type="text/css">
 
@@ -23,11 +24,12 @@ img {
 	border: none;
 }
 
-#btmdock{ position:absolute; bottom:0px; height:100px; width:100%;}
+#btmdock{ position:relative; top:30px; height:80px; width:100%;}
 </style>
 <script>
+var detailDialog,detailDialog2, etti = 'c020', pos = '003005002';
 var  num_perpage = 12;
-var tasklist = getTaskList('127.0.0.1','fasp_yz','postgres','postgres');
+var tasklist = getList(etti,pos);//getTaskList('127.0.0.1','fasp_yz','postgres','postgres');
 </script>
 <script language="javascript">
 var todoNum = 0, allNum = 15, done = 0;
@@ -48,12 +50,37 @@ var fish = function(){
 	}
 $(document).ready(function(){
  fish();
+ //明细对话框
+var dlgOpts= {
+			position:{my:'center',at:'center'},
+			height:'400',
+			width:'700',
+			dialogClass:'detailWindow'
+};
+var dlgOpts2= {
+			position:{my:'center',at:'center'},
+			height:'400',
+			width:'700',
+			dialogClass:'detailWindow2'
+};		
+detailDialog = $('.detailWindow').dialog(dlgOpts);
+detailDialog.dialog('close');
+detailDialog2 = $('.detailWindow2').dialog(dlgOpts2);
+detailDialog2.dialog('close');
+
+		
  allNum = tasklist.length;
- for ( var i = 0 ; i < num_perpage; ++i)
+ var ct = 0;
+ if ( allNum < num_perpage)
+ {
+	ct = allNum;	 
+}else ct = num_perpage;
+ for ( var i = 0 ; i < ct; ++i)
  {   //$('.debug').debug(i);
-	 addTask(tasklist[i]);
+	 addTaskObj(tasklist[i]);
 	 //$('.debug').debug(i);
  }
+ 
 if ( allNum > num_perpage )
 {
 		$("#tabs").pages(Math.ceil(allNum/num_perpage),1,clickpage);
@@ -89,24 +116,53 @@ $('#headdone').click(function(e) {
 	$('.content-done').css('display','block');
 	$('.content-todo').css('display','none');
 
-});	
-
 });
 
-$(document).ready(function(){
-	
 $("div.nav").mouseover(function(){
-$(this).css('backgroundColor','#666666');
+  $(this).css('backgroundColor','#666666');
 });
 
 $("div.nav").mouseout(function(){
-$(this).css('backgroundColor','#2F2F2F');
-})	
-
+ $(this).css('backgroundColor','#2F2F2F');
 });
+
+$("#closebtn").mouseover(function(e) {
+	//$(".debug").debug( $(this).attr("src"));
+    $(this).attr("src","img/btn_close_highlight.png");
+});
+
+$("#closebtn").mouseout(function(e) {
+    $(this).attr("src","img/btn_close_normal.png");
+});
+$("#closebtn").click(function(e) {
+    Qt.close();
+});
+$(".tips>img").mouseover(function(e) {
+     $(this).attr("src","img/btn_close_highlight.png");
+});
+
+$(".tips>img").mouseout(function(e) {
+     $(this).attr("src","img/btn_close_normal.png");
+});
+
+	
+});
+	
+
+/*
+$('div#return>img').mouseover(function(e) {
+    $(this).attr('src','img/btn_close_highlight.png');
+});
+
+
+$('div#return>img').mouseout(function(e) {
+    $(this).attr('src','img/btn_close_normal.png');
+});
+*/
 
 function  clickpage( a,page )
 {
+	
 	var count = allNum - (page-1)*num_perpage;
 	if (count > num_perpage)
 	{
@@ -116,29 +172,33 @@ function  clickpage( a,page )
 	$('.content').html('');
 	 for ( var i = 0 ; i < count; ++i)
 	 {
-	 	addTask(tasklist[pre + i]);
+	 	addTaskObj(tasklist[pre + i]);
  	 }
+	 
 }
 
 </script>
 <body>
 <img src="img/back.jpg" id="back">
 <div id="head-nav" align="center">
-<div  align="center" id="headall" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" title="申请任务">申请任务</div>
-<div  align="center" id="headtodo" class="nav"  onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" title="待办任务">待办任务</div>
-<div  align="center" id="headdone" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" title="追踪任务">追踪任务</div>
-<div  align="center" id="return" class="nav" onmouseover="mouseIn(this)" onmouseout="mouseOut(this)" onclick="reback()">返回</div>
+<span class="logo">财政平台安全桌面</span>
+<a  id="appmana" class="nav" title="申请任务">应用管理</a>
+<a  id="headall" class="nav" title="申请任务">申请任务</a>
+<a  id="headtodo" class="nav"  title="待办任务">待办任务</a>
+<a  id="headdone" class="nav" title="追踪任务">追踪任务</a>
+<a  id="headall" class="nav" title="申请任务">历史查询</a>
+<a  id="history" class="nav2"><img src="img/btn_close_normal.png" id="closebtn"  /></a>
 </div>
 <!--申请任务-->
-<div class="content" align="center">
+<div class="content">
 
 </div>
 <!--待办任务-->
-<div class="content-todo" align="center">
+<div class="content-todo">
 
 </div>
 <!--追踪任务-->
-<div class="content-done" align="center">
+<div class="content-done">
 
 </div>
 <div id="tabs">
@@ -166,5 +226,29 @@ function  clickpage( a,page )
 </div>
 </div>
 <div class="debug"></div>
+<div class="detailWindow">
+<p>
+</p>
+<div>
+<a class="ui-button" href="#">处理</a>
+</div>
+</div>
+
+<div class="detailWindow2">
+<p>
+</p>
+<div>
+<a class="ui-button" href="#">处理</a>
+</div>
+</div>
+<!--提示窗口的弹出位置-->
+<div class="tips">
+<img src="img/btn_close_normal.png" />
+<div class="tips-content">
+</div>
+<div class="btn" align="center"></div>
+<p>
+</p>
+</div>
 </body>
 </html>

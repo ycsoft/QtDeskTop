@@ -48,6 +48,49 @@ $('.content').find('a').click(function(e) {
 });	
 	//$('.debug').debug('addTask Over');
 }
+function addTaskObj(obj)
+{
+	//$('.debug').debug('addTask');
+	
+	var content = $(".content");
+	var html = content.html();
+	var txt = obj2html(obj);
+	//$('.debug').debug(txt);
+	
+	html += "<span class='item'>"+ '<div>' + txt + '</div>' + "<a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />申请处理</a>"+"</span>";
+	content.html( html );
+	
+ $('.item').mouseover(function(e) {
+     	var itm = $(this);
+		var btn = itm.children("a");
+		btn.css('display','block');
+});
+ $('.item').mouseout(function(e) {
+     	var itm = $(this);
+		var btn = itm.children("a");
+		btn.css('display','none');
+});
+
+$('.item>div').click(function(e) {
+	var id = $(this).find("span.id").html();
+	$('.detailWindow').children('p').html('');
+	var res =  translate2txt(JSON.parse(getbyid(id)));
+	$(".detailWindow").find('a').css("display",'block');
+	$('.detailWindow').children('p').html(res);
+	detailDialog.dialog('open');
+});
+
+
+$('.content').find('a').click(function(e) {
+    todoNum += 1;
+	var txt = $(this).parent("span").children("div").html();
+	$('#headtodo').setNumber(todoNum);
+	$('.content-todo').addToDo(txt,'处理发送');
+	//$('a').addToDo(txt,todoNum);
+});	
+	//$('.debug').debug('addTask Over');
+}
+
 //添加一件事项
 function addTask2(txt)
 {
@@ -149,9 +192,24 @@ $.fn.extend({
 $.fn.extend({
 	addItem:function (txt,btnname){
 	var numstr = $(this).html();
-			numstr += "<div class='item'><div>" + txt + "</div><a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a></div>";
+			numstr += "<span class='item'><div>" + txt + "</div><a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a></span>";
 			
 			$(this).html(numstr);
+			
+			$('.span>div').click(function(e) {
+			var id = $(this).find("span.id").html();
+			$('.detailWindow').children('p').html('');
+			var res =  translate2txt(JSON.parse(getbyid(id)));
+			
+			if ( btnname != '删除')
+			{
+				$('.detailWindow').children('p').html(res);
+				detailDialog.dialog('open');
+			}else{
+				$('.detailWindow2').children('p').html(res);
+				detailDialog2.dialog('open');	
+			}
+			});			
 			
 			 $('.item').mouseover(function(e) {
      		var itm = $(this);
@@ -166,10 +224,17 @@ $.fn.extend({
 			if (btnname != '处理发送')
 			{
 				$(this).find('a').click(function(e) {
-                	$(this).parent('div').css("display","none");
+                	$(this).parent('span').css("display","none");
 					if( btnname == '删除'){
 						done -= 1;
 						$('#headdone').setNumber(done);
+						$(".tips").css('display','block');
+						$(".content-done").css('height','45%');
+						
+						var id = $(this).parent('span').find('span.id').html();
+						var res = getbyid(id);
+						var sql = "select put('/"+etti + "[" + id+ "]','"+res+"')";
+						$('.content-done').popTips(translate2txt(JSON.parse(res)));
 						}
             	});
 			}
@@ -197,7 +262,7 @@ $.fn.extend({
 			$(this).addItem(txt,btnname);
 			
 			$('.content-todo').find('a').click(function(e) {
-                var itm = $(this).parent("div");
+                var itm = $(this).parent("span");
 				itm.css("display","none");
 				todoNum -= 1;
 				done += 1;
@@ -208,6 +273,19 @@ $.fn.extend({
 				$('#headtodo').setNumber(todoNum);
 				$('#headdone').setNumber(done);
 				$('.content-done').addItem(txt,'删除');
+				//发送
+				var id = $(this).parent('div').find('span.id').html();
+				var res = getbyid(id);
+				var sql = "select put('/"+etti + "[" + id+ "]','"+res+"')";
+				$('.content-todo').popTips(translate2txt(JSON.parse(res)));
+				//$('.debug').debug(sql);
+				Qt.executeSQL(sql);
+				if ( Qt.getRecordCount() > 0 )
+				{
+					res = Qt.fieldValue(0,0);
+					alert(res);	
+				}
+				
             });
 			
 		}
@@ -259,6 +337,26 @@ $.fn.extend({
 		 $(this).css("display","block");
 		}	
 	
+});
+
+$.fn.extend({
+
+popTips:function(text){
+		var parent = $(this);
+		$(this).css('height','45%');
+		$('.tips').css('display','block');
+		/*$('.tips').animate({
+			 height:'toggle'
+			});
+		*/	
+		var tips = '<h3>数据操作请求</h3><p>操作实体:<span>' + etti + '</span></p><p>操作人:<span></span></p><p>数据内容:<span>'+text+'</span></p>'
+		$('.tips-content').html(tips);
+		$('.tips .btn').html('<a class="ui-button">确认</a><a class="ui-button">拒绝</a>');
+		$('.tips>img').click(function(e) {
+            parent.css('height','70%');
+			$('.tips').css('display','none');
+        });
+	}	
 });
 
 /////加载任务列表
@@ -381,5 +479,58 @@ function translate2txt(jsobj)
 	{
 		
 		return transArray( jsobj)
+	}
+}
+///
+function getList(tb,gw)
+{
+	var result = new Array;
+	var res = Qt.connectDB('127.0.0.1','fasp_yz','postgres','postgres');
+	if ( res == 0 )
+	{
+		var sql ="select * from getbyettilist('"+tb+"','"+gw + "') as (id numeric(20,0),c1 varchar(100),c2 varchar(100),c3 varchar(30));";
+		
+		
+		
+		Qt.executeSQL(sql);
+		var rows = Qt.getRecordCount();
+		for ( var i = 0 ; i < rows; i++)
+		{
+			robj = new Object;
+			robj.id = Qt.fieldValue(i,0);
+			robj.code = Qt.fieldValue(i,1);
+			robj.remark = Qt.fieldValue(i,2);
+			robj.date = Qt.fieldValue(i,3);
+			//$('.debug').debug(sql);
+			result.push(robj);
+		}
+		return result;
+	}else
+	{
+		Qt.msgBox('Ok','数据库连接失败');	
+	}
+
+}
+function  obj2html( obj )
+{
+	var res = '';
+	res = '<p id="id" align="left"><strong>ID:</strong><span class="id">' + obj.id + '</span></p>';
+	res += '<p  align="left"><strong>单号:</strong><span>' + obj.code + '</span></p>';
+	res += '<p  align="left"><strong>摘要:</strong><span>' + obj.remark + '</span></p>';
+	res += '<p  align="left"><strong>日期:</strong><span>' + obj.date + '</span></p>';
+	return res;	
+}
+function getbyid( id )
+{
+	var sql = "select * from getbyid('"+etti+"','" + id + "')";
+	Qt.executeSQL(sql);
+	if ( Qt.getRecordCount() > 0 )
+	{
+		//$('.debug').debug(sql);
+		var res = Qt.fieldValue(0,0);
+		return res;
+	}else
+	{
+		return '';
 	}
 }
