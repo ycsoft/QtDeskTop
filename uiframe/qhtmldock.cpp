@@ -1,4 +1,6 @@
 ﻿#include "qhtmldock.h"
+#include "utils/defines.h"
+
 #include <QHBoxLayout>
 
 #include <QPainter>
@@ -29,9 +31,10 @@ void QHtmlDock::initUI()
     setStyleSheet("QWidget#mainwim{border-image: url(:/ui/mac-desk.jpg);}");
 
     m_web = new QHFWebView(this);
-    vlay->addWidget(m_web,0,Qt::AlignHCenter);
     m_web->load(QUrl("html/dock.html"));
     m_web->setTransparent(true);
+    setMinimumSize(DOCK_WID,DOCK_HEI);
+    vlay->addWidget(m_web,0,Qt::AlignHCenter);
 
 }
 void QHtmlDock::mousePressEvent(QMouseEvent *evt)
