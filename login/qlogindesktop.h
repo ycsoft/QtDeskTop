@@ -12,7 +12,7 @@ class QLoginDesktop : public QWidget
     Q_OBJECT
 public:
     explicit QLoginDesktop(QWidget *parent = 0);
-
+    ~QLoginDesktop();
 signals:
 
 public slots:

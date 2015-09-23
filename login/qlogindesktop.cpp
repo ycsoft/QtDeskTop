@@ -24,6 +24,10 @@ QLoginDesktop::QLoginDesktop(QWidget *parent) : QWidget(parent)
     connect(m_client,SIGNAL(connected()),this,SLOT(connected()));
     connect(m_client,SIGNAL(disconnected()),this,SLOT(connectedError()));
 }
+QLoginDesktop::~QLoginDesktop()
+{
+    qDebug()<<"QLoginDesktop destroy";
+}
 
 void QLoginDesktop::initUI()
 {
@@ -50,7 +54,7 @@ void QLoginDesktop::showMain()
 {
     static MainDialog &main = MainDialog::ref();
     main.getTaskBar()->setVisible(true);
-    main.getStackedWidget()->setCurrentIndex(0);
+    main.getStackedWidget()->setCurrentIndex( Simple_Desk );
 }
 void QLoginDesktop::exitApp()
 {
@@ -101,7 +105,7 @@ void QLoginDesktop::connected()
     static boost::asio::io_service g_io;
     TCPServer *m_svrsock = new TCPServer(g_io,5033,this);
     //准备启动即时通信
-    QJSCore *jscore = new QJSCore(this);
+    QJSCore *jscore = QJSCore::ref();
     QStringList arglist = QAppArg::ref().argList();
     jscore->open("IM_QXmpp.exe",arglist);
 }
