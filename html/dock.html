@@ -28,7 +28,7 @@ div#apps{
     display: none;
 }
 .dock-area{
-	margin-top:250px;
+	position:absolute; top:180px; left:200px;
 }
 div img{
 	width:40px; height:40px; margin:8px 10px 0px 0px; cursor:pointer
@@ -175,7 +175,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div align="center">
-<div class="dock dock-area" id="dock">
+<div class="dock dock-area" id="dock" align="center">
   <div class="dock-container button_wrap">
 	  <a class="dock-item" href="#" id="softcenter"><span>软件中心</span><img src="images/home.png" alt="软件中心" /></a> 
 	  <a class="dock-item" href="#" id="switch"><span>切换桌面</span><img src="images/email.png" alt="切换桌面" /></a> 
@@ -215,19 +215,7 @@ $(document).ready(
 					halign : 'center'
 				}
 			)
-			$('#dock2').Fisheye(
-				{
-					maxWidth: 60,
-					items: 'a',
-					itemsText: 'span',
-					container: '.dock-container2',
-					itemWidth: 40,
-					proximity: 80,
-					alignment : 'left',
-					valign: 'bottom',
-					halign : 'center'
-				}
-			)
+			
 		}
 	);
 </script>

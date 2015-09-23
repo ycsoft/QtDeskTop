@@ -3,10 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>软件中心</title>
-<script type="text/javascript" src="res/login.js"></script>
+<link type="text/css" rel="stylesheet" href="res/softCenter.css" />
 <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="res/jquery.cookie.js"></script>
-<script type="text/javascript" src="res/jquery-multidownload.js"></script>
+<script type="text/javascript" src="res/hf-jquery.js"></script>
 <script type="text/javascript">
 
 $(document).ready( function(){
@@ -19,8 +18,7 @@ var ss = Qt.readFromFile("html/files/alllist.txt");
 var html = "";
 html = json2list(ss);
 $("div.list").html(html);
-
-/**********************************************************/
+$(document).enableDownload();
 
 var menucolor,bground = $("div.menuText").css("background");
 
@@ -55,18 +53,11 @@ $("div.menuTxt").mouseout(function(){
 $(this).css("color",menucolor);
 });
 
-$("a.download").click(function( evt){
-//evt.preventDefault();
-//alert("download");
-//$(this).multiDownload();
-var url = $(this).attr("href");
-alert(url);
-//download(url);
-});
 
 $("div#all").click(function(){
 $("div#common").css("background","");
 $("div#xjb").css("background","");
+$("div#local").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/alllist.txt");
 var html = json2list(ss);
@@ -76,48 +67,41 @@ $("div.list").html(html);
 $("div#common").click(function(){
 $("div#all").css("background","");
 $("div#xjb").css("background","");
+$("div#local").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/common.txt");
 var html = json2list(ss);
 $("div.list").html(html);
+$(document).enableDownload();
 });
 
 $("div#xjb").click(function(){
+$("div#local").css("background","");	
 $("div#common").css("background","");
 $("div#all").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/xjb.txt");
 var html = json2list(ss);
 $("div.list").html(html);
+$(document).enableDownload();
 });
 
-}
-);
+$("div#local").click(function(){
+$("div#common").css("background","");
+$("div#all").css("background","");
+$("div#xjb").css("background","");
+$(this).css("background","url(img/menu.png) no-repeat");
+var ss = Qt.readFromFile("html/files/local.txt");
+var html = json2list(ss);
+$("div.list").html(html);
+$(document).enableDownload();
+});
 
 
-function download(url)
-{
-	var form = $("<form>");
-	form.attr("style","display:none");
-	form.attr("target","");
-	form.attr("method","post");
-	form.attr("action",url);
-	var input1=$("<input>");
-	input1.attr("type","hidden");
-	input1.attr("name","exportData");
-	input1.attr("value",(new Date()).getMilliseconds());
-	$("body").append(form);//将表单放置在web中
-	form.append(input1);
-	form.submit();//表单提交
-}
+});
+
 function  json2list( jstr )
 {
-//
-//<div class="app">
-//<div class="appicon"><img src="img/dtjk.png" class="appimg" /></div><div class="txt">动态监控<div class="download"><a //href="http://localhost/files/LICENSE.txt" class="download">下载</a></div></div>
-//</div>
-//
-//
 	if ( jstr == "" || jstr == null )
 	{
 		return "";
@@ -129,158 +113,15 @@ function  json2list( jstr )
 	  value = obj[key];
 	  img = value["img"];
 	  href = value["file"];
-	  html += '<div class="app"><div class="appicon"><img src="' + img + '" class="appimg" /></div><div class="txt">'
-	  		  + key + '<div class="download">' + '<a href="'+href+'" class="dowload">'+"下载"+ '</a></div></div></div>';
+	  //html += '<div class="app"><div class="appicon"><img src="' + img + '" class="appimg" /></div><div class="txt">'
+	  //		  + key + '<div class="download">' + '<a href="'+href+'" class="dowload">'+"下载"+ '</a></div></div></div>';
+			  
+	  html += '<div class="app"><div class="imgback"><img src="'+img+'" class="appimg" /></div><ul><li class="txt">'+key+'</li><a class="download" href="'+href+'">添加应用</a></ul></div>';
 	}
 	return html;
 }
 </script>
 
-<style type="text/css">
-html body{
-width:100%;
-height:100%;
-margin:0px;
-overflow:hidden;
-}
-.nav{
-position:absolute;width:11%;height:100%;background:#004080;
-}
-.center{
-position:absolute;
-left:12%;
-width:88%;
-height:100%;
-}
-.navbutton{
-position:relative;
-width:100%;
-height:15%;
-display:block;
-padding-top:40px;
-padding-bottom:0px;
-}
-.navimg{
-width:40px;
-height:40px;
-}
-.headimg{
-position:absolute;
-width:2%;
-height:50%;
-display:inline-block;
-}
-.apptxt{
-font-family:"宋体";
-font-size:14px;
-font-weight:bold;
-color:#FFFFFF;
-}
-hr{
-border-bottom-width:thin;
-border-bottom-color:#0080C0;
-display:block;
-margin:0px;
-}
-div.head{
-position:absolute;
-float:right;
-/*background:#FF8040;*/
-width:100%;
-height:8%;
-padding-top:5px;
-}
-div.menu{
-display:block;
-position:absolute;
-/*background:#818181;*/
-top:10%;
-width:100%;
-height:8%;
-}
-div.menuTxt
-{
-display:inline-block;
-text-align:center;
-font-family:"宋体";
-font-weight:bold;
-font-size:12px;
-color:#1A1A1A;
-position:relative;
-width:100px;
-height:100%;
-top:-40%;
-cursor:pointer;
-}
-hr.vertical{
-position:relative;
-top:-10px;
-width:1px;
-height:50%;
-display:inline-block;
-}
-div.ver{
-position:relative;
-width:5px;
-height:100%;
-display:inline-block;
-left:2px;
-}
-div.list{
-display:block;
-position:absolute;
-top:16%;
-left:1%;
-width:98%;
-height:84%;
-/*background:#8080FF;*/
-overflow-x:hiden;
-overflow-y:scroll;
-scrollbar-arrow-color: #FF8040; /**//*三角箭头的颜色*/
-}
-div.app{
-position:relative;
-width:160px;
-height:110px;
-/*background:#FF8040;*/
-display:inline-block;
-margin-bottom:5px;
-margin-left:9px;
-padding-left:15px;
-}
-div.appicon{
-position:relative;
-display:inline-block;
-top:20%;
-width:60px;
-height:60px;
-}
-img.appimg{
-position:relative;
-display:inline-block;
-width:60px;
-height:60px;
-}
-div.txt{
-display:inline-block;
-padding-left:5px;
-font:"宋体";
-font-size:12px;
-font-weight:bold;
-color:#0B0B0B;
-}
-div.download{
-display:block;
-position:relative;
-top:10px;
-font-family:"宋体";
-font-size:12px;
-font-weight:bolder;
-color:#804000;
-text-align:center;
-cursor:pointer;
-}
-</style>
 </head>
 <body>
 <!--左侧导航栏-->
@@ -297,12 +138,14 @@ cursor:pointer;
 <img src="img/btn_close_normal.png" id="close" class="headimg" style="right:45px"/></div>
 <!--菜单区域-->
 <div class="menu">
+<div class="menuTxt" align="center" id="local"><p>本地软件</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 <div class="menuTxt" align="center" id="all"><p>全部软件</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 <div class="menuTxt" align="center" id="common"><p>常用工具</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 <div class="menuTxt" align="center" id="xjb"><p>县级版</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 </div>
 <!--软件列表区-->
 <div class="list">
+
 <!--div class="app">
 <div class="appicon"><img src="img/gwk.png" class="appimg" /></div><div class="txt">公务卡<div class="download">下载</div></div>
 </div>

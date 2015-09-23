@@ -1,0 +1,6 @@
+{
+"公务卡系统":{"version":"1.0","size":10245,"img":"img/gwk.png","file":"xjb\\all\\GwCard.lnk"},
+"会计账务":{"version":"1.0","size":10245,"img":"img/kjzw.png","file":"xjb\\all\\kjzw.lnk"},
+"预算执行":{"version":"1.0","size":10245,"img":"img/yszx.png","file":"xjb\\all\\yszx.lnk"},
+"即时通信":{"version":"1.0","size":10245,"img":"img/chatapp.png","file":"IM_QXmpp.exe"}
+}

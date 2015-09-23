@@ -7,16 +7,16 @@
 <link href="res/jPaginator.css" rel="stylesheet" type="text/css" />
 <link href="res/mac-dock.css" rel="stylesheet" type="text/css" />
 <link type="text/css" rel="stylesheet" href="res/jquery-ui.min.css" />  
+<link type="text/css" rel="stylesheet" href="res/hf-jquery.css" />
     <!--[if lt IE 9]><script type="text/javascript" src="/js/css3-mediaqueries.js"></script><![endif]-->
     <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="res/jPaginator-min.js"></script>
 	<script type="text/javascript" src="res/test.js"></script>
     <script type="text/javascript" src="res/interface.js"></script>
     <script type="text/javascript" src="res/jquery-ui.min.js"></script>  
-
+    <script type="text/javascript" src="res/hf-jquery.js"></script>
 </head>
 <style type="text/css">
-
 #tabs{
 	position:relative; margin:auto; left:auto;
 }
@@ -24,50 +24,58 @@ img {
 	border: none;
 }
 
-#btmdock{ position:relative; top:30px; height:80px; width:100%;}
+#btmdock{ position:absolute; bottom:50px;width:100%;}
 </style>
 <script>
 var detailDialog,detailDialog2, etti = 'c020', pos = '003005002';
 var  num_perpage = 12;
 var tasklist = getList(etti,pos);//getTaskList('127.0.0.1','fasp_yz','postgres','postgres');
+var myApps = new Object;
 </script>
 <script language="javascript">
-var todoNum = 0, allNum = 15, done = 0;
+var todoNum = 0, allNum = 0, done = 0,appcount = 0;
 var txt = "国库处";//cfunc_get("select getbydate('c016','2015-01-01','');");
 var fish = function(){ 
 			
 			$('#dock').Fisheye(
 				{
-					maxWidth: 50,
+					maxWidth: 80,
 					items: 'a',
 					itemsText: 'span',
 					container: '.dock-container',
-					itemWidth: 40,
+					itemWidth: 70,
 					proximity: 90,
 					halign : 'center'
 				}
 			)
 	}
 $(document).ready(function(){
- fish();
  //明细对话框
+ 	fish();
 var dlgOpts= {
 			position:{my:'center',at:'center'},
 			height:'400',
 			width:'700',
 			dialogClass:'detailWindow'
 };
+/*
 var dlgOpts2= {
 			position:{my:'center',at:'center'},
 			height:'400',
 			width:'700',
 			dialogClass:'detailWindow2'
 };		
+*/
 detailDialog = $('.detailWindow').dialog(dlgOpts);
 detailDialog.dialog('close');
-detailDialog2 = $('.detailWindow2').dialog(dlgOpts2);
-detailDialog2.dialog('close');
 
+$("#todo").css('display','none');
+$("#done").css('display','none');
+$("#ap").css('display','none');
+$("#hist").css('display','none');
+
+$('#ulist').loadMyApp();
+//$('#ulist').readyAdd();
 		
  allNum = tasklist.length;
  var ct = 0;
@@ -85,16 +93,49 @@ if ( allNum > num_perpage )
 {
 		$("#tabs").pages(Math.ceil(allNum/num_perpage),1,clickpage);
 }
-
+////////////////////////////////////////////////////////////////////////////
+//$('#ulist').addApp('img/gwk.png','公务卡','xjb\\公务卡系统3.4.0\\GwCard.exe');
+//$('#ulist').addApp('img/gwk.png','记事本','D:\\Program Files (x86)\\EditPlus 3\\EditPlus.exe');
+/*
+$("li#add").click(function(e) {
+	Qt.setSoftInfo('');
+    Qt.showWindow('softcenter');
+	var softinfo = Qt.getSoftInfo();
+	var obj = JSON.parse(softinfo);
+	alert(obj.title);
+	if ( softinfo == '')
+	{
+		return;
+	}else
+	{
+		$('#ulist').addApp(obj.img,obj.title,obj.path);	
+	}
+});
+*/
+////////////////////////////////////////////////////////////////////////////
 
 $("a.dock-item").click(function(e) {
         var id = $(this).attr("id");
 		Qt.showWindow(id);
-    });	
+    });
+
+$('#appmana').click(function(e) {
+    $('#apply').css('display','none');
+	$('#done').css('display','none');
+	$('#todo').css('display','none');
+	$('#ap').css('display','block');
+	$(this).setChecked('.nav','img/point.png');
+	$("#tabs").pages2(0,0);
+	
+});	
+	
 $('#headall').click(function(e) {
-    $('.content').css('display','block');
-	$('.content-done').css('display','none');
-	$('.content-todo').css('display','none');
+    $('#apply').css('display','block');
+	$('#done').css('display','none');
+	$('#todo').css('display','none');
+	$('#ap').css('display','none');
+	$('#hist').css('display','none');
+	$(this).setChecked('.nav','img/point.png');
 	if ( allNum > num_perpage )
 	{
 		$("#tabs").pages(Math.ceil(allNum/num_perpage),1,clickpage);
@@ -102,9 +143,12 @@ $('#headall').click(function(e) {
 });	
 	
 $('#headtodo').click(function(e) {
-    $('.content').css('display','none');
-	$('.content-done').css('display','none');
-	$('.content-todo').css('display','block');
+    $('#apply').css('display','none');
+	$('#done').css('display','none');
+	$('#todo').css('display','block');
+	$('#ap').css('display','none');
+	$('#hist').css('display','none');
+	$(this).setChecked('.nav','img/point.png');
 	if ( todoNum < num_perpage )
 	{
 		$("#tabs").pages2(0,0);
@@ -112,11 +156,28 @@ $('#headtodo').click(function(e) {
 });	
 
 $('#headdone').click(function(e) {
-    $('.content').css('display','none');
-	$('.content-done').css('display','block');
-	$('.content-todo').css('display','none');
+    $('#apply').css('display','none');
+	$('#done').css('display','block');
+	$('#todo').css('display','none');
+	$('#ap').css('display','none');
+	$('#hist').css('display','none');
+	$(this).setChecked('.nav','img/point.png');
+	if ( done < num_perpage )
+	{
+		$("#tabs").pages2(0,0);
+	}
 
 });
+$('#history').click(function(e) {
+    $('#apply').css('display','none');
+	$('#done').css('display','none');
+	$('#todo').css('display','none');
+	$('#ap').css('display','none');
+	$('#hist').css('display','block');
+	$(this).setChecked('.nav','img/point.png');
+
+});
+
 
 $("div.nav").mouseover(function(){
   $(this).css('backgroundColor','#666666');
@@ -144,21 +205,8 @@ $(".tips>img").mouseover(function(e) {
 $(".tips>img").mouseout(function(e) {
      $(this).attr("src","img/btn_close_normal.png");
 });
-
 	
 });
-	
-
-/*
-$('div#return>img').mouseover(function(e) {
-    $(this).attr('src','img/btn_close_highlight.png');
-});
-
-
-$('div#return>img').mouseout(function(e) {
-    $(this).attr('src','img/btn_close_normal.png');
-});
-*/
 
 function  clickpage( a,page )
 {
@@ -169,12 +217,11 @@ function  clickpage( a,page )
 		count = num_perpage;	
 	}
 	var pre = (page-1) * num_perpage;
-	$('.content').html('');
+	$('#apply').html('');
 	 for ( var i = 0 ; i < count; ++i)
 	 {
 	 	addTaskObj(tasklist[pre + i]);
  	 }
-	 
 }
 
 </script>
@@ -182,59 +229,57 @@ function  clickpage( a,page )
 <img src="img/back.jpg" id="back">
 <div id="head-nav" align="center">
 <span class="logo">财政平台安全桌面</span>
-<a  id="appmana" class="nav" title="申请任务">应用管理</a>
-<a  id="headall" class="nav" title="申请任务">申请任务</a>
-<a  id="headtodo" class="nav"  title="待办任务">待办任务</a>
-<a  id="headdone" class="nav" title="追踪任务">追踪任务</a>
-<a  id="headall" class="nav" title="申请任务">历史查询</a>
-<a  id="history" class="nav2"><img src="img/btn_close_normal.png" id="closebtn"  /></a>
+<a  id="appmana" class="nav" title="申请任务"><span>应用管理</span><span class="number"></span><img src="" /></a>
+<a  id="headall" class="nav" title="申请任务"><span>申请任务</span><span class="number"></span><img src="" /></a>
+<a  id="headtodo" class="nav"  title="待办任务"><span>待办任务</span><span class="number"></span><img src="" /></a>
+<a  id="headdone" class="nav" title="追踪任务"><span>追踪任务</span><span class="number"></span><img src="" /></a>
+<a  id="history" class="nav" title="申请任务"><span>历史查询</span><span class="number"></span><img src="" /></a>
+<a  id="123" class="nav2"><img src="img/btn_close_normal.png" id="closebtn"  /></a>
 </div>
 <!--申请任务-->
-<div class="content">
+<div class="content" id="apply">
 
 </div>
 <!--待办任务-->
-<div class="content-todo">
+<div class="content" id="todo">
 
 </div>
 <!--追踪任务-->
-<div class="content-done">
+<div class="content" id="done">
+
+</div>
+<!--应用程序管理-->
+<div class="content" id="ap">
+<ul id="ulist">
+</ul>
+</div>
+<!--历史查询-->
+<div class="content" id="hist">
 
 </div>
 <div id="tabs">
 <!--左侧导航按钮-->
 <nav id="left_max" class="jPaginatorMax"></nav><nav id="left_over" class="jPaginatorOver"></nav>
-<!--页码显示-->
 <div class="paginator_p_wrap" style=" width:40%">
 <div class="paginator_p_bloc" style="left:-44px;">
 </div>
 </div>
 <nav id="right_over" class="jPaginatorOver"></nav><nav id="right_max" class="jPaginatorMax"></nav>
-<!--div class='paginator_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'>
-<a class='ui-slider-handle ui-state-default ui-corner-all' href='#' ></a>
-</div-->
 </div>
 <div id="btmdock">
 <div class="dock" id="dock">
   <div class="dock-container">
 	  <a class="dock-item" href="#" id="softcenter"><span>软件中心</span><img src="images/home.png" alt="软件中心" /></a> 
-	  <a class="dock-item" href="#" id="switch"><span>切换桌面</span><img src="images/email.png" alt="切换桌面" /></a> 
-	  <a class="dock-item" href="#" id="nofity"><span>桌面通知</span><img src="images/portfolio.png" alt="桌面通知" /></a> 
-	  <a class="dock-item" href="#" id="tools"><span>常用工具</span><img src="images/music.png" alt="常用工具" /></a> 
+	  <a class="dock-item" href="#" id="switch"><span>切换桌面</span><img src="images/desktop.png" alt="切换桌面" /></a> 
+	  <a class="dock-item" href="#" id="nofity"><span>桌面通知</span><img src="images/notify.png" alt="桌面通知" /></a> 
+	  <a class="dock-item" href="#" id="tools"><span>常用工具</span><img src="images/tools.png" alt="常用工具" /></a> 
 	  <a class="dock-item" href="#" id="apps"><span>业务应用</span><img src="images/video.png" alt="业务应用" /></a> 
   </div> 
 </div>
 </div>
+
 <div class="debug"></div>
 <div class="detailWindow">
-<p>
-</p>
-<div>
-<a class="ui-button" href="#">处理</a>
-</div>
-</div>
-
-<div class="detailWindow2">
 <p>
 </p>
 <div>

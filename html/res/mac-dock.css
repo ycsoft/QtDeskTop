@@ -11,7 +11,7 @@ img {
 /* dock - top */
 .dock {
 	position: relative; 
-	height: 50px; 
+	height: 50px;
 	text-align: center;
 }
 .dock-container {
@@ -23,7 +23,7 @@ img {
 }
 a.dock-item {
 	display: block;
-	width: 40px;
+	width: 100px;
 	color: #000;
 	position: absolute;
 	top: 0px;
@@ -33,12 +33,11 @@ a.dock-item {
 }
 .dock-item img {
 	border: none; 
-	margin: 5px 10px 0px; 
-	width: 100%; 
+	margin: 5px 30px 0px 0px; width:40px;
 }
 .dock-item span {
 	display: none; 
-	padding-left: 20px;
+	padding-left: -50px;
 }
 
 /* dock2 - bottom */

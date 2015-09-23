@@ -1,0 +1,1 @@
+{"即时通信":{"img":"img/chatapp.png","file":"IM_QXmpp.exe"},"会计账务":{"img":"img/kjzw.png","file":"xjb\\all\\kjzw.lnk"},"预算执行":{"img":"img/yszx.png","file":"xjb\\all\\yszx.lnk"},"银行支付":{"img":"img/bank.png","file":"http://localhost/files/im.exe"},"单位账务":{"img":"img/dwzw.png","file":"http://localhost/files/im.exe"},"公务卡系统":{"img":"img/gwk.png","file":"xjb\\all\\GwCard.lnk"}}
