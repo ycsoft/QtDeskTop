@@ -3,6 +3,7 @@
 #include "utils/qapputils.h"
 #include "qhtmldock.h"
 #include "maindialog.h"
+#include "qhtmldock.h"
 
 #include <QHBoxLayout>
 #include <data/qtododata.h>
@@ -34,6 +35,15 @@ void QSimpleMode::initUI()
     QWebSettings    *webSetting = web->page()->settings();
     webSetting->setAttribute(QWebSettings::JavascriptEnabled,true);
     connect(web->page()->mainFrame(),SIGNAL(javaScriptWindowObjectCleared()),this,SLOT(addObject()));
+
+    //QAppUtils::ref().getScreenSize(wid,hei);
+//    int x = (wid - DOCK_WID)/2;
+//    int y = hei - DOCK_HEI;
+
+//    QHtmlDock *dock = new QHtmlDock(this);
+//    dock->setAttribute(Qt::WA_TranslucentBackground);
+//    dock->move(x,y);
+//    dock->show();
 }
 void QSimpleMode::addObject()
 {
