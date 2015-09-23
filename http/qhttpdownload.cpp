@@ -20,8 +20,9 @@ void QHttpDownLoad::downloadFile(QString url)
     if ( m_file->exists() )
     {
         int res = 0;
-        QString title = LOCAL("提示"), text = LOCAL("文件已存在，是否重复下载?");
-        res = QMessageBox::information(NULL,title,text,QMessageBox::Yes,QMessageBox::No);
+        //QString title = LOCAL("提示"), text = LOCAL("文件已存在，是否重复下载?");
+        //res = QMessageBox::information(NULL,title,text,QMessageBox::Yes,QMessageBox::No);
+        res = QMessageBox::Yes;
         if ( res != QMessageBox::Yes)
         {
             delete m_file;
