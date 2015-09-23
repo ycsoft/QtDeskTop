@@ -8,7 +8,7 @@
 #include <QWebSettings>
 #include <QWebFrame>
 
-QSoftCenter::QSoftCenter(QWidget *parent) : QWidget(parent)
+QSoftCenter::QSoftCenter(QWidget *parent) : QDialog(parent)
 {
     initUI();
 }
@@ -40,9 +40,10 @@ void QSoftCenter::linkCliced(const QUrl &url)
     qDebug()<<url.toString();
     QHttpDownLoad *download = new QHttpDownLoad(this);
     download->downloadFile(url.toString());
+    accept();
 }
 void QSoftCenter::registerObject()
 {
-    QJSCore *core = new QJSCore(this);
-    m_web->page()->mainFrame()->addToJavaScriptWindowObject("Qt",core);
+    //QJSCore *core = new QJSCore(this);
+    //m_web->page()->mainFrame()->addToJavaScriptWindowObject("Qt",core);
 }

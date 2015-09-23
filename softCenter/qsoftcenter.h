@@ -4,11 +4,12 @@
 #include "utils/qhfwebview.h"
 
 #include <QWidget>
+#include <QDialog>
 /**
  * @brief The QSoftCenter class
  * 软件中心功能界面
  */
-class QSoftCenter : public QWidget
+class QSoftCenter : public QDialog
 {
     Q_OBJECT
 public:
@@ -25,6 +26,7 @@ public slots:
 
 private:
     QHFWebView      *m_web;
+    QString         m_softinfo;
 };
 
 #endif // QSOFTCENTER_H
