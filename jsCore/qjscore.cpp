@@ -133,7 +133,8 @@ QString QJSCore::showWindow(QString win)
         idx = ( idx == Simple_Desk ? Full_Desk : Simple_Desk);
         pstack->setCurrentIndex(idx);
         return "123";
-    }
+    }else
+        return "";
 }
 
 int QJSCore::connectDB(QString host, QString dbname, QString usr, QString pwd)
