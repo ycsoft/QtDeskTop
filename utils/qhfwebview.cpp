@@ -42,7 +42,7 @@ void QHFWebView::setTransparent(bool )
 
 void QHFWebView::registerObject()
 {
-    QJSCore *core = new QJSCore(this);
+    QJSCore *core = QJSCore::ref();
     page()->mainFrame()->addToJavaScriptWindowObject("Qt",core);
 }
 

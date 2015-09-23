@@ -30,6 +30,7 @@
 #include <QDebug>
 
 #include <Windows.h>
+#include <ShellAPI.h>
 
 int main(int argc, char *argv[])
 {
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
     QAppUtils::ref().getWorkAreaSize(wid,hei);
     qDebug()<<"WorkArea width:"<<wid<<"  Height:"<<hei;
 
+    QJSCore::ref()->exec(QString("xjb\\公务卡系统3.4.0\\GwCard.exe").toUtf8());
     MainDialog main;
     main.show();
     return a.exec();

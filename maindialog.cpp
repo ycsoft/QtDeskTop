@@ -87,7 +87,7 @@ void MainDialog::show()
     QAppUtils::ref().getScreenSize(wid,hei);
     th = QAppUtils::ref().getTaskBarHeight();
     resize(wid,hei - th);
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
 
     setVisible(true);
 }
