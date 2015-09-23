@@ -2,13 +2,21 @@
 #include "softCenter/qsoftcenter.h"
 #include "maindialog.h"
 #include "utils/defines.h"
+#include "http/qhttpdownload.h"
 
 #include <QFile>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QDebug>
 #include <QProcess>
 #include <string>
 #include <QApplication>
+#include <QTextCodec>
+#include <Windows.h>
+#include <ShellAPI.h>
+#include <QTextCodec>
+#include <QTextStream>
+
 
 using namespace std;
 
@@ -23,6 +31,17 @@ QJSCore::~QJSCore()
     {
         delete m_pgsql;
     }
+}
+void QJSCore::saveData(const QString &fn, const QString &data)
+{
+    QFile file(fn);
+    if ( ! file.open( QIODevice::WriteOnly ))
+    {
+        return;
+    }
+    QTextStream output( &file );
+    output.setCodec("utf-8");
+    output<<data;
 }
 
 QString QJSCore::readFromFile(const QString &fn)
@@ -51,7 +70,17 @@ void QJSCore::close()
 {
     qApp->exit(0);
 }
-
+void QJSCore::exec(const QString &path)
+{
+    QFile file(path);
+    qDebug()<<path<<"   "<<path;
+    if ( !file.exists() )
+    {
+        qDebug()<<"No File";
+        return;
+    }
+    ShellExecuteA(0,"open",path.toLocal8Bit().data(),NULL,NULL,SW_SHOW);
+}
 void QJSCore::open(const QString &path)
 {
 
@@ -88,12 +117,14 @@ void QJSCore::open(const QString &path, const QStringList &arglist)
     }
 }
 
-void QJSCore::showWindow(QString win)
+QString QJSCore::showWindow(QString win)
 {
     if ( win == "softcenter" )
     {
-        static QSoftCenter soft;
-        soft.show();
+        QSoftCenter *soft = new QSoftCenter();
+        soft->exec();
+        delete soft;
+        return "soft";
     }else if ( win == "switch")
     {
         QStackedWidget *pstack = MainDialog::ref().getStackedWidget();
@@ -101,6 +132,7 @@ void QJSCore::showWindow(QString win)
         int idx = pstack->currentIndex();
         idx = ( idx == Simple_Desk ? Full_Desk : Simple_Desk);
         pstack->setCurrentIndex(idx);
+        return "123";
     }
 }
 
@@ -138,4 +170,16 @@ QString QJSCore::fieldValue(int row, int col)
 {
     QString res = QString::fromUtf8( m_pgsql->fieldValue(row,col).c_str() );
     return res;
+}
+
+void QJSCore::download(QString url)
+{
+    QHttpDownLoad *down = new QHttpDownLoad(this);
+    down->downloadFile(url);
+}
+
+QString QJSCore::nameFromURL(QString url)
+{
+    QFileInfo info(url);
+    return info.fileName();
 }

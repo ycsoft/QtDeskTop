@@ -14,9 +14,15 @@ class QJSCore : public QObject
 {
     Q_OBJECT
 public:
-    explicit QJSCore(QObject *parent = 0);
+
 
     ~QJSCore();
+
+    static QJSCore *ref()
+    {
+        static QJSCore js;
+        return &js;
+    }
 
 signals:
 
@@ -24,18 +30,30 @@ public slots:
 
     void     msgBox(const QString &title,const QString &txt);
     QString  readFromFile(const QString &fn);
+    void     saveData(const QString &fn,const QString &data);
     void     open(const QString &path);
+    void     exec(const QString &path);
     void     open(const QString &path,const QStringList &arglist);
-    void     showWindow(QString);
+    QString  showWindow(QString);
     void     close();
     int      connectDB(QString host, QString dbname,QString usr,QString pwd);
     void     executeSQL(QString sql);
+    void     download ( QString url );
+    QString  nameFromURL( QString url);
 
     int         getRecordCount();
     int         getColumnCount();
     QString      fieldValue( int row, int col);
+    void        setSoftInfo(QString info) { m_addsoft = info;}
+    QString     getSoftInfo() { return m_addsoft;}
 private:
+    explicit QJSCore(QObject *parent = 0);
     HFPGSql         *m_pgsql;
+
+    ///
+    /// \brief 要添加的软件信息
+    ///
+    QString         m_addsoft;
 };
 
 #endif // QJSCORE_H
