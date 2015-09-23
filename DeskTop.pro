@@ -62,7 +62,8 @@ SOURCES += main.cpp\
     jsCore/qjscore.cpp \
     utils/qapparg.cpp \
     ipc/qipcmemory.cpp \
-    uiframe/qhtmltips.cpp
+    uiframe/qhtmltips.cpp \
+    uiframe/qpoptips.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -119,7 +120,8 @@ HEADERS  += maindialog.h \
     jsCore/qjscore.h \
     utils/qapparg.h \
     ipc/qipcmemory.h \
-    uiframe/qhtmltips.h
+    uiframe/qhtmltips.h \
+    uiframe/qpoptips.h
 
 RESOURCES += \
     res.qrc

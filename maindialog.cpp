@@ -551,7 +551,6 @@ void MainDialog::keyPressEvent(QKeyEvent *evt)
     switch ( evt ->key() )
     {
         case Qt::Key_Escape:
-            close();
             break;
     default:
         QDialog::keyPressEvent(evt);

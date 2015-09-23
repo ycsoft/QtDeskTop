@@ -264,6 +264,7 @@ private:
     void mousePressEvent(QMouseEvent*);
     void mouseReleaseEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);
+
     QPoint m_presssPoint;
     QPoint m_movePoint;
 
