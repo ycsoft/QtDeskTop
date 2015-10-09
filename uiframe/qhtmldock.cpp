@@ -33,7 +33,7 @@ void QHtmlDock::initUI()
     m_web = new QHFWebView(this);
     m_web->load(QUrl("html/dock.html"));
     m_web->setTransparent(true);
-    setMinimumSize(DOCK_WID,DOCK_HEI);
+    resize(DOCK_WID,DOCK_HEI);
     vlay->addWidget(m_web,0,Qt::AlignHCenter);
 
 }

@@ -8,4 +8,5 @@
 .app span{ display:block; position:absolute; top:75px;text-align:center; width:100%;height:40px; font-size:12px; font-weight:bold; color:#000; overflow:hidden}
 
 .app a:hover{ background-color:#039;}
-.checkimg { position:absolute; left:100px; top:5px; width:30px; height:30px;}
+/*.checkimg { position:absolute; left:100px; top:5px; width:30px; height:30px; border:none;}*/
+.checkimg { position:absolute; left:38px; display:block; top:0px; width:60px; height:60px; border:none;}

@@ -17,7 +17,7 @@ $("div#all").css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/alllist.txt");
 var html = "";
 html = json2list(ss);
-$("div.list").html(html);
+$("#list").html(html);
 $(document).enableDownload();
 
 var menucolor,bground = $("div.menuText").css("background");
@@ -61,7 +61,7 @@ $("div#local").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/alllist.txt");
 var html = json2list(ss);
-$("div.list").html(html);
+$("#list").html(html);
 });
 
 $("div#common").click(function(){
@@ -71,7 +71,7 @@ $("div#local").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/common.txt");
 var html = json2list(ss);
-$("div.list").html(html);
+$("#list").html(html);
 $(document).enableDownload();
 });
 
@@ -82,7 +82,7 @@ $("div#all").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/xjb.txt");
 var html = json2list(ss);
-$("div.list").html(html);
+$("#list").html(html);
 $(document).enableDownload();
 });
 
@@ -93,10 +93,36 @@ $("div#xjb").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/local.txt");
 var html = json2list(ss);
-$("div.list").html(html);
+$("#list").html(html);
 $(document).enableDownload();
 });
 
+$("#software").click(function(e) {
+	$("#intro").css('display','none');
+	$("#update2").css('display','none');
+    $("#list").css('display','block');
+	$('.menu').css('display','block');
+	$('.pointer').css('display','none');
+	$(this).find('img.pointer').css('display','block');
+});
+
+$("#homepage").click(function(e) {
+	$("#list").css('display','none');
+	$("#update2").css('display','none');
+    $("#intro").css('display','block');
+	$('.menu').css('display','none');
+	$('.pointer').css('display','none');
+	$(this).find('img.pointer').css('display','block');
+});
+
+$("#update").click(function(e) {
+	$("#list").css('display','none');
+    $("#intro").css('display','none');
+	$('.menu').css('display','none');
+	$('.pointer').css('display','none');
+	$('#update2').css('display','block');
+	$(this).find('img.pointer').css('display','block');
+});
 
 });
 
@@ -120,17 +146,38 @@ function  json2list( jstr )
 	}
 	return html;
 }
+
+function json2listupd( jstr )
+{
+	if ( jstr == "" || jstr == null )
+	{
+		return "";
+	}
+	var html = "";
+	var obj = JSON.parse(jstr);
+	for( key in obj)
+	{
+	  value = obj[key];
+	  img = value["img"];
+	  href = value["file"];
+	  //html += '<div class="app"><div class="appicon"><img src="' + img + '" class="appimg" /></div><div class="txt">'
+	  //		  + key + '<div class="download">' + '<a href="'+href+'" class="dowload">'+"下载"+ '</a></div></div></div>';
+			  
+	  html += '<div class="app"><div class="imgback"><img src="'+img+'" class="appimg" /></div><ul><li class="txt">'+key+'</li><a class="toupdate" href="'+href+'">无需升级</a></ul></div>';
+	}
+	return html;	
+}
 </script>
 
 </head>
 <body>
 <!--左侧导航栏-->
 <div class="nav" align="center">
-<div class="navbutton" align="center"><div style="height:40%"></div><div class="apptxt">财政软件中心</div></div>
+<div class="navbutton" align="center"><div class="apptxt">财政软件中心</div></div>
 <hr style="width:98%" align="center"/>
-<div class="navbutton" align="center"><img src="img/app.png" class="navimg"/><div class="apptxt">首页</div></div>
-<div class="navbutton" align="center"><img src="img/db.png" class="navimg"/><div class="apptxt">下载</div></div>
-<div class="navbutton" align="center"><img src="img/refresh.png" class="navimg"/><div class="apptxt">升级</div></div>
+<div class="navbutton" align="center" id="homepage"><img src="img/app.png" class="navimg"/><div class="apptxt">首页</div><img class="pointer" src="img/arrow.png"" /></div>
+<div class="navbutton" align="center" id="software"><img src="img/db.png" class="navimg"/><div class="apptxt">下载</div><img class="pointer" src="img/arrow.png" style="display:block"/></div>
+<div class="navbutton" align="center" id="update"><img src="img/refresh.png" class="navimg"/><div class="apptxt">升级</div><img class="pointer" src="img/arrow.png"" /></div>
 </div>
 <!-- 中央显示区-->
 <div class="center">
@@ -144,8 +191,7 @@ function  json2list( jstr )
 <div class="menuTxt" align="center" id="xjb"><p>县级版</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 </div>
 <!--软件列表区-->
-<div class="list">
-
+<div class="list" id="list" style="display:block">
 <!--div class="app">
 <div class="appicon"><img src="img/gwk.png" class="appimg" /></div><div class="txt">公务卡<div class="download">下载</div></div>
 </div>
@@ -179,8 +225,27 @@ function  json2list( jstr )
 <div class="app">
 <div class="appicon"><img src="img/app.png" class="appimg" /></div><div class="txt">财政通行证<div class="download">下载</div></div>
 </div-->
-
 </div> <!--列表区-->
+<!--首页-->
+<div class="list" style="display:none; top:10px; background-color:#3C6; height:80%" id="intro" align="center">
+<div class="header">陕西财政数据平台应用中心</div>
+<div class="panel"><img src="img/intro.png" /></div>
+<ul class="intro">
+<li><a href="#">关于我们</a></li>
+<li>西安后方软件科技有限公司</li>
+</ul>
+</div>
+<!--升级-->
+<div class="list" style="display:none; top:30px" id="update2" align="left">
+<p style="position:absolute; left:0px; width:200px; height:30px; padding-top:10px; font-size:12px; font-weight:bold">已安装软件</p>
+<div id="installed" style="position:absolute; width:100%; height:85%; left:0px; top:90px;">
+<script>
+var ss = Qt.readFromFile("html/files/my.txt");
+var html = json2listupd(ss);
+$("#installed").html(html);
+</script>
+</div>
+</div>
 </div><!--中央显示区-->
 </body>
 </html>

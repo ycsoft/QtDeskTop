@@ -5,6 +5,8 @@ height:100%;
 width:100%;
 margin:0;
 overflow:hidden;
+background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #03C),color-stop(1, #3C3));
+/*background-image:-webkit-gradient(linear,left top, left bottom , from(#03C),color-stop(0.5,#333), to(#390));*/
 /*
 background:#800080;
 background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#800080), to(#fafafa));¹È¸è

@@ -42,6 +42,7 @@ void QJSCore::saveData(const QString &fn, const QString &data)
     QTextStream output( &file );
     output.setCodec("utf-8");
     output<<data;
+    file.close();
 }
 
 QString QJSCore::readFromFile(const QString &fn)

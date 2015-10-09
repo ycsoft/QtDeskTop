@@ -55,10 +55,10 @@ function addTaskObj(obj)
 	var content = $("#apply");
 	var html = content.html();
 	var txt = obj2html(obj);
-	//$('.debug').debug(txt);
 	
-	html += "<span class='item'>"+ '<div>' + txt + '</div>' + "<a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />申请处理</a>"+"</span>";
+/*	html += "<span class='item'>"+ '<div>' + txt + '</div>' + "<a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />申请处理/</a>"+"</span>";*/
 	content.html( html );
+	content.addItem(txt,"处理");
 	
  $('.item').mouseover(function(e) {
      	var itm = $(this);
@@ -70,7 +70,7 @@ function addTaskObj(obj)
 		var btn = itm.children("a");
 		btn.css('display','none');
 });
-
+/*
 $('.item>div').click(function(e) {
 	var id = $(this).find("span.id").html();
 	$('.detailWindow').children('p').html('');
@@ -79,7 +79,7 @@ $('.item>div').click(function(e) {
 	$('.detailWindow').children('p').html(res);
 	detailDialog.dialog('open');
 });
-
+*/
 
 $('#apply').find('a').click(function(e) {
     todoNum += 1;
@@ -182,12 +182,11 @@ $.fn.extend({
 			{
 				numstr = '';
 				img.css('display','none');
-				$(this).find('img').css('left','100px');
+				//$(this).find('img').css('left','100px');
 				return;
 			}
 			img.html(numstr);
 			img.css('display','inline-block');
-			$(this).find('img').css('left','120px');
 		}	
 	
 });
@@ -195,7 +194,7 @@ $.fn.extend({
 $.fn.extend({
 	addItem:function (txt,btnname){
 	var numstr = $(this).html();
-			numstr += "<span class='item'><div>" + txt + "</div><a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a></span>";
+			numstr += "<span class='item'><div>" + txt + "</div><a class='itembutton' href='#' title='"+btnname+"'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a></span>";
 			
 			$(this).html(numstr);
 			
@@ -203,14 +202,19 @@ $.fn.extend({
 			var id = $(this).find("span.id").html();
 			$('.detailWindow').children('p').html('');
 			var res =  translate2txt(JSON.parse(getbyid(id)));
-			if ( btnname != '删除')
+			res = "<strong>实体编码:<span class='id'>"+id+"</span></strong><p class='data'>" + res + "</p>";
+			$("#proc").attr('id',id);
+			$(".flowtxt").html(txt);
+			var name = $(this).parent('span').find('a').attr('title');
+			if ( name != '删除')
 			{
 				//res += '<div><a class="ui-button" href="#">处理</a></div>';
+				$('a.ui-button').css('display','block');
 				$('.detailWindow').children('p').html(res);
 				detailDialog.dialog('open');
 			}else{
-				$('.detailWindow').children('p').html(res);
 				$('a.ui-button').css('display','none');
+				$('.detailWindow').children('p').html(res);
 				detailDialog.dialog('open');	
 			}
 			});			
@@ -225,20 +229,20 @@ $.fn.extend({
 			var btn = itm.children("a");
 				btn.css('display','none');
 			});
-			if (btnname != '处理发送')
+			if (btnname != '删除')
 			{
 				$(this).find('a').click(function(e) {
-                	$(this).parent('span').css("display","none");
+                	//$(this).parent('span').css("display","none");
+					btnname = $(this).attr('title');
 					if( btnname == '删除'){
-						done -= 1;
-						$('#headdone').setNumber(done);
-						$(".tips").css('display','block');
-						$("#done").css('height','45%');
-						
+						//done -= 1;
+						//$('#headdone').setNumber(done);
+						//$(".tips").css('display','block');
+						//$("#done").css('height','45%');
 						var id = $(this).parent('span').find('span.id').html();
 						var res = getbyid(id);
 						var sql = "select put('/"+etti + "[" + id+ "]','"+res+"')";
-						$('#done').popTips(translate2txt(JSON.parse(res)));
+						$(this).popTips('#done',translate2txt(JSON.parse(res)),sql,txt);
 						}
             	});
 			}
@@ -250,30 +254,30 @@ $.fn.extend({
 	addToDo: function (txt,btnname){
 
 			$(this).addItem(txt,btnname);
-			
+			//处理任务
 			$('#todo').find('a').click(function(e) {
                 var itm = $(this).parent("span");
-				itm.css("display","none");
-				todoNum -= 1;
-				done += 1;
-				if ( todoNum < 0)
-				{
-					todoNum = 0;
-				}
-				$('#headtodo').setNumber(todoNum);
-				$('#headdone').setNumber(done);
-				$('#done').addItem(txt,'删除');
+				//itm.css("display","none");
+				//todoNum -= 1;
+				//done += 1;
+				//if ( todoNum < 0)
+				//{
+				//	todoNum = 0;
+				//}
+				//$('#headtodo').setNumber(todoNum);
+				//$('#headdone').setNumber(done);
+				//$('#done').addItem(txt,'删除');
 				//发送
 				var id = $(this).parent('span').find('span.id').html();
 				var res = getbyid(id);
 				var sql = "select put('/"+etti + "[" + id+ "]','"+res+"')";
-				$('#todo').popTips(translate2txt(JSON.parse(res)));
+				$(this).popTips('#todo',translate2txt(JSON.parse(res)),sql,txt);
 				//$('.debug').debug(sql);
-				Qt.executeSQL(sql);
-				if ( Qt.getRecordCount() > 0 )
-				{
-					res = Qt.fieldValue(0,0);
-				}
+				//Qt.executeSQL(sql);
+				//if ( Qt.getRecordCount() > 0 )
+				//{
+				//	res = Qt.fieldValue(0,0);
+				//}
 				
             });
 			
@@ -330,9 +334,17 @@ $.fn.extend({
 
 $.fn.extend({
 
-popTips:function(text){
-		var parent = $(this);
-		$(this).css('height','45%');
+popTips:function(id,text,sql,flow){
+	/**
+	id:   操作id， todo done
+	text: 操作的实体数据
+	sql:  SQL语句
+	flow :要传递到下一界面的数据
+	*/
+		var self = $(this).parent('span');
+		var parent = $(this).parent().parent();
+		parent.css('height','45%');
+		$("#btmdock").css('bottom','320px');
 		$('.tips').css('display','block');
 		/*$('.tips').animate({
 			 height:'toggle'
@@ -340,11 +352,50 @@ popTips:function(text){
 		*/	
 		var tips = '<h3>数据操作请求</h3><p>操作实体:<span>' + etti + '</span></p><p>操作人:<span></span></p><p>数据内容:<span>'+text+'</span></p>'
 		$('.tips-content').html(tips);
-		$('.tips .btn').html('<a class="ui-button">确认</a><a class="ui-button">拒绝</a>');
+		$('.tips .btn').html('<a class="ui-button" id="accept">确认</a><a class="ui-button" id="reject">拒绝</a>');
 		$('.tips>img').click(function(e) {
             parent.css('height','70%');
+			$("#btmdock").css('bottom','50px');	
 			$('.tips').css('display','none');
         });
+		
+		$("#accept").click(function(e) {
+            if ( id == '#todo'){
+				todoNum -= 1;
+				done += 1;
+				$('#headtodo').setNumber(todoNum);
+				$('#headdone').setNumber(done);
+				$('#done').addItem(flow,'删除');
+				Qt.executeSQL(sql);
+				$('#todo').css('height','70%');
+				$('.tips').css('display','none');
+				$("#btmdock").css('bottom','50px');
+				
+			}else if( id == '#done'){
+				done -= 1;
+				$('#headdone').setNumber(done);
+				$("#done").css('height','70%');
+				$("#btmdock").css('bottom','50px');
+				$(".tips").css('display','none');
+				Qt.executeSQL(sql);			
+			}
+			self.css('display','none');
+			$(this).css('display','none');
+        });
+
+		$("#reject").click(function(e) {
+            if ( id == '#todo'){
+				$('#todo').css('height','70%');
+				$('.tips').css('display','none');
+				$("#btmdock").css('bottom','50px');
+			}else if( id == '#done'){
+				$('#headdone').setNumber(done);
+				$("#done").css('height','70%');
+				$(".tips").css('display','none');
+				$("#btmdock").css('bottom','50px');	
+			}
+        });
+		
 	}	
 });
 
@@ -478,9 +529,6 @@ function getList(tb,gw)
 	if ( res == 0 )
 	{
 		var sql ="select * from getbyettilist('"+tb+"','"+gw + "') as (id numeric(20,0),c1 varchar(100),c2 varchar(100),c3 varchar(30));";
-		
-		
-		
 		Qt.executeSQL(sql);
 		var rows = Qt.getRecordCount();
 		for ( var i = 0 ; i < rows; i++)

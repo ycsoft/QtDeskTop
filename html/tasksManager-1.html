@@ -69,17 +69,6 @@ var dlgOpts2= {
 detailDialog = $('.detailWindow').dialog(dlgOpts);
 detailDialog.dialog('close');
 
-    $('#apply').css('display','none');
-	$('#done').css('display','none');
-	$('#todo').css('display','block');
-	$('#ap').css('display','none');
-	$('#hist').css('display','none');
-	$("#headtodo").setChecked('.nav','img/line.png');
-	if ( todoNum < num_perpage )
-	{
-		$("#tabs").pages(0,0,clickpage);
-	}
-
 $("#todo").css('display','none');
 $("#done").css('display','none');
 $("#ap").css('display','none');
@@ -100,6 +89,10 @@ $('#ulist').loadMyApp();
 	 //$('.debug').debug(i);
  }
  
+if ( allNum > num_perpage )
+{
+		$("#tabs").pages(Math.ceil(allNum/num_perpage),1,clickpage);
+}
 
 $("#proc").click(function(e) {
 	var id = $(this).attr('id');
@@ -140,7 +133,7 @@ $('#appmana').click(function(e) {
 	$('#done').css('display','none');
 	$('#todo').css('display','none');
 	$('#ap').css('display','block');
-	$(this).setChecked('.nav','img/line.png');
+	$(this).setChecked('.nav','img/point.png');
 	$("#tabs").pages2(0,0);
 	
 });	
@@ -151,7 +144,7 @@ $('#headall').click(function(e) {
 	$('#todo').css('display','none');
 	$('#ap').css('display','none');
 	$('#hist').css('display','none');
-	$(this).setChecked('.nav','img/line.png');
+	$(this).setChecked('.nav','img/point.png');
 	if ( allNum > num_perpage )
 	{
 		$("#tabs").pages(Math.ceil(allNum/num_perpage),1,clickpage);
@@ -164,7 +157,7 @@ $('#headtodo').click(function(e) {
 	$('#todo').css('display','block');
 	$('#ap').css('display','none');
 	$('#hist').css('display','none');
-	$(this).setChecked('.nav','img/line.png');
+	$(this).setChecked('.nav','img/point.png');
 	if ( todoNum < num_perpage )
 	{
 		$("#tabs").pages2(0,0);
@@ -177,7 +170,7 @@ $('#headdone').click(function(e) {
 	$('#todo').css('display','none');
 	$('#ap').css('display','none');
 	$('#hist').css('display','none');
-	$(this).setChecked('.nav','img/line.png');
+	$(this).setChecked('.nav','img/point.png');
 	if ( done < num_perpage )
 	{
 		$("#tabs").pages2(0,0);
@@ -190,7 +183,7 @@ $('#history').click(function(e) {
 	$('#todo').css('display','none');
 	$('#ap').css('display','none');
 	$('#hist').css('display','block');
-	$(this).setChecked('.nav','img/line.png');
+	$(this).setChecked('.nav','img/point.png');
 
 });
 
@@ -244,13 +237,12 @@ function  clickpage( a,page )
 <body>
 <img src="img/back.jpg" id="back">
 <div id="head-nav" align="center">
-<span class="logo">财政工作安全桌面</span>
-<a  id="headall" class="nav" title="申请任务"><span>订阅数据</span><span class="number"></span><img src="" class="checkimg" /></a>
-<a  id="appmana" class="nav" title="申请任务"><span>数据处理</span><span class="number"></span><img src=""  class="checkimg" /></a>
-<a  id="headtodo" class="nav"  title="待办任务"><span>待签数据</span><span class="number"></span><img src=""  class="checkimg" /></a>
-<a  id="headdone" class="nav" title="追踪任务"><span>追踪数据</span><span class="number"></span><img src=""  class="checkimg" /></a>
-<a  id="history" class="nav" title="申请任务"><span>数据档案</span><span class="number"></span><img src=""  class="checkimg" /></a>
-
+<span class="logo">财政平台安全桌面</span>
+<a  id="appmana" class="nav" title="申请任务"><span>应用管理</span><span class="number"></span><img src="" /></a>
+<a  id="headall" class="nav" title="申请任务"><span>申请任务</span><span class="number"></span><img src="" /></a>
+<a  id="headtodo" class="nav"  title="待办任务"><span>待办任务</span><span class="number"></span><img src="" /></a>
+<a  id="headdone" class="nav" title="追踪任务"><span>追踪任务</span><span class="number"></span><img src="" /></a>
+<a  id="history" class="nav" title="申请任务"><span>历史查询</span><span class="number"></span><img src="" /></a>
 <a  id="123" class="nav2"><img src="img/btn_close_normal.png" id="closebtn"  /></a>
 </div>
 <!--申请任务-->

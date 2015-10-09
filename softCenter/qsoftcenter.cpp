@@ -2,6 +2,7 @@
 #include "http/qhttpdownload.h"
 #include "jsCore/qjscore.h"
 #include "utils/defines.h"
+#include "utils/qapputils.h"
 
 #include <QHBoxLayout>
 #include <QDebug>
@@ -16,8 +17,10 @@ QSoftCenter::QSoftCenter(QWidget *parent) : QDialog(parent)
 void QSoftCenter::initUI()
 {
     QHBoxLayout *lay = new QHBoxLayout(this);
+    int         wid, hei;
     setWindowTitle(LOCAL("软件中心"));
     lay->setContentsMargins(0,0,0,0);
+
     m_web = new QHFWebView(this);
     m_web->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
     m_web->load(QUrl("html/softCenter.html"));
@@ -32,7 +35,8 @@ void QSoftCenter::initUI()
 
     connect(m_web,SIGNAL(linkClicked(QUrl)),this,SLOT(linkCliced(QUrl)));
     lay->addWidget(m_web);
-    resize(880,500);
+    QAppUtils::ref().getScreenSize(wid,hei);
+    resize(wid*0.9,600);
 }
 
 void QSoftCenter::linkCliced(const QUrl &url)

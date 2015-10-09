@@ -82,10 +82,11 @@ $.fn.extend({
 	},
 	setChecked:function(cls,pic){
 		var img = $(cls).find('img');
-		img.attr('src','');
+		img.css('display','none');
 		img.removeClass('checkimg');
 		img = $(this).find('img');
 		img.attr('src',pic);
+		img.css('display','block');
 		img.addClass('checkimg');
 	}	
 });

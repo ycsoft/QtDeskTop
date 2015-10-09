@@ -6,7 +6,7 @@ width:100%;
 overflow:hidden;
 background-color:#666;
 }
-.logo{ position: absolute; left:5px; top:15px; font-size:14px; height:50px; font-weight:bolder; color:#90C}
+.logo{ position: absolute; left:5px; top:15px; font-size:14px; height:50px; font-weight:bolder; color:#FF0}
 div#head-nav{
 position:relative;
 padding-left:0px;
@@ -86,8 +86,7 @@ div.content{
 	height:70%;
 	margin-top:5px;
 	padding-bottom:20px;
-	overflow-x:hidden;
-	overflow-y:scroll;
+	overflow:hidden;
 }
 #apply,#todo,#done { left:30px}
 div#tabs{
@@ -211,18 +210,18 @@ p strong{ font-weight:bold;}
 
 .debug{position:absolute; top:200px; left:50px; width:700px; height:400px; background-color:#966; z-index:3; display:none; overflow:scroll}
 
-.detailWindow{width:600px; height:400px; background-color:rgba(153,204,204,0.6); overflow:hidden; display:none}
+.detailWindow{ position:absolute;width:600px; height:400px; background-color:rgba(153,204,204,0.6); overflow:hidden; display:none}
 
-.detailWindow p { position:absolute; top:0px; left:0px; width:100%; height:90%; overflow:scroll;}
+.detailWindow p { position:absolute; top:10px; left:0px; width:100%; height:90%; overflow:scroll;}
 .detailWindow  a { position:absolute; padding-top:8px;left:0px;bottom:0px; width:100%; height:9%; background-color:rgba(153,102,0,0.6);}
 .detailWindow a:hover { color:#00F; background-color:rgba(0,102,51,0.5)}
 
-.tips{ position:relative; width:100%; height:300px; background-color:#000; display:none; overflow:hidden; display:none}
+.tips{ position:absolute; width:100%; height:300px; bottom:0px; background-color:#000; display:none; overflow:hidden; display:none;}
 .tips h3 { color:#F00; font-size:14px; font-weight:bold}
 .tips p{ color:#FFF; font-size:12px;}
 .tips img { width:30px; height:30px; position:absolute; right:3px; top:5px;}
-.tips .tips-content { position:absolute; padding:2px 5px 2px 5px; top:38px; right:0px; width:90%; bottom:120px; overflow-x:hidden; overflow-y:scroll}
-.tips .btn { position:absolute; bottom:80px; width:100%; height:30px; color:#FFF; font-size:14px; font-weight:bold}
+.tips .tips-content { position:absolute; padding:2px 5px 2px 5px; top:38px; right:0px; width:90%; bottom:60px;overflow-x:hidden; overflow-y:scroll;}
+.tips .btn { position:absolute; top:250px; width:100%; height:30px; color:#FFF; font-size:14px; font-weight:bold}
 .tips a{ position:relative; padding-top:10px;background-color:#333; border-color:#F00; width:200px; height:30px; color:#000}
 .tips a:hover{ background-color:#396}
 

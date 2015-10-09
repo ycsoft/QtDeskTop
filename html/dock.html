@@ -15,8 +15,8 @@
 html,body{
 	width:100%; height:100%; overflow:hidden;
 }
-div#apps{
-	background-color:rgba(0,0,0,1); font-size:12px; color:#CCC; border-radius:5px; display:inline-block; margin-left:20px;
+.appmsg{
+	background-color:rgba(0,0,0,1); font-size:12px; color:#CCC; border-radius:5px; display:inline-block; margin-left:20px; text-decoration:none
 	}
 #lean_overlay {
     position:absolute;
@@ -52,6 +52,7 @@ div img{
 	display: none;
 	border-radius:10px;
 }
+#btmdock{ position:absolute; bottom:100px;width:100%;}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -102,7 +103,7 @@ $(document).ready(function(){
 		dlg.dialog('close');
 		
 		var dlgOpts2= {
-			position:{my:'center right - 50',at:'center',of:'#apps'},
+			position:{my:'center bottom-40',at:'center',of:'#apps'},
 			height:'100',
 			width:'400',
 			dialogClass:'windowapp'
@@ -113,12 +114,14 @@ $(document).ready(function(){
 	});
 	//提示信息
 	$(function(){
-		var apps = '<div id="apps"><h2>通知</h2><h3>预算执行</h3><p>数据已存</p></div><div id="apps"><h3>动态监控</h3><p>数据已存</p></div><div id="apps"><h3>单位账务</h3><p>数据已存</p></div><div id="apps"><h3>会计账务</h3><p>数据已存</p></div>';
-		$("#apps").tipsy({
+		var msg = '<div><li class="appmsg"><h2>通知</h2><h3>预算执行</h3><p>数据已存</p></li><li class="appmsg"><h2>通知</h2><h3>预算执行</h3><p>数据已存</p></li></div>';
+		
+		$("a#apps").tipsy({
 			gravity:'s',
 			html:true,
-			fallback:apps
+			fallback:msg
 		});
+		
 		
 		$("#im").tipsy({
 			gravity:'s',
@@ -174,13 +177,13 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div align="center">
-<div class="dock dock-area" id="dock" align="center">
-  <div class="dock-container button_wrap">
+<div id="btmdock" align="center">
+<div class="dock" id="dock" align="center">
+  <div class="dock-container">
 	  <a class="dock-item" href="#" id="softcenter"><span>软件中心</span><img src="images/home.png" alt="软件中心" /></a> 
-	  <a class="dock-item" href="#" id="switch"><span>切换桌面</span><img src="images/email.png" alt="切换桌面" /></a> 
-	  <a class="dock-item" href="#" id="nofity"><span>桌面通知</span><img src="images/portfolio.png" alt="桌面通知" /></a> 
-	  <a class="dock-item" href="#" id="tools"><span>常用工具</span><img src="images/music.png" alt="常用工具" /></a> 
+	  <a class="dock-item" href="#" id="switch"><span>切换桌面</span><img src="images/desktop.png" alt="切换桌面" /></a> 
+	  <a class="dock-item" href="#" id="nofity"><span>桌面通知</span><img src="images/notify.png" alt="桌面通知" /></a> 
+	  <a class="dock-item" href="#" id="tools"><span>常用工具</span><img src="images/tools.png" alt="常用工具" /></a> 
 	  <a class="dock-item" href="#" id="apps"><span>业务应用</span><img src="images/video.png" alt="业务应用" /></a> 
   </div> 
 </div>
@@ -206,11 +209,11 @@ $(document).ready(
 			
 			$('#dock').Fisheye(
 				{
-					maxWidth: 50,
+					maxWidth: 80,
 					items: 'a',
 					itemsText: 'span',
 					container: '.dock-container',
-					itemWidth: 40,
+					itemWidth: 70,
 					proximity: 90,
 					halign : 'center'
 				}

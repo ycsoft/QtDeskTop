@@ -23,6 +23,7 @@ display:block;
 padding-top:40px;
 padding-bottom:0px;
 }
+.pointer{ width:30px; height:30px; position:absolute; left:75%; top:35%; display:none}
 .navimg{
 width:40px;
 height:40px;
@@ -61,7 +62,7 @@ top:10%;
 width:100%;
 height:8%;
 }
-div.menuTxt
+.menuTxt
 {
 display:inline-block;
 text-align:center;
@@ -93,20 +94,19 @@ div.list{
 display:block;
 position:absolute;
 top:16%;
-left:1%;
-width:98%;
-height:84%;
-/*background:#8080FF;*/
-overflow-x:hiden;
-overflow-y:scroll;
+left:20px;
+right:20px;
+height:75%;
 scrollbar-arrow-color: #FF8040; /**//*三角箭头的颜色*/
+padding: 20px 20px 20px 20px;
+overflow:hidden;
 }
 div.app{
 position:relative;
 width:180px;
 height:110px;
 display:inline-block;
-margin-bottom:5px;
+margin:20px 5px 10px 30x;
 margin-left:9px;
 padding-left:15px;
 }/*
@@ -127,7 +127,7 @@ left:5px;
 top:5px;
 }
 .imgback{ width:70px; height:70px; background-color:rgba(153,153,102,0.9); position:absolute; left:0px; border-radius:10px;}
-ul { display:inline-block; left:-20px; width:100px; height:100%; overflow:hidden; position:absolute; top:5px; left:35px;}
+ul { display:inline-block; left:-20px; width:100px; height:50px; overflow:hidden; position:absolute; bottom:40px; left:35px;}
 .txt{
 display:block;
 font:"宋体";
@@ -137,7 +137,7 @@ color:#0B0B0B;
 text-decoration:none;
 text-align:left;
 }
-.download{
+.download,.toupdate{
 display:block;
 position:relative;
 top:10px;
@@ -149,3 +149,12 @@ text-align:left;
 cursor:pointer;
 text-decoration:none;
 }
+.header { color:#3F9; padding-top:10px;font-size:20px; font-weight:bolder; text-align:center; margin-top:20px; width:60%; height:40px;
+background-image:-webkit-gradient(linear,left top, left bottom , from(#666),color-stop(0.5,#960), to(rgb(0,0,0)));
+position:absolute; left:20%}
+.panel{text-align:center; position:absolute; padding:0 0 0 0; width:60%; height:350px;left:20%; top:80px; background-color:#060; overflow:hidden}
+.panel img{ width:100%; height:100%}
+ul.intro{ position:absolute; left:40%; top:420px; color:#036 ;}
+.intro{ position:absolute; left:40%; top:67%; color:#036 ;}
+li { text-decoration:none; text-emphasis:none; list-style-image:none; list-style-type:none; margin-top:10px}
+li h2 { text-align:center}
