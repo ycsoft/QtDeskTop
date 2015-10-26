@@ -36,7 +36,7 @@ public slots:
     void     open(const QString &path,const QStringList &arglist);
     QString  showWindow(QString);
     void     close();
-    int      connectDB(QString host, QString dbname,QString usr,QString pwd);
+    int      connectDB(QString host, int port, QString dbname,QString usr,QString pwd);
     void     executeSQL(QString sql);
     void     download ( QString url );
     QString  nameFromURL( QString url);
@@ -46,6 +46,8 @@ public slots:
     QString      fieldValue( int row, int col);
     void        setSoftInfo(QString info) { m_addsoft = info;}
     QString     getSoftInfo() { return m_addsoft;}
+
+    void        executeSQL(QString sql,QString etti);
 private:
     explicit QJSCore(QObject *parent = 0);
     HFPGSql         *m_pgsql;

@@ -138,19 +138,23 @@ QString QJSCore::showWindow(QString win)
         return "";
 }
 
-int QJSCore::connectDB(QString host, QString dbname, QString usr, QString pwd)
+int QJSCore::connectDB(QString host,int port, QString dbname, QString usr, QString pwd)
 {
     PGConfigure  conf;
     conf.host = host.toStdString();
     conf.dbname = dbname.toStdString();
     conf.usr = usr.toStdString();
-    conf.pwd = usr.toStdString();
+    conf.pwd = pwd.toStdString();
+    conf.port = port;
     m_pgsql = new HFPGSql();
+    qDebug()<<"Host:"<<host<<" dbname:"<<dbname;
     if ( m_pgsql->connectDB(&conf) )
     {
+        qDebug()<<"Connected";
         return 0;
     }else
     {
+        qDebug()<<"Connect Error";
         return -1;
     }
 }
@@ -184,4 +188,9 @@ QString QJSCore::nameFromURL(QString url)
 {
     QFileInfo info(url);
     return info.fileName();
+}
+
+void QJSCore::executeSQL(QString sql, QString etti)
+{
+    QString js = "$(this).popTips('#todo',translate2txt(JSON.parse(res)),sql,txt);";
 }
