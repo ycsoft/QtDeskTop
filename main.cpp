@@ -39,14 +39,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("hf.com");
     QCoreApplication::setApplicationName("desk");
 
-    int wid,hei;
-    QAppUtils::ref().getScreenSize(wid,hei);
-    qDebug()<<"Screen width:"<<wid<<"  Height:"<<hei;
-    QAppUtils::ref().getWorkAreaSize(wid,hei);
-    qDebug()<<"WorkArea width:"<<wid<<"  Height:"<<hei;
+//    int wid,hei;
+//    QAppUtils::ref().getScreenSize(wid,hei);
+//    qDebug()<<"Screen width:"<<wid<<"  Height:"<<hei;
+//    QAppUtils::ref().getWorkAreaSize(wid,hei);
+//    qDebug()<<"WorkArea width:"<<wid<<"  Height:"<<hei;
 
-    QJSCore::ref()->exec(QString("xjb\\公务卡系统3.4.0\\GwCard.exe").toUtf8());
+//    QJSCore::ref()->exec(QString("xjb\\公务卡系统3.4.0\\GwCard.exe").toUtf8());
     MainDialog main;
     main.show();
+//    QJSCore::ref()->connectDB("127.0.0.1",5433,"fasp_34","postgres","postgres");
     return a.exec();
 }
