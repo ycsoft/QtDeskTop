@@ -54,7 +54,6 @@ SOURCES += main.cpp\
     data/qluaconf.cpp \
     login/qfiletrans.cpp \
     login/session.cpp \
-    login/tcpserver.cpp \
     uiframe/qdocker.cpp \
     uiframe/qhtmldock.cpp \
     utils/qhfwebview.cpp \
@@ -63,7 +62,8 @@ SOURCES += main.cpp\
     utils/qapparg.cpp \
     ipc/qipcmemory.cpp \
     uiframe/qhtmltips.cpp \
-    uiframe/qpoptips.cpp
+    uiframe/qpoptips.cpp \
+    login/tcpserver.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -109,7 +109,6 @@ HEADERS  += maindialog.h \
     data/qluaconf.h \
     login/qfiletrans.h \
     login/session.h \
-    login/tcpserver.h \
     login/CommandParse.hpp \
     login/datatypes.h \
     login/qutil.h \
@@ -121,7 +120,8 @@ HEADERS  += maindialog.h \
     utils/qapparg.h \
     ipc/qipcmemory.h \
     uiframe/qhtmltips.h \
-    uiframe/qpoptips.h
+    uiframe/qpoptips.h \
+    login/tcpserver.h
 
 RESOURCES += \
     res.qrc
@@ -130,23 +130,32 @@ LIBS += user32.lib shell32.lib ole32.lib
 
 RC_FILE = app.rc
 #QMAKE_APP_FLAG += UNICODE
-INCLUDEPATH += "D:\Program Files (x86)\LuaJIT-2.0.3\include"
+INCLUDEPATH += "F:\LuaJIT-2.0.4\src"
 INCLUDEPATH += ".\\rapidjson"
-INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\WIN32-Code"
-INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\include"
-INCLUDEPATH += "D:\PostgreSQL\9.3\include"
+#INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\WIN32-Code"
+#INCLUDEPATH += "E:\Workspace\HF-Soft\libevent-2.0.22-stable\include"
+INCLUDEPATH += "D:\Program Files\PostgreSQL\8.3\include"
 
-DEFINES +=  WIN32_LEAN_AND_MEAN BOOST_ALL_NO_LIB BOOST_SYSTEM_NO_DEPRECATED _WIN32_WINNT=0x0501
+DEFINES +=  WIN32_LEAN_AND_MEAN #BOOST_ALL_NO_LIB BOOST_SYSTEM_NO_DEPRECATED _WIN32_WINNT=0x0501
 
-INCLUDEPATH += "E:\Workspace\QT\qxmpp-master\src\client"
-INCLUDEPATH += "E:\Workspace\QT\qxmpp-master\src\base"
-INCLUDEPATH += "E:\swift-2.0\3rdParty\Boost\src"
+INCLUDEPATH += "F:\C-C++\HF-Soft\qxmpp\qxmpp-master\src\client"
+INCLUDEPATH += "F:\C-C++\HF-Soft\qxmpp\qxmpp-master\src\base"
+INCLUDEPATH += "F:\C-C++\boost_1_59_0\boost_1_59_0"
 
-LIBS += "E:\swift-2.0\3rdParty\Boost\Swiften_Boost.lib"
-LIBS += "E:\Workspace\QT\build-qxmpp-unknown-Debug\src\qxmpp_d0.lib"
+#LIBS += "E:\swift-2.0\3rdParty\Boost\Swiften_Boost.lib"
 
-LIBS += "D:\Program Files (x86)\LuaJIT-2.0.3\lib\lua51.lib"
-LIBS += "D:\PostgreSQL\9.3\lib\libpq.lib"
+LIBS += "F:\C-C++\boost_1_59_0\boost_1_59_0\stage\lib\libboost_system-vc100-mt-gd-1_59.lib"
+LIBS += "F:\C-C++\boost_1_59_0\boost_1_59_0\stage\lib\libboost_date_time-vc100-mt-gd-1_59.lib"
+LIBS += "F:\C-C++\boost_1_59_0\boost_1_59_0\stage\lib\libboost_regex-vc100-mt-gd-1_59.lib"
+LIBS += "F:\C-C++\boost_1_59_0\boost_1_59_0\stage\lib\libboost_thread-vc100-mt-gd-1_59.lib"
+LIBS += "F:\C-C++\boost_1_59_0\boost_1_59_0\stage\lib\libboost_chrono-vc100-mt-gd-1_59.lib"
+
+
+LIBS += "F:\qxmpp\build-qxmpp-Desktop_Qt_4_8_6-Debug\src\qxmpp_d0.lib"
+
+LIBS += "F:\LuaJIT-2.0.4\lib\lua51.lib"
+LIBS += "D:\Program Files\PostgreSQL\8.3\lib\libpq.lib"
+
 
 
 
