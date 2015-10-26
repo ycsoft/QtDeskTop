@@ -28,10 +28,11 @@ QAppIconPanel::QAppIconPanel(QWidget *parent) : QWidget(parent)
     setObjectName("iconpanel");
     if ( deskstyle.isEmpty())
     {
-        setStyleSheet("QWidget#iconpanel{border-image: url(./ui/mac-desk.jpg);}");
+        setStyleSheet("QWidget#iconpanel{border-image: url( :/ui/desk.jpg);}");
     }
     else
     {
+        qDebug()<<deskstyle;
         setStyleSheet("QWidget#iconpanel{"+deskstyle+"}");
     }
     m_menu = NULL;
