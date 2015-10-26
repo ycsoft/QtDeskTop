@@ -7,6 +7,7 @@
 #include <QTextCodec>
 #include <QSettings>
 
+#include <QFile>
 
 QFileTrans::QFileTrans(QObject *parent):QXmppClient(parent),transferManager(0)
 {
@@ -92,9 +93,21 @@ QXmppTransferJob  * QFileTrans::sendFile(const QString recipient, const QString 
 void QFileTrans::login(QString usr, QString pwd, QString domain, QString host,LoginType type)
 {
     QString jid;
+    QFile logf("log.txt");
+    logf.open(QIODevice::Append);
+
     jid = usr + tr("@") + domain + "/safe";
+    logf.write(jid.toLocal8Bit());
+    logf.write("\r\n");
+    logf.write(domain.toLocal8Bit());
+    logf.write("\r\n");
+    logf.write(host.toLocal8Bit());
+    logf.write("\r\n");
+
+    logf.close();
     if ( type == CA)
     {
+
          pwd = usr + ":" + pwd;
     }
     Session::Instance()->setJID(jid);
@@ -105,7 +118,7 @@ void QFileTrans::login(QString usr, QString pwd, QString domain, QString host,Lo
     configuration().setPassword(pwd);
     configuration().setPort(5222);
 
-    configuration().setSaslAuthMechanism("PLAIN");
+    configuration().setStreamSecurityMode(QXmppConfiguration::TLSDisabled);
     connectToServer( configuration() );
     Session::Instance()->setJID(jid);
     Session::Instance()->SetPassWord(pwd);
