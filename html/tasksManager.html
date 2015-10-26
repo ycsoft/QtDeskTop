@@ -8,13 +8,16 @@
 <link href="res/mac-dock.css" rel="stylesheet" type="text/css" />
 <link type="text/css" rel="stylesheet" href="res/jquery-ui.min.css" />  
 <link type="text/css" rel="stylesheet" href="res/hf-jquery.css" />
+<link type="text/css" rel="stylesheet" href="res/tipsy.css" />
     <!--[if lt IE 9]><script type="text/javascript" src="/js/css3-mediaqueries.js"></script><![endif]-->
     <script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="res/jPaginator-min.js"></script>
-	<script type="text/javascript" src="res/test.js"></script>
+    <script type="text/javascript" src="res/test.js"></script>
     <script type="text/javascript" src="res/interface.js"></script>
+    <script type="text/javascript" src="res/jquery.tipsy.js"></script>
     <script type="text/javascript" src="res/jquery-ui.min.js"></script>  
     <script type="text/javascript" src="res/hf-jquery.js"></script>
+
 </head>
 <style type="text/css">
 #tabs{
@@ -23,12 +26,30 @@
 img {
 	border: none;
 }
-
+#windowapp
+{
+	position:relative;
+	width: 800px;
+	height: 100px;
+overflow-y:scroll ;
+overflow-x:hidden;
+	display: none;
+	border-radius:10px;
+}
+#windowapp img{
+	width:40px; height:40px; margin:8px 10px 0px 0px; cursor:pointer
+}
 #btmdock{ position:absolute; bottom:50px;width:100%;}
 </style>
 <script>
-var detailDialog,detailDialog2, etti = 'c020', pos = '003005002';
+var detailDialog,detailDialog2, etti = 'c016', pos = '002004006';
 var  num_perpage = 12;
+var  dlgapp;
+var dbhost = "127.0.0.1",
+    dbname = "fasp_34",
+    dbport = 5433,
+    dbusr = "postgres",
+    dbpwd = "postgres";
 var tasklist = getList(etti,pos);//getTaskList('127.0.0.1','fasp_yz','postgres','postgres');
 var myApps = new Object;
 </script>
@@ -86,9 +107,8 @@ $("#ap").css('display','none');
 $("#hist").css('display','none');
 
 $('#ulist').loadMyApp();
-//$('#ulist').readyAdd();
-		
- allNum = tasklist.length;
+//$('#ulist').readyAdd();		
+ allNum = tasklist.length;	       
  var ct = 0;
  if ( allNum < num_perpage)
  {
@@ -99,7 +119,6 @@ $('#ulist').loadMyApp();
 	 addTaskObj(tasklist[i]);
 	 //$('.debug').debug(i);
  }
- 
 
 $("#proc").click(function(e) {
 	var id = $(this).attr('id');
@@ -135,7 +154,8 @@ $("a.dock-item").click(function(e) {
 		Qt.showWindow(id);
     });
 
-$('#appmana').click(function(e) {
+		       $('#appmana').click(function(e) {
+
     $('#apply').css('display','none');
 	$('#done').css('display','none');
 	$('#todo').css('display','none');
@@ -191,9 +211,15 @@ $('#history').click(function(e) {
 	$('#ap').css('display','none');
 	$('#hist').css('display','block');
 	$(this).setChecked('.nav','img/line.png');
-
 });
 
+		    $('#apps').click(function(e){
+		       dlgapp.dialog('open');
+		    
+		    });
+$('#exit').click(function(e){
+	Qt.close();
+});
 
 $("div.nav").mouseover(function(){
   $(this).css('backgroundColor','#666666');
@@ -221,7 +247,7 @@ $(".tips>img").mouseover(function(e) {
 $(".tips>img").mouseout(function(e) {
      $(this).attr("src","img/btn_close_normal.png");
 });
-	
+init_Tipsy();		    
 });
 
 function  clickpage( a,page )
@@ -239,19 +265,30 @@ function  clickpage( a,page )
 	 	addTaskObj(tasklist[pre + i]);
  	 }
 }
+$(function(){
 
+		var dlgOpts= {
+			position:{my:'center bottom-40',at:'center',of:'#apps'},
+			height:'100',
+			width:'400',
+			dialogClass:'windowapp'
+			};
+		
+		dlgapp = $('#windowapp').dialog(dlgOpts);
+		dlgapp.dialog('close');
+			       });
+			       
 </script>
 <body>
 <img src="img/back.jpg" id="back">
 <div id="head-nav" align="center">
-<span class="logo">财政工作安全桌面</span>
+<span class="logo">财政云桌面</span>
 <a  id="headall" class="nav" title="申请任务"><span>订阅数据</span><span class="number"></span><img src="" class="checkimg" /></a>
-<a  id="appmana" class="nav" title="申请任务"><span>数据处理</span><span class="number"></span><img src=""  class="checkimg" /></a>
+<!--a  id="appmana" class="nav" title="申请任务"><span>数据处理</span><span class="number"></span><img src=""  class="checkimg" /></a-->
 <a  id="headtodo" class="nav"  title="待办任务"><span>待签数据</span><span class="number"></span><img src=""  class="checkimg" /></a>
 <a  id="headdone" class="nav" title="追踪任务"><span>追踪数据</span><span class="number"></span><img src=""  class="checkimg" /></a>
 <a  id="history" class="nav" title="申请任务"><span>数据档案</span><span class="number"></span><img src=""  class="checkimg" /></a>
-
-<a  id="123" class="nav2"><img src="img/btn_close_normal.png" id="closebtn"  /></a>
+<a  id="exit" class="nav2" title="退出桌面"><span>退出桌面</span><span class="number"></span></a>
 </div>
 <!--申请任务-->
 <div class="content" id="apply">
@@ -294,7 +331,15 @@ function  clickpage( a,page )
   </div> 
 </div>
 </div>
-
+<div id="windowapp">
+<img src="img/gwk.png" id="gwk"/>
+<img src="img/mana.png" id="mana"/>
+<img src="img/dtjk.png" id="dtjk"/>
+<img src="img/dwzw.png" id="dwzw"/>
+<img src="img/kjzw.png" id="kjzw"/>
+<img src="img/yszx.png" id="yszx"/>
+<img src="img/bank.png" id="bank"/>
+</div>
 <div class="debug"></div>
 
 <!--提示窗口的弹出位置-->
@@ -310,9 +355,10 @@ function  clickpage( a,page )
 <p>
 </p>
 <div>
-<a class="ui-button" href="#" id="proc">处理</a>
+<!--a class="ui-button" href="#" id="proc">处理</a-->
 </div>
 </div>
 <span style="display:none" class="flowtxt"></span>
+
 </body>
 </html>

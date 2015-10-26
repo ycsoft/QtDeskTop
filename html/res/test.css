@@ -33,14 +33,19 @@ padding-bottom:15px;
 cursor:pointer;
 }
 a.nav2{
-	position:relative;
+	position:absolute;
 width:10%;
+right:10px;
+top:50x;
 height:20px;
-color:#FFFFFF;
+color:red;
 font-size:14px;
 font-family:"Times New Roman", Times, serif;
 font-weight:bolder;
-display:none;
+padding-top:13px;
+padding-bottom:15px;
+display:inline-block;
+cursor:pointer;
 }/*
 div#headall{
 display:inline-block;
