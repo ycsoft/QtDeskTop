@@ -3,6 +3,7 @@ var colMax = 5;
 
 var curRow = 0;
 var curCol = 0;
+var curItem;
 
 function mouseIn( obj )
 {
@@ -43,7 +44,7 @@ $('.content').find('a').click(function(e) {
     todoNum += 1;
 	var txt = $(this).parent("div").children("div").html();
 	$('#headtodo').setNumber(todoNum);
-	$('#todo').addToDo(txt,'处理发送');
+	$('#todo').addToDo(txt,'发送');
 	//$('a').addToDo(txt,todoNum);
 });	
 	//$('.debug').debug('addTask Over');
@@ -58,7 +59,7 @@ function addTaskObj(obj)
 	
 /*	html += "<span class='item'>"+ '<div>' + txt + '</div>' + "<a class='itembutton' href='#'><img src='img/dwzw.png' class='applyimg' />申请处理/</a>"+"</span>";*/
 	content.html( html );
-	content.addItem(txt,"申请");
+	content.addItem(txt,"申请",0);
 	
  $('.item').mouseover(function(e) {
      	var itm = $(this);
@@ -85,7 +86,7 @@ $('#apply').find('a').click(function(e) {
     todoNum += 1;
 	var txt = $(this).parent("span").children("div").html();
 	$('#headtodo').setNumber(todoNum);
-	$('#todo').addToDo(txt,'处理发送');
+	$('#todo').addToDo(txt,'发送');
 	//$('a').addToDo(txt,todoNum);
 });	
 	//$('.debug').debug('addTask Over');
@@ -191,11 +192,23 @@ $.fn.extend({
 });
 
 $.fn.extend({
-	addItem:function (txt,btnname){
+	//id = 0 : 所有列表  1：待办   2：已办
+	addItem:function (txt,btnname,id){
 	var numstr = $(this).html();
+	
+		if ( id == 0 || id == 2)
+		{
 	    numstr += "<span class='item'><div>" + txt +
-		"</div><a class='itembutton' href='#' title='"+btnname+"'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a></span>";
-			
+		"</div><a class='itembutton' href='#' title='"+btnname+"'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a>"+
+		"</span>";
+		}else
+		{
+		    numstr += "<span class='item'><div>" + txt +
+		"</div><a class='itembutton' href='#' title='"+btnname+"'><img src='img/dwzw.png' class='applyimg' />"+btnname+"</a>"+
+		"<a class='itembutton-bottom' href='#' title=''><img src='img/dwzw.png' class='applyimg' />"+ "处理" +
+		"</span>";
+		
+		}
 			$(this).html(numstr);
 			
 			$('.item div').click(function(e) {
@@ -228,17 +241,10 @@ $.fn.extend({
 			var btn = itm.children("a");
 				btn.css('display','none');
 			});
-			if (btnname == '删除')
+			if (id == 2) //删除
 			{
 				$(this).find('a').click(function(e) {
-                	//$(this).parent('span').css("display","none");
-					//btnname = $(this).attr('title');
-					//if( btnname == '删除')
 						{
-						//done -= 1;
-						//$('#headdone').setNumber(done);
-						//$(".tips").css('display','block');
-						//$("#done").css('height','45%');
 						var id = $(this).parent('span').find('span.id').html();
 						var res = getbyid(id);
 						var sql = "select put('/"+etti + "[" + id+ "]','"+res+"')";
@@ -253,18 +259,26 @@ $.fn.extend({
 $.fn.extend({
 	addToDo: function (txt,btnname){
 
-			$(this).addItem(txt,btnname);
+			$(this).addItem(txt,btnname,1);
+			var btm = "<a class='itembutton-bottom' href='#' title=''><img src='img/dwzw.png' class='applyimg' />"+ "处理";
 			//处理任务
-			$('#todo').find('a').click(function(e) {
+			$('#todo').find('a.itembutton').click(function(e) {
                 var itm = $(this).parent("span");
 				//发送
+				var txt = $(this).parent('span').children('div').html();
 				var id = $(this).parent('span').find('span.id').html();
 				var res = getbyid(id);
 				var sql = "select put('/"+etti + "[" + id+ "]','"+res+"')";
 				$(this).popTips('#todo',translate2txt(JSON.parse(res)),sql,txt);
 				
             });
-			
+			$('#todo').find('a.itembutton-bottom').click(function(e) {
+				var txt = $(this).parent('span').children('div').html();
+				var key = "param";
+				Qt.saveValue(key,txt);
+				curItem = $(this).parent('span');
+				dlgapp.dialog('open');	
+            });
 		}
 	
 	});
@@ -349,7 +363,7 @@ popTips:function(id,text,sql,flow){
 				done += 1;
 				$('#headtodo').setNumber(todoNum);
 				$('#headdone').setNumber(done);
-				$('#done').addItem(flow,'删除');
+				$('#done').addItem(flow,'删除',2);
 				Qt.executeSQL(sql);
 				$('#todo').css('height','70%');
 				$('.tips').css('display','none');
@@ -512,7 +526,6 @@ function getList(tb,gw)
     var res = Qt.connectDB(dbhost,dbport,dbname,dbusr,dbpwd);
 	if ( res == 0 )
     {
-	alert('Connected');
 		var sql ="select * from getbyettilist('"+tb+"','"+gw + "') as (id numeric(20,0),c1 varchar(100),c2 varchar(300),c3 varchar(30));";
 		Qt.executeSQL(sql);
 		var rows = Qt.getRecordCount();

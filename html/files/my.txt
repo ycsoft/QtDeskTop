@@ -1,1 +1,6 @@
-{"即时通信":{"img":"img/chatapp.png","file":"IM_QXmpp.exe"},"公务卡系统":{"img":"img/gwk.png","file":"xjb\\all\\GwCard.lnk"},"预算执行":{"img":"img/yszx.png","file":"xjb\\all\\yszx.lnk"},"系统管理":{"img":"img/mana.png","file":"http://localhost/files/im.exe"}}
+﻿{
+"账务系统":{"version":"1.0","size":10245,"img":"img/chatapp.png","file":"AcctMgr"},
+"即时通信":{"img":"img/chatapp.png","file":"IM_QXmpp.exe"},
+"公务卡系统":{"img":"img/gwk.png","file":"xjb\\all\\GwCard.lnk"},
+"预算执行":{"img":"img/yszx.png","file":"xjb\\all\\yszx.lnk"},
+"系统管理":{"img":"img/mana.png","file":"http://localhost/files/im.exe"}}

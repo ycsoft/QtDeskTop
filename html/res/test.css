@@ -181,6 +181,12 @@ a.itembutton{
 	width:100%; text-decoration:none; padding:10px 0px 0px 0px;
 	height:30px; left:0px;top:2px; background-color:rgba(255,153,153,0.2); display:none; font-size:12px; font-weight:bold;
 }
+a.itembutton-bottom{
+	position:absolute; border-radius:50px; text-align:center;
+	width:100%; text-decoration:none; padding:10px 0px 0px 0px;
+	height:30px; left:0px;bottom:2px; background-color:rgba(255,153,153,0.2); display:none; font-size:12px; font-weight:bold;
+}
+
 a.itembutton-todo{
 	position:absolute; border-radius:50px;
 	width:100%; text-decoration:none; padding:10px 0px 0px 0px;
