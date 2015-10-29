@@ -2,6 +2,8 @@
 #define QJSCORE_H
 
 #include "data/hfpgsql.h"
+#include "qtipswidget.h"
+#include "app/qaccountmgr.h"
 
 #include <QObject>
 #include <QWidget>
@@ -10,6 +12,7 @@
  *封装一些本地方法，供js调用
  *
  */
+
 class QJSCore : public QObject
 {
     Q_OBJECT
@@ -48,6 +51,14 @@ public slots:
     QString     getSoftInfo() { return m_addsoft;}
 
     void        executeSQL(QString sql,QString etti);
+
+    void        showTips();
+    void        tips_agree();
+    void        tips_reject();
+    void        saveValue(QString key, QString value);
+    QString     readValue(QString key);
+    void        showAcct();
+    void        hideAcct();
 private:
     explicit QJSCore(QObject *parent = 0);
     HFPGSql         *m_pgsql;
@@ -56,6 +67,9 @@ private:
     /// \brief 要添加的软件信息
     ///
     QString         m_addsoft;
+    QAccountMgr     *m_acct;
+
+    QTipsWidget     *m_tips;
 };
 
 #endif // QJSCORE_H

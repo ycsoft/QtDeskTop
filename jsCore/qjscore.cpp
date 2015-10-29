@@ -3,6 +3,7 @@
 #include "maindialog.h"
 #include "utils/defines.h"
 #include "http/qhttpdownload.h"
+#include "app/qaccountmgr.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -16,6 +17,7 @@
 #include <ShellAPI.h>
 #include <QTextCodec>
 #include <QTextStream>
+#include <QSettings>
 
 
 using namespace std;
@@ -23,12 +25,13 @@ using namespace std;
 
 QJSCore::QJSCore(QObject *parent) : QObject(parent),m_pgsql(NULL)
 {
-
+    m_acct = new QAccountMgr( & MainDialog::ref());
 }
 QJSCore::~QJSCore()
 {
     if( m_pgsql )
     {
+        qDebug()<<"Destroy pgsql";
         delete m_pgsql;
     }
 }
@@ -75,6 +78,11 @@ void QJSCore::exec(const QString &path)
 {
     QFile file(path);
     qDebug()<<path<<"   "<<path;
+    if( path == tr("AcctMgr"))
+    {
+        showAcct();
+        return;
+    }
     if ( !file.exists() )
     {
         qDebug()<<"No File";
@@ -194,3 +202,58 @@ void QJSCore::executeSQL(QString sql, QString etti)
 {
     QString js = "$(this).popTips('#todo',translate2txt(JSON.parse(res)),sql,txt);";
 }
+
+void QJSCore::showTips()
+{
+    m_tips = new QTipsWidget();
+    m_tips->exec();
+}
+void QJSCore::tips_agree()
+{
+    QString js =  QString::fromLocal8Bit(
+                    "todoNum -= 1;"
+                    "done += 1;"
+                    "curItem.css('display','none');"
+                    "$('#headtodo').setNumber(todoNum);"
+                    "$('#headdone').setNumber(done);"
+                    "var flow = Qt.readValue('param');"
+                    "$('#done').addItem(flow,'删除',2);"
+                    "Qt.executeSQL(sql);"
+                    "$('#todo').css('height','70%');"
+                    "$('.tips').css('display','none');"
+                    "$('#btmdock').css('bottom','50px');"
+
+                );
+
+    MainDialog::ref().getMainFrame()->runJS(js);
+    m_tips->accept();
+    m_tips->deleteLater();
+}
+void QJSCore::tips_reject()
+{
+    m_tips->reject();
+    m_tips->deleteLater();
+}
+
+void QJSCore::saveValue(QString key, QString value)
+{
+    QSettings   set;
+    qDebug()<<"set key:"<<key<<" value:"<<value;
+    set.setValue(key,value);
+}
+QString QJSCore::readValue(QString key)
+{
+    QSettings set;
+    return set.value(key).toString();
+}
+
+void QJSCore::showAcct()
+{
+
+    m_acct->show();
+}
+void QJSCore::hideAcct()
+{
+    m_acct->hide();
+}
+
