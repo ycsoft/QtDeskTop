@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>Tips</title>
+<script type="text/javascript" src="qrc:/html/res/jquery-1.11.3.min.js"></script>
 </head>
 <style>
 html,body{
-	width:100%; height:100%; margin: 0px 0px 0px 0px; overflow:hidden;
+	width:100%; height:100%; margin: 0px 0px 0px 0px; overflow:hidden; background-color:#000;
 }
 header{
 	position:relative;
@@ -28,17 +29,31 @@ header{
 }
 a{
 	bottom::0px; height:30px; display:inline-block; width:200px; margin-right:10px; background-color:#000; color:#FFF;
-	text-decoration:none; text-align:center; padding-top:7px;
+	text-decoration:none; text-align:center; padding-top:7px; background-color:#C90;
 }
 footer{
 	position:absolute; bottom:0px; height:45px; width:100%; text-align:center;
 }
 </style>
+<script>
+$(document).ready(function(e) {
+	var txt = Qt.readValue('param');
+	$('.content').html(txt);
+    $('#ok').click(function(e) {
+		Qt.tips_agree();
+		Qt.hideAcct();
+    });
+	$('#cancel').click(function(e) {
+        Qt.tips_reject();
+		Qt.hideAcct();
+    });
+});
+</script>
 <body>
 <header>数据确认</header>
-<div class="content">123</div>
+<div class="content"></div>
 <footer>
-<a href="#">确定</a><a href="#">撤销</a>
+<a href="#" id="ok">确定</a><a href="#" id="cancel">撤销</a>
 </footer>
 </body>
 </html>
