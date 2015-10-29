@@ -79,14 +79,7 @@ var dlgOpts= {
 			width:'700',
 			dialogClass:'detailWindow'
 };
-/*
-var dlgOpts2= {
-			position:{my:'center',at:'center'},
-			height:'400',
-			width:'700',
-			dialogClass:'detailWindow2'
-};		
-*/
+
 detailDialog = $('.detailWindow').dialog(dlgOpts);
 detailDialog.dialog('close');
 
@@ -248,6 +241,19 @@ $(".tips>img").mouseout(function(e) {
      $(this).attr("src","img/btn_close_normal.png");
 });
 init_Tipsy();		    
+
+$(function(){
+
+		var dlgOpts= {
+			position:{my:'center bottom-40',at:'center',of:'#apps'},
+			height:'500',
+			width:'600',
+			dialogClass:'ap'
+			};
+		
+		dlgapp = $('#ap').dialog(dlgOpts);
+		dlgapp.dialog('close');
+			       });
 });
 
 function  clickpage( a,page )
@@ -265,18 +271,6 @@ function  clickpage( a,page )
 	 	addTaskObj(tasklist[pre + i]);
  	 }
 }
-$(function(){
-
-		var dlgOpts= {
-			position:{my:'center bottom-40',at:'center',of:'#apps'},
-			height:'100',
-			width:'400',
-			dialogClass:'windowapp'
-			};
-		
-		dlgapp = $('#windowapp').dialog(dlgOpts);
-		dlgapp.dialog('close');
-			       });
 			       
 </script>
 <body>
