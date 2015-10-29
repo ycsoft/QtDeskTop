@@ -735,6 +735,8 @@ void MainDialog::setUi3()
 
     QSimpleMode *smode = new QSimpleMode(this);
 
+    m_mainFrame = smode;
+
     createTaskBar();
     m_stacked = new QStackedWidget(this);
     m_stacked->addWidget(m_appiconpanel);

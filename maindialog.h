@@ -29,6 +29,7 @@
 #include "todo/qtodowidget.h"
 #include "todo/qtodomanager.h"
 #include "todo/qtodocontent.h"
+#include "uiframe/qsimplemode.h"
 
 #define     ROW_LIMIT      6
 #define     COL_LIMIT      10
@@ -57,6 +58,10 @@ public:
     static MainDialog& ref()
     {
         return *m_mainDlg;
+    }
+    QSimpleMode *getMainFrame()
+    {
+        return m_mainFrame;
     }
 
     QAppIconPanel * getAppIconPanel()
@@ -342,6 +347,7 @@ private:
     static MainDialog           *m_mainDlg;
     //////////////////////////////////////////////////////////
     bool                        m_press;
+    QSimpleMode                 *m_mainFrame;
 public:
     QToDoContent                *m_all;
     QToDoContent                *m_todo;
