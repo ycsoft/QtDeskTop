@@ -52,5 +52,6 @@ void QHFWebView::load(const QUrl &url)
     QWebSettings *sets = this->page()->settings();
     sets->setAttribute(QWebSettings::JavascriptEnabled,true);
     sets->setAttribute(QWebSettings::LocalContentCanAccessFileUrls,true);
+    sets->setAttribute(QWebSettings::LocalStorageEnabled,true);
     connect(page()->mainFrame(),SIGNAL(javaScriptWindowObjectCleared()),this,SLOT(registerObject()));
 }
