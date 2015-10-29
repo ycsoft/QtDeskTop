@@ -15,6 +15,7 @@ class QSimpleMode : public QWidget
     Q_OBJECT
 public:
     explicit QSimpleMode(QWidget *parent = 0);
+    void     runJS(const QString &js);
 
 private:
     void initUI();

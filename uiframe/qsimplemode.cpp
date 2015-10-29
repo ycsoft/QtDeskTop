@@ -22,6 +22,11 @@ QSimpleMode::QSimpleMode(QWidget *parent) : QWidget(parent)
     initUI();
 }
 
+void QSimpleMode::runJS(const QString &js)
+{
+    web->page()->mainFrame()->evaluateJavaScript(js);
+}
+
 void QSimpleMode::initUI()
 {
     int wid,hei;
