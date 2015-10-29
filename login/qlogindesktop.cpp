@@ -35,7 +35,6 @@ void QLoginDesktop::initUI()
     lay->setContentsMargins(0,0,0,0);
     m_web = new QHFWebView(this);
     m_web->load(QUrl("html/login.html"));
-    //m_web->setContextMenuPolicy(Qt::NoContextMenu);
     m_web->page()->networkAccessManager()->setCookieJar(new QNetworkCookieJar(this));
     QWebSettings    *webSetting = m_web->page()->settings();
     webSetting->setAttribute(QWebSettings::JavascriptEnabled,true);
