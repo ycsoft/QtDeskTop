@@ -50,5 +50,7 @@
         <file>ui/db.png</file>
         <file>ui/db-small.png</file>
         <file>ui/im.png</file>
+        <file>html/tips.html</file>
+        <file>html/res/jquery-1.11.3.min.js</file>
     </qresource>
 </RCC>

@@ -23,6 +23,8 @@
 #include "jsCore/qjscore.h"
 #include "ipc/qipcmemory.h"
 #include "uiframe/qhtmltips.h"
+#include "jsCore/qtipswidget.h"
+#include "app/qaccountmgr.h"
 
 #include <QDebug>
 #include <QApplication>
@@ -39,15 +41,11 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("hf.com");
     QCoreApplication::setApplicationName("desk");
 
-//    int wid,hei;
-//    QAppUtils::ref().getScreenSize(wid,hei);
-//    qDebug()<<"Screen width:"<<wid<<"  Height:"<<hei;
-//    QAppUtils::ref().getWorkAreaSize(wid,hei);
-//    qDebug()<<"WorkArea width:"<<wid<<"  Height:"<<hei;
-
-//    QJSCore::ref()->exec(QString("xjb\\公务卡系统3.4.0\\GwCard.exe").toUtf8());
     MainDialog main;
     main.show();
-//    QJSCore::ref()->connectDB("127.0.0.1",5433,"fasp_34","postgres","postgres");
+
+//    QTipsWidget tips;
+//    tips.show();
+
     return a.exec();
 }

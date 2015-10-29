@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link type="text/css" rel="stylesheet" href="res/easyui.css" />
+<script src="res/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="res/jquery.easyui.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(e) {
+
+$('#sayyes').click(function(e) {
+    Qt.showTips();
+});
+
+$('#sayno').click(function(e) {
+    Qt.hideAcct();
+});
+    
+});
+
+</script>
+</head>
+<style>
+
+html,body{
+	width:100%; height:100%; margin:0; overflow:hidden;
+	background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #9CC), color-stop(1, #99C));
+}
+
+div.widget{
+	text-align:center; width:100%; height:100%; padding-left:20%; overflow-x:hidden; overflow-y:scroll;
+}
+table{
+	 /*style="float:none;margin-top:1px;border-collapse:collapse;border:1px solid #444;table-layout:fixed;width:60%;"*/
+	 width:60%; border:2px solid #444; border-collapse:collapse;
+}
+
+#sptbl td{border:1px solid #444;width:120px;text-align:center;font-weight:bold;color:#123456}
+#sptbl tr{border:1px solid #444;height:50px;text-align:center;font-weight:bold;color:#123456}
+
+.button{
+	display:inline-block; width:80px; height:auto; text-align:center;
+}
+
+</style>
+<body>
+<div class="widget" align="center">
+		<table id="sptbl">
+				<tbody>
+					<tr>
+						<td id="id1">单位名称</td>
+						<td colspan="2">
+							<label id="danweimingcheng" style="width:150%">测试机构</label>
+						</td>
+						<td>主管部门名称</td>
+						<td colSpan="2">
+							<label id="zhuguanbumen" style="width:150%">xx</label>
+						</td>
+					</tr>
+					<tr>
+						<td>单位性质</td>
+						<td>
+							<label id="danweixingzhi">国有企业</label>
+						</td>
+						<td>级次</td>
+						<td>
+							<label id="jici">1</label>
+						</td>
+						<td>组织机构代码</td>
+						<td>
+							<label id="zuzhijigoudaima">100100</label>
+						</td>
+					</tr>
+					<tr>
+						<td>法定代表人</td>
+						<td>
+							<label id="fadingdaibiaoren">测试人员</label>
+						</td>
+						<td>财务负责人</td>
+						<td>
+							<label id="caiwulianxiren">测试</label>
+						</td>
+						<td>联系人</td>
+						<td>
+							<nobr><label id="lianxiren">测试人</label></nobr>
+						</td>
+					</tr>
+					<tr>
+						<td>联系地址</td>
+						<td colspan="3">
+							<label id="lianxidizhi" style="width:300%">西安市莲湖区</label>
+						</td>
+						<td>联系电话</td>
+						<td><label id="lianxidianhua">11111111</label></td>
+					</tr>
+					<tr>
+						<td rowSpan="6">申请新开设或变更账户信息</td>
+						<td>账户户名</td>
+						<td colSpan="4">
+							<label id="zhanghuhuming" style="width:400%">农行XXXXXXX</label>
+						</td>
+					</tr>
+					<tr>
+						<td>账号</td>
+						<td colspan="4">
+							<label id="zhanghao" style="width:400%">65535555555555</label>
+						</td>
+					</tr>
+					<tr>
+						<td>开户银行</td>
+						<td colspan="4">
+								<label id="kaihuyinhang" style="width:400%">农业银行</label>
+						</td>
+					</tr>
+					<tr>
+						<td>大额行号</td>
+						<td colspan="4">
+							<label id="daehanghao" style="width:400%">xxx</label>
+						</td>
+					</tr>
+					<tr>
+						<td>核算内容</td>
+						<td colspan="4">
+								<label id="hesuanneirong" style="width:400%">测试</label>
+						</td>
+					</tr>
+					<tr>
+						<td>账户性质</td>
+						<td colspan="2">
+								<label id="zhanghuxingzhi">测试</label>
+						</td>
+						<td>是否提取现金</td>
+						<td>
+								<label id="shifoutixian">是</label>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><nobr>新设或变更账户原有及相关文件</nobr></td>
+						<td colspan="2"><label id="xiangguanwenjian" style="width:200%"></label></td>
+						<td colspan="2">
+							<ul style="list-style-type:none" id="spfujian">
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><nobr>主管部门审批意见</nobr></td>	
+						<td colspan="4">
+							<label id="zhuguanbumenyijian" style="width:400%">审核无误</label>
+						</td>	
+					</tr>
+					<tr>
+						<td rowspan="2">财政部门审核意见</td>	
+						<td colspan="1">国库处意见</td>	
+						<td colspan="4"><!--
+						 
+							<textarea style="width:100%;height:100%;margin-bottom:0px;clear:both;" rows="4"></textarea>
+						 	
+							--><label id="guokukuyijian" style="width:400%">信息属实</label>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" style="height:150px;">厅(局)领导意见</td>	
+						<td colspan="4">
+							<a id="sayyes" class="easyui-linkbutton button">同意</a>
+							<a id="sayno" class="easyui-linkbutton button">不同意</a>
+							<label id="lingdaoyijian"></label>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">备注</td>	
+						<td colspan="4">
+							<label id="beizhu" style="width:400%"></label>
+						</td>	
+					</tr>
+			</tbody>
+		</table>
+        </div>
+</body>
+</html>

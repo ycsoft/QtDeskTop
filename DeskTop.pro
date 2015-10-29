@@ -63,7 +63,9 @@ SOURCES += main.cpp\
     ipc/qipcmemory.cpp \
     uiframe/qhtmltips.cpp \
     uiframe/qpoptips.cpp \
-    login/tcpserver.cpp
+    login/tcpserver.cpp \
+    jsCore/qtipswidget.cpp \
+    app/qaccountmgr.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -121,7 +123,9 @@ HEADERS  += maindialog.h \
     ipc/qipcmemory.h \
     uiframe/qhtmltips.h \
     uiframe/qpoptips.h \
-    login/tcpserver.h
+    login/tcpserver.h \
+    jsCore/qtipswidget.h \
+    app/qaccountmgr.h
 
 RESOURCES += \
     res.qrc
