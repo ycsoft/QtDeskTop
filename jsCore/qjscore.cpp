@@ -4,6 +4,8 @@
 #include "utils/defines.h"
 #include "http/qhttpdownload.h"
 #include "app/qaccountmgr.h"
+#include "login/qutil.h"
+#include "login/session.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -18,7 +20,7 @@
 #include <QTextCodec>
 #include <QTextStream>
 #include <QSettings>
-
+#include <QClipboard>
 
 using namespace std;
 
@@ -256,4 +258,16 @@ void QJSCore::hideAcct()
 {
     m_acct->hide();
 }
+QString QJSCore::getDCode()
+{
+    QString code = QUtil::Instance()->createDCode();
+    qDebug()<<"Dynamic Code is:"<<code;
+    Session::Instance()->setDCode("app",code);
+    QClipboard *board = QApplication::clipboard();
+    board->setText(code);
+    return code;
+}
+
+
+
 

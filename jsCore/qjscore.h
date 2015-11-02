@@ -46,7 +46,7 @@ public slots:
 
     int         getRecordCount();
     int         getColumnCount();
-    QString      fieldValue( int row, int col);
+    QString     fieldValue( int row, int col);
     void        setSoftInfo(QString info) { m_addsoft = info;}
     QString     getSoftInfo() { return m_addsoft;}
 
@@ -59,6 +59,8 @@ public slots:
     QString     readValue(QString key);
     void        showAcct();
     void        hideAcct();
+
+    QString     getDCode();
 private:
     explicit QJSCore(QObject *parent = 0);
     HFPGSql         *m_pgsql;
