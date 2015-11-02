@@ -65,7 +65,8 @@ SOURCES += main.cpp\
     uiframe/qpoptips.cpp \
     login/tcpserver.cpp \
     jsCore/qtipswidget.cpp \
-    app/qaccountmgr.cpp
+    app/qaccountmgr.cpp \
+    login/qutil.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
