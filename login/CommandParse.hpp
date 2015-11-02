@@ -394,7 +394,7 @@ public:
             }
         }else if(code.compare(Session::Instance()->getCode("app")) == 0)
         {
-            //认证成功
+            //认证成功,返回用户名
             ret = "<userAuth>" + Session::Instance()->getJID().split("@").at(0) + "</userAuth>";
 
         }else ret = "<userAuth>error</userAuth>";

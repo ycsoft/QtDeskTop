@@ -1,8 +1,12 @@
 ﻿#ifndef SESSION_H
 #define SESSION_H
 
+#include "utils/defines.h"
+
 #include <QObject>
 #include <QHash>
+
+#include <time.h>
 
 class Session : public QObject
 {
@@ -68,6 +72,7 @@ public:
     }
     void    setDCode(QString app,QString code)
     {
+        time(&_code_time);
         dcodes_[app] = code;
     }
     QString getCode(QString app)
@@ -89,6 +94,20 @@ public:
 
     bool  GetConfirmed() { return m_bconfirmed;}
     void  SetConfirmed(bool b) { m_bconfirmed = b;}
+
+    bool  IsTimeOut()
+    {
+        time_t t;
+        time(&t);
+        if ( t - _code_time > CODE_TIMEOUT )
+        {
+            return false;
+        }else
+        {
+            return true;
+        }
+    }
+
 signals:
 
 public slots:
@@ -109,6 +128,8 @@ private:
     int                     filePort_;
     QHash<QString,QString>  dcodes_;
     bool                    m_bconfirmed;
+
+    time_t                  _code_time;
 };
 
 #endif // SESSION_H
