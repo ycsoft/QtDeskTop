@@ -31,6 +31,7 @@ display: inline-block;
 padding-top:10px;
 padding-bottom:15px;
 cursor:pointer;
+text-align:center;
 }
 a.nav2{
 	position:absolute;

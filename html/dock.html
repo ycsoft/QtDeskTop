@@ -91,6 +91,11 @@ $(document).ready(function(){
 	$("a#apps").click(function(e) {
 		dlgapp.dialog('open');
     });	
+	//动态密码
+	$('#dcode').click(function(e) {
+        dcode = Qt.getDCode();
+		alert(dcode);
+    });
 	//对话框
 	$(function(){
 		var dlgOpts= {
@@ -185,6 +190,7 @@ $(document).ready(function(){
 	  <a class="dock-item" href="#" id="nofity"><span>桌面通知</span><img src="images/notify.png" alt="桌面通知" /></a> 
 	  <a class="dock-item" href="#" id="tools"><span>常用工具</span><img src="images/tools.png" alt="常用工具" /></a> 
 	  <a class="dock-item" href="#" id="apps"><span>业务应用</span><img src="images/video.png" alt="业务应用" /></a> 
+      <a class="dock-item" href="#" id="dcode"><span>动态密码</span><img src="images/code.png" alt="业务应用" /></a> 
   </div> 
 </div>
 </div>

@@ -9,4 +9,4 @@
 
 .app a:hover{ background-color:#039;}
 /*.checkimg { position:absolute; left:100px; top:5px; width:30px; height:30px; border:none;}*/
-.checkimg { position:absolute; left:38px; display:block; top:0px; width:60px; height:60px; border:none;}
+.checkimg { position:absolute; display:block; top:0px; width:100%; height:60px; border:none;}
