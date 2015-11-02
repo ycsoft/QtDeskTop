@@ -40,5 +40,8 @@
 #define         Simple_Desk     2
 #define         Login_Win       3
 
+//动态密码超时时间:60s
+#define         CODE_TIMEOUT    60000
+
 #endif // DEFINES
 
