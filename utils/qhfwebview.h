@@ -20,6 +20,8 @@ signals:
 
 public slots:
     void    registerObject();
+    void    download(const QNetworkRequest &req);
+    void    downloadFinish();
 };
 
 #endif // QHFWEBVIEW_H
