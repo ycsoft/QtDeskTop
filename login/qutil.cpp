@@ -1,4 +1,4 @@
-#include "qutil.h"
+﻿#include "qutil.h"
 #include "caoper.h"
 #include "session.h"
 
@@ -123,10 +123,11 @@ QString QUtil::createDCode()
 {
     QClipboard *board = QApplication::clipboard();
     QString     code = CAOper::getCode();
+    Session::Instance()->setDCode("app",code);
     QString     toboard = Session::Instance()->getJID() + ":" + code;
     board->setText(toboard);
 
-    return code;
+    return toboard;
 }
 
 QString QUtil::getUpdatePage()
