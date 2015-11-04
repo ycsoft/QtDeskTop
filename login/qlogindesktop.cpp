@@ -7,6 +7,7 @@
 #include "taskbar.h"
 #include "jsCore/qjscore.h"
 #include "utils/qapparg.h"
+#include "login/qxmpppacketconsle.h"
 
 #include <QHBoxLayout>
 #include <QWebSettings>
@@ -16,11 +17,17 @@
 #include <QSettings>
 #include <QNetworkCookieJar>
 
+QLoginDesktop* QLoginDesktop::m_login = NULL;
+
 QLoginDesktop::QLoginDesktop(QWidget *parent) : QWidget(parent)
 {
     initUI();
     resize(500,500);
     m_client = new QFileTrans(this);
+    m_login = this;
+    QXmppPacketConsle *consle = new QXmppPacketConsle(this);
+
+    connect(m_client,SIGNAL(logMessage(QXmppLogger::MessageType,QString)),consle,SLOT(logMessage(QXmppLogger::MessageType,QString)));
     connect(m_client,SIGNAL(connected()),this,SLOT(connected()));
     connect(m_client,SIGNAL(disconnected()),this,SLOT(connectedError()));
 }
@@ -53,7 +60,7 @@ void QLoginDesktop::showMain()
 {
     static MainDialog &main = MainDialog::ref();
     main.getTaskBar()->setVisible(true);
-    main.getStackedWidget()->setCurrentIndex( Simple_Desk );
+    main.getStackedWidget()->setCurrentIndex( /*Simple_Desk*/Full_Desk );
 }
 void QLoginDesktop::exitApp()
 {
@@ -70,7 +77,10 @@ void QLoginDesktop::caLogin(QString host,QString ip)
     CAOper          oper;
     QString         sign = oper.buildAuthRequest(tr(""),qorigin);
     QSettings       set;
+    qDebug()<<"CALogin Host:"<<host<<" Ip:"<<ip;
+    qDebug() <<"Sign:"<<sign;
     usr = qorigin;
+    qDebug()<<"Usr:"<<usr;
     m_client->login(usr,sign,host,ip,QFileTrans::CA);
 }
 void QLoginDesktop::upLogin(QString usr, QString pwd, QString host, QString ip)

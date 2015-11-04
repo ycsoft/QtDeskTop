@@ -12,6 +12,16 @@ class QLoginDesktop : public QWidget
     Q_OBJECT
 public:
     explicit QLoginDesktop(QWidget *parent = 0);
+
+    static QLoginDesktop *ref()
+    {
+        return m_login;
+    }
+    QFileTrans *getClient()
+    {
+        return m_client;
+    }
+
     ~QLoginDesktop();
 signals:
 
@@ -34,6 +44,7 @@ protected:
     void    downloadSvrList();
 private:
 
+    static                      QLoginDesktop *m_login;
     QHFWebView                  *m_web;
     QFileTrans                  *m_client;
 };
