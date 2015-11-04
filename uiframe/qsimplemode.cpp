@@ -36,7 +36,7 @@ void QSimpleMode::initUI()
     hlay->setContentsMargins(0,0,0,0);
     hlay->setSpacing(0);
     hlay->addWidget(web);
-    web->load(QUrl("html/tasksManager.html"));
+//    web->load(QUrl("html/tasksManager.html"));
     QWebSettings    *webSetting = web->page()->settings();
     webSetting->setAttribute(QWebSettings::JavascriptEnabled,true);
     connect(web->page()->mainFrame(),SIGNAL(javaScriptWindowObjectCleared()),this,SLOT(addObject()));
