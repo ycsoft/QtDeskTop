@@ -142,7 +142,7 @@ QString QJSCore::showWindow(QString win)
 
         int idx = pstack->currentIndex();
         idx = ( idx == Simple_Desk ? Full_Desk : Simple_Desk);
-        pstack->setCurrentIndex(idx);
+//        pstack->setCurrentIndex(idx);
         return "123";
     }else
         return "";
@@ -262,7 +262,6 @@ QString QJSCore::getDCode()
 {
     QString code = QUtil::Instance()->createDCode();
     qDebug()<<"Dynamic Code is:"<<code;
-    Session::Instance()->setDCode("app",code);
     QClipboard *board = QApplication::clipboard();
     board->setText(code);
     return code;
