@@ -81,8 +81,9 @@ public:
         elem = elem.firstChildElement("userAuth");
         if(elem.isNull()) return false;
         ret = 7;
-        authcode = elem.lastChild().nodeValue();
+        authcode = elem.attribute("code");//elem.lastChild().nodeValue();
         QString realCode = Session::Instance()->getCode("app");
+        qDebug()<<"Real Code:"<<realCode<<"authCode:"<<authcode;
         ret = 0;
 
         data  = QString("<iq to=\"") + tojid + QString("\" ");
@@ -91,6 +92,7 @@ public:
         data += QString("<userAuth>") + myjid + QString("</userAuth>");
         data += QString("</CZXP>");
         data += QString("</iq>");
+
         result2 = data;
 
         if(realCode.compare(authcode) != 0)
@@ -102,6 +104,7 @@ public:
             data += QString("</CZXP>");
             data += QString("</iq>");
             result  = data;
+            qDebug()<<"Return:\n"<<data;
             return false;
         }
         data  = QString("<iq to=\"") + tojid + QString("\" ");
@@ -111,6 +114,7 @@ public:
         data += QString("</CZXP>");
         data += QString("</iq>");
         result = data;
+        qDebug()<<"Return:\n"<<data;
         return true;
     }
     /**
