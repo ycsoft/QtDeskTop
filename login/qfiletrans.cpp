@@ -111,13 +111,14 @@ void QFileTrans::login(QString usr, QString pwd, QString domain, QString host,Lo
          pwd = usr + ":" + pwd;
     }
     Session::Instance()->setJID(jid);
-    logger()->setLoggingType(QXmppLogger::StdoutLogging);
+//    logger()->setLoggingType(QXmppLogger::StdoutLogging);
     configuration().setDomain(domain);
     configuration().setHost(host);
     configuration().setJid(jid);
     configuration().setPassword(pwd);
     configuration().setPort(5222);
 
+    configuration().setSaslAuthMechanism("PLAIN");
     configuration().setStreamSecurityMode(QXmppConfiguration::TLSDisabled);
     connectToServer( configuration() );
     Session::Instance()->setJID(jid);
