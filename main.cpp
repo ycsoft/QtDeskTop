@@ -30,6 +30,8 @@
 #include <QApplication>
 #include <QTextCodec>
 #include <QDebug>
+#include <QProcess>
+#include <QDir>
 
 #include <Windows.h>
 #include <ShellAPI.h>
@@ -42,6 +44,11 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("hf.com");
     QCoreApplication::setApplicationName("desk");
 
+//    QDir dir;
+//    QString path = dir.currentPath();
+//    qDebug()<<"Current Path:"<<path;
+//    QString fname = path + QString::fromLocal8Bit("/html/files/播放器.exe");
+//    ShellExecuteA(0,"open",fname.toLocal8Bit().data(),NULL,NULL,SW_SHOW);
     MainDialog main;
     main.show();
 
