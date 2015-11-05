@@ -22,6 +22,13 @@ $.fn.extend({
 			myApps[key] = value;
 		}
 	},
+	enableStart:function(){
+	$('.download').click(function(e) {
+		var path = $(this).attr('href');
+		alert(path);
+		Qt.open(path);
+		});
+	},
 	//软件中心处使用
 	enableDownload:function(){
 
@@ -31,8 +38,44 @@ $.fn.extend({
 		obj.title = $(this).parent().find('li.txt').html();
 		obj.file = $(this).attr('href');
 		Qt.setSoftInfo(JSON.stringify(obj));
+		var title = $(this).attr('title');
+		if ( apps_installed[title] == 'yes')
+		{
+			Qt.msgBox('提示','该软件已经安装');
+			return;
+		}
+		//Qt.download(obj.file);
+		fname = "html/files/" + obj.title+".exe";
+		alert(fname);
+		$(this).html('正在下载安装');
+		Qt.download(obj.file,fname);
+		apps_installed[title] = 'yes';
+		Qt.saveData('html/files/installed.json',JSON.stringify(apps_installed));
 		});
 	},
+	enableUpdate:function(){
+
+	$('a.toupdate').click(function(e) {
+    	var obj = new Object;
+		obj.img = $(this).parent().parent().find('img').attr('src');
+		obj.title = $(this).parent().find('li.txt').html();
+		obj.file = $(this).attr('href');
+		Qt.setSoftInfo(JSON.stringify(obj));
+		var title = $(this).attr('title');
+		if ( apps_installed[title] == 'yes')
+		{
+			Qt.msgBox('提示','该软件已经安装');
+			return;
+		}
+		//Qt.download(obj.file);
+		fname = "html/files/" + obj.title+".exe";
+		alert(fname);
+		$(this).html('正在升级');
+		Qt.download(obj.file,fname);
+		apps_installed[title] = 'yes';
+		Qt.saveData('html/files/installed.json',JSON.stringify(apps_installed));
+		});
+	},	
 	//主界面使用
 	addApp:function(src,title,path)
 	{

@@ -1,3 +1,4 @@
 {
+"播放器":{"version":"1.1","size":10245,"img":"img/chatapp.png","file":"http://localhost:8080/Hello/yang?file=apps/files/播放器.exe"},
 "即时通讯":{"version":"1.0","size":10245,"img":"img/chatapp.png","file":"http://localhost:8080/Hello/yang?file=apps/files/即时通讯.exe"}
 }

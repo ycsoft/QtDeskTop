@@ -8,15 +8,23 @@
 <script type="text/javascript" src="res/hf-jquery.js"></script>
 <script type="text/javascript">
 
+var myApps = new Object;
+var allApps = new Object;
+var apps_installed = new Object;
 $(document).ready( function(){
+var ss = Qt.readFromFile("html/files/apps.json");
+allApps = JSON.parse(ss);
 /**********************************************************/
+installed();
 
 $("div#common").css("background","");
 $("div#xjb").css("background","");
 $("div#all").css("background","url(img/menu.png) no-repeat");
-var ss = Qt.readFromFile("html/files/alllist.txt");
 var html = "";
-html = json2list(ss);
+
+
+
+html = json2list(ss,"下载安装");
 $("#list").html(html);
 $(document).enableDownload();
 
@@ -59,9 +67,10 @@ $("div#common").css("background","");
 $("div#xjb").css("background","");
 $("div#local").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
-var ss = Qt.readFromFile("html/files/alllist.txt");
-var html = json2list(ss);
+var ss = Qt.readFromFile("html/files/apps.json");
+var html = json2list(ss,"下载安装");
 $("#list").html(html);
+$(document).enableDownload();
 });
 
 $("div#common").click(function(){
@@ -70,7 +79,7 @@ $("div#xjb").css("background","");
 $("div#local").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/common.txt");
-var html = json2list(ss);
+var html = json2list(ss,"下载安装");
 $("#list").html(html);
 $(document).enableDownload();
 });
@@ -81,7 +90,7 @@ $("div#common").css("background","");
 $("div#all").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
 var ss = Qt.readFromFile("html/files/xjb.txt");
-var html = json2list(ss);
+var html = json2list(ss,"启动");
 $("#list").html(html);
 $(document).enableDownload();
 });
@@ -91,10 +100,11 @@ $("div#common").css("background","");
 $("div#all").css("background","");
 $("div#xjb").css("background","");
 $(this).css("background","url(img/menu.png) no-repeat");
-var ss = Qt.readFromFile("html/files/local.txt");
-var html = json2list(ss);
+loadLocalApp();
+var ss = Qt.readFromFile("html/files/my.txt");
+var html = json2list(ss,"启动");
 $("#list").html(html);
-$(document).enableDownload();
+$(document).enableStart();
 });
 
 $("#software").click(function(e) {
@@ -116,33 +126,82 @@ $("#homepage").click(function(e) {
 });
 
 $("#update").click(function(e) {
+	
+	checkUpdate();
 	$("#list").css('display','none');
     $("#intro").css('display','none');
 	$('.menu').css('display','none');
 	$('.pointer').css('display','none');
 	$('#update2').css('display','block');
 	$(this).find('img.pointer').css('display','block');
+	
 });
 
 });
 
-function  json2list( jstr )
+function   installOk(appname,name)
+{
+	var sel = "[href='" + name + "']";
+	$(sel).html('已安装');
+	var obj = new Object;
+	obj.file = appname + '/' + appname + '.exe';
+	obj.img =  '../'+appname +'/' + appname+ '.png' ;
+	obj.version = allApps[appname].version;
+	myApps[appname] = obj;
+	var apps = JSON.stringify(myApps);
+	alert(apps);
+	Qt.saveData('html/files/my.txt',apps);
+	
+}
+function installed()
+{
+	var sjson = Qt.readFromFile("html/files/installed.json");
+	if ( sjson == null || sjson == '')
+		return;
+	apps_installed = JSON.parse(sjson);
+}
+function checkUpdate()
+{
+	var ss = Qt.readFromFile("html/files/my.txt");
+	var html = json2listupd(ss);
+	$("#installed").html(html);
+	$('#installed').enableUpdate();
+	
+}
+function loadLocalApp()
+{
+		var sjson = Qt.readFromFile("html/files/my.txt");
+		if( sjson == null || sjson.length < 5 )
+		{
+			return;
+		}
+		myApps = JSON.parse(sjson);
+	
+}
+
+function  json2list( jstr, btn )
 {
 	if ( jstr == "" || jstr == null )
 	{
 		return "";
 	}
+
 	var html = "";
 	var obj = JSON.parse(jstr);
 	for( key in obj)
 	{
+	  var btnname = btn;
 	  value = obj[key];
 	  img = value["img"];
 	  href = value["file"];
+	  if( btn == '下载安装' && apps_installed[key] == 'yes')
+	  {
+			btnname = "已安装";
+	  }
 	  //html += '<div class="app"><div class="appicon"><img src="' + img + '" class="appimg" /></div><div class="txt">'
 	  //		  + key + '<div class="download">' + '<a href="'+href+'" class="dowload">'+"下载"+ '</a></div></div></div>';
 			  
-	  html += '<div class="app"><div class="imgback"><img src="'+img+'" class="appimg" /></div><ul><li class="txt">'+key+'</li><a class="download" href="'+href+'">添加应用</a></ul></div>';
+	  html += '<div class="app"><div class="imgback"><img src="'+img+'" class="appimg" /></div><ul><li class="txt">'+key+'</li><a class="download" href="'+href+'" title="'+key+'">'+btnname+'</a></ul></div>';
 	}
 	return html;
 }
@@ -156,14 +215,27 @@ function json2listupd( jstr )
 	var html = "";
 	var obj = JSON.parse(jstr);
 	for( key in obj)
-	{
+	{	
+	  var btn = '';
 	  value = obj[key];
 	  img = value["img"];
 	  href = value["file"];
+	  myver = value["version"];
+	  
+	  ver = allApps[key].version;
+	  alert(ver);
+	  if ( myver < ver )
+	  {
+		  btn = '可升级';
+		  href = allApps[key].file;
+	  }else
+	  {
+		  btn = '无需升级';
+	   }
 	  //html += '<div class="app"><div class="appicon"><img src="' + img + '" class="appimg" /></div><div class="txt">'
 	  //		  + key + '<div class="download">' + '<a href="'+href+'" class="dowload">'+"下载"+ '</a></div></div></div>';
 			  
-	  html += '<div class="app"><div class="imgback"><img src="'+img+'" class="appimg" /></div><ul><li class="txt">'+key+'</li><a class="toupdate" href="'+href+'">无需升级</a></ul></div>';
+	  html += '<div class="app"><div class="imgback"><img src="'+img+'" class="appimg" /></div><ul><li class="txt">'+key+'</li><a class="toupdate" href="'+href+'" title="'+key+'">'+btn+'</a></ul></div>';
 	}
 	return html;	
 }
@@ -186,7 +258,7 @@ function json2listupd( jstr )
 <!--菜单区域-->
 <div class="menu">
 <div class="menuTxt" align="center" id="local"><p>本地软件</p></div><div class="ver" align="center"><hr class="vertical" /></div>
-<div class="menuTxt" align="center" id="all"><p>全部软件</p></div><div class="ver" align="center"><hr class="vertical" /></div>
+<div class="menuTxt" align="center" id="all"><p>软件中心</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 <div class="menuTxt" align="center" id="common"><p>常用工具</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 <div class="menuTxt" align="center" id="xjb"><p>县级版</p></div><div class="ver" align="center"><hr class="vertical" /></div>
 </div>
@@ -227,7 +299,7 @@ function json2listupd( jstr )
 </div-->
 </div> <!--列表区-->
 <!--首页-->
-<div class="list" style="display:none; top:10px; background-color:#3C6; height:80%" id="intro" align="center">
+<div class="list" style="display:none; top:10px; background-color:#3C6; height:85%" id="intro" align="center">
 <div class="header">陕西财政数据平台应用中心</div>
 <div class="panel"><img src="img/intro.png" /></div>
 <ul class="intro">
@@ -239,11 +311,7 @@ function json2listupd( jstr )
 <div class="list" style="display:none; top:30px" id="update2" align="left">
 <p style="position:absolute; left:0px; width:200px; height:30px; padding-top:10px; font-size:12px; font-weight:bold">已安装软件</p>
 <div id="installed" style="position:absolute; width:100%; height:85%; left:0px; top:90px;">
-<script>
-var ss = Qt.readFromFile("html/files/my.txt");
-var html = json2listupd(ss);
-$("#installed").html(html);
-</script>
+
 </div>
 </div>
 </div><!--中央显示区-->

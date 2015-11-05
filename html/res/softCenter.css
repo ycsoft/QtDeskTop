@@ -149,12 +149,12 @@ text-align:left;
 cursor:pointer;
 text-decoration:none;
 }
-.header { color:#3F9; padding-top:10px;font-size:20px; font-weight:bolder; text-align:center; margin-top:20px; width:60%; height:40px;
+.header { color:#3F9; padding-top:10px;font-size:20px; font-weight:bolder; text-align:center; margin-top:10px; width:60%; height:40px;
 background-image:-webkit-gradient(linear,left top, left bottom , from(#666),color-stop(0.5,#960), to(rgb(0,0,0)));
 position:absolute; left:20%}
-.panel{text-align:center; position:absolute; padding:0 0 0 0; width:60%; height:350px;left:20%; top:80px; background-color:#060; overflow:hidden}
+.panel{text-align:center; position:absolute; padding:0 0 0 0; width:60%; height:380px;left:20%; top:80px; background-color:#963; overflow:hidden}
 .panel img{ width:100%; height:100%}
-ul.intro{ position:absolute; left:40%; top:420px; color:#036 ;}
-.intro{ position:absolute; left:40%; top:67%; color:#036 ;}
+ul.intro{ position:absolute; left:40%; top:420px; color:#036; height:200px; top:80%}
+/*.intro{ position:absolute; left:40%; top:65%; color:#036 ;}*/
 li { text-decoration:none; text-emphasis:none; list-style-image:none; list-style-type:none; margin-top:10px}
 li h2 { text-align:center}

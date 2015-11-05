@@ -67,7 +67,8 @@ $(document).ready(function(){
 	//CA
 	$("#ca").click(function()
 	{
-		Login.caLogin("localhost","127.0.0.1");
+		caClick();
+		//Login.caLogin("localhost","127.0.0.1");
 	}
 	);
 
@@ -101,6 +102,31 @@ $(document).ready(function(){
 	
 });
 
+function caClick()
+{
+	var usr = $("#usr").val();
+	var pwd = $("#pwd").val();
+	var  srv = $("select").val();
+	hs = srv.split(":",2);
+	host = hs[0];
+	ip = hs[1];
+	if( usr == "")
+	{
+		Login.msgBox("财政桌面","用户名不能为空");
+		//alert('用户名为空');
+		return;
+	}
+	if ( pwd == "" )
+	{
+		Login.msgBox("财政桌面","密码不能为空");
+		return;
+	}
+	Conf.setValue('usrname',usr);
+	Conf.setValue('passwd',pwd);
+	Conf.setValue('svr2', $("select").val());
+	//Login.upLogin(usr,pwd,host,ip);
+	Login.caLogin(host,ip);
+}
 function loginclick()
 {
 	var usr = $("#usr").val();
