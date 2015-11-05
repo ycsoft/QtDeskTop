@@ -64,9 +64,13 @@ public:
         tojid = elem.attribute("from");
         id = elem.attribute("id");
         QString myjid = elem.attribute("to");
+        qDebug()<<"My JID IS:"<<myjid;
         //Session::Instance()->setWholeJid(myjid);
         //Session::Instance()->setjid(QString::fromStdString(JID(myjid.toStdString()).toBare().toString()));
-        Session::Instance()->setJID(myjid);
+        if( !myjid.isEmpty())
+        {
+            Session::Instance()->setJID(myjid);
+        }
         /*
          *将JID中的用户名提取出来，返回给认证端
          */
