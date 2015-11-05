@@ -42,6 +42,7 @@ public slots:
     int      connectDB(QString host, int port, QString dbname,QString usr,QString pwd);
     void     executeSQL(QString sql);
     void     download ( QString url );
+    void     download( QString url, QString savepath);
     QString  nameFromURL( QString url);
 
     int         getRecordCount();

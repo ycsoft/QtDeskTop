@@ -79,7 +79,7 @@ void QJSCore::close()
 void QJSCore::exec(const QString &path)
 {
     QFile file(path);
-    qDebug()<<path<<"   "<<path;
+
     if( path == tr("AcctMgr"))
     {
         showAcct();
@@ -132,9 +132,8 @@ QString QJSCore::showWindow(QString win)
 {
     if ( win == "softcenter" )
     {
-        QSoftCenter *soft = new QSoftCenter();
+        QSoftCenter *soft = QSoftCenter::ref();
         soft->exec();
-        delete soft;
         return "soft";
     }else if ( win == "switch")
     {
@@ -190,8 +189,16 @@ QString QJSCore::fieldValue(int row, int col)
 
 void QJSCore::download(QString url)
 {
-    QHttpDownLoad *down = new QHttpDownLoad(this);
-    down->downloadFile(url);
+//    QHttpDownLoad *down = new QHttpDownLoad(this);
+//    down->downloadFile(url);
+    QHFWebView *hf = new QHFWebView( & MainDialog::ref());
+    hf->download(QNetworkRequest(QUrl(url)));
+}
+
+void QJSCore::download(QString url, QString savepath)
+{
+    QHFWebView *hf = new QHFWebView( & MainDialog::ref());
+    hf->download_file(url,savepath);
 }
 
 QString QJSCore::nameFromURL(QString url)
@@ -262,8 +269,7 @@ QString QJSCore::getDCode()
 {
     QString code = QUtil::Instance()->createDCode();
     qDebug()<<"Dynamic Code is:"<<code;
-    QClipboard *board = QApplication::clipboard();
-    board->setText(code);
+
     return code;
 }
 
