@@ -1,6 +1,8 @@
 ﻿#include "qhfwebview.h"
 #include "jsCore/qjscore.h"
 
+#include "softCenter/qsoftcenter.h"
+
 #include <QPainter>
 #include <QStyle>
 #include <QStyleOption>
@@ -12,8 +14,13 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QDebug>
+#include <QProcess>
+#include <QDir>
 
-QHFWebView::QHFWebView(QWidget *parent) : QWebView(parent)
+#include <Windows.h>
+#include <ShellAPI.h>
+
+QHFWebView::QHFWebView(QWidget *parent) : QWebView(parent),m_filepath("html/files"),m_bfinished(false)
 {
 
 }
@@ -61,17 +68,19 @@ void QHFWebView::load(const QUrl &url)
 }
 void QHFWebView::download(const QNetworkRequest &request)
 {
+    qDebug()<<"URL:"<<m_url;
+    m_bfinished = false;
     qDebug()<<request.url().toString();
     QString defaultFileName =
        QFileInfo(request.url().toString()).fileName();
 
     qDebug()<<"Download File:"<<defaultFileName;
-     QString fileName =
-       QFileDialog::getSaveFileName(this,
-                                    tr("Save File"),
-                                    defaultFileName);
-     if (fileName.isEmpty())
-       return;
+     QString fileName = m_filepath;
+//       QFileDialog::getSaveFileName(this,
+//                                    tr("Save File"),
+//                                    defaultFileName);
+//     if (fileName.isEmpty())
+//       return;
 
      // Construct a new request that stores the
      // file name that should be used when the
@@ -97,7 +106,34 @@ void QHFWebView::downloadFinish()
      QVariant v =
        request.attribute(QNetworkRequest::User);
      QString fileName = v.toString();
+     QString pureName;
      QFile file(fileName);
+     QFileInfo info(fileName);
+
+     pureName = info.fileName();
+     pureName = pureName.left(pureName.lastIndexOf(".exe"));
+     qDebug()<<"Pure Name:"<<pureName;
+
      if (file.open(QFile::ReadWrite))
-       file.write(reply->readAll());
+     {
+        file.write(reply->readAll());
+        file.close();
+     }
+
+     m_bfinished = true;
+     QString cur = QDir().currentPath() +"/" + m_filepath;
+     if( cur.endsWith(".exe") )
+     {
+        ShellExecuteA(0,"open",cur.toLocal8Bit().data(),NULL,NULL,SW_SHOW);
+        QString js = QString("installOk('%1','%2')").arg(pureName).arg(m_url);
+        QSoftCenter::ref()->runJS(js);
+     }
+
+}
+
+void QHFWebView::download_file(QString path, QString savepath)
+{
+    m_filepath = savepath;
+    m_url = path;
+    download(QNetworkRequest(QUrl(path)));
 }
