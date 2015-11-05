@@ -8,10 +8,14 @@
 #include <QDebug>
 #include <QWebSettings>
 #include <QWebFrame>
+#include <QCloseEvent>
+
+QSoftCenter* QSoftCenter::m_inst = NULL;
 
 QSoftCenter::QSoftCenter(QWidget *parent) : QDialog(parent)
 {
     initUI();
+    m_inst = this;
 }
 
 void QSoftCenter::initUI()
@@ -37,17 +41,24 @@ void QSoftCenter::initUI()
     lay->addWidget(m_web);
     QAppUtils::ref().getScreenSize(wid,hei);
     resize(wid*0.9,600);
+    //下载apps.json
+    m_web->download_file("http://localhost:8080/Hello/yang?file=apps/apps.json","html/files/apps.json");
+
 }
 
 void QSoftCenter::linkCliced(const QUrl &url)
 {
     qDebug()<<url.toString();
-    QHttpDownLoad *download = new QHttpDownLoad(this);
-    download->downloadFile(url.toString());
-    accept();
+    //accept();
 }
 void QSoftCenter::registerObject()
 {
     //QJSCore *core = new QJSCore(this);
     //m_web->page()->mainFrame()->addToJavaScriptWindowObject("Qt",core);
+}
+void QSoftCenter::closeEvent(QCloseEvent *evt)
+{
+    qDebug()<<"Close";
+    setVisible(false);
+    evt->ignore();
 }
