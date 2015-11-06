@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>add app</title>
+<script type="text/javascript" src="res/jquery-1.11.3.min.js"></script>
+<style>
+html,body{
+	width:100%; height:100%; margin:0px;
+}
+header{
+	position:relative; height:60px; width:100%; background-color:#000; color:#930; text-align:center; padding-top:10px; padding-bottom:10px;
+}
+header img{
+	width:40px; height:40px; position:relative;
+}
+.content{
+	position:relative; width:100%; height:300px; background-color:rgba(0,102,102,0.6); margin-top:20px;
+}
+span{
+	text-align:center; position:relative; top:100px; display:block; margin-bottom:10px;
+}
+label{
+	font-size:14px; font-weight:bold; color:#003; width:40px; margin-right:5px; text-align:left; display:inline-block
+}
+input[type="text"]{
+	width:300px;
+}
+a{
+	font-size:14px; font-weight:bold; color:#003; background-color:rgba(153,153,102,0.6); display:block;
+	position:relative; top:140px; text-decoration:none; text-align:center; height:20px; padding-top:2px;
+	display:inline-block; width:80px;
+}
+</style>
+<script>
+$(document).ready(function(e) {
+    $('a').mouseenter(function(e) {
+        $(this).css('background-color','#996');
+    });
+	$('a').mouseout(function(e) {
+        $(this).css('background-color','rgba(153,153,102,0.6)');
+    });
+	$('a').mousedown(function(e) {
+        $(this).css('background-color','rgba(153,204,0,1)');
+    });
+	
+	$('#cancel').click(function(e) {
+        BS.close();
+    });
+	
+	$('#ok').click(function(e) {
+		var name = $('#name').val();
+		var url = $('#url').val();
+		
+		Qt.saveValue("bs-name",name);
+		Qt.saveValue("bs-url",url);
+		BS.okClick();
+    });
+	
+	$('#url').val('http://');
+	
+});
+</script>
+</head>
+<body>
+<header>BS应用<br><img src="images/ie.png" /></header>
+<div class="content">
+<span><label>名称</label><input type="text" maxlength="200" id="name"/></span>
+<span><label>URL</label><input type="text" maxlength="200" id="url"/></span>
+<div align="center">
+<a href="#" id="ok">确定</a>
+<a href="#" id="cancel">取消</a>
+</div>
+</div>
+</body>
+</html>
