@@ -44,6 +44,7 @@ void QTips::SetupUI()
     txtWidget->setMinimumSize(220,180);
     //txtWidget->setStyleSheet("QWidget#txtWidget{background-color: rgb(205, 236, 211);}");
 
+    //导航条
     QWidget *navw = new QWidget(this);
     _preBtn = new IconButton(navw,":/ui/pre.png",":/ui/pre-high.png",":/ui/pre-down.png");
     _nextBtn = new IconButton(navw,":/ui/next.png",":/ui/next-high.png",":/ui/next-down.png");
@@ -148,10 +149,10 @@ void QTips::paintEvent(QPaintEvent *evt)
 
     sty->drawPrimitive(QStyle::PE_Widget,&opt,&painter,this);
 
-    QBrush brush(QColor(205, 236, 111,50));
-    painter.setBrush(brush);
+//    QBrush brush(QColor(205, 236, 111,50));
+//    painter.setBrush(brush);
 
-    painter.fillRect(rect(),brush);
+//    painter.fillRect(rect(),brush);
 
 }
 

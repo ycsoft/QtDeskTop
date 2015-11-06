@@ -56,13 +56,13 @@ void QTipTxt::paintEvent(QPaintEvent *evt)
 
     if (_benter)
     {
-        QColor color(126, 67, 121,50);
-        QBrush brush(color);
-        QPen pen(Qt::NoPen);
-        p.setBrush(brush);
-        p.setPen(pen);
-        //p.fillRect(rect(),color);
-        p.drawRoundedRect(rect(),5,5);
+//        QColor color(126, 67, 121,50);
+//        QBrush brush(color);
+//        QPen pen(Qt::NoPen);
+//        p.setBrush(brush);
+//        p.setPen(pen);
+//        //p.fillRect(rect(),color);
+//        p.drawRoundedRect(rect(),5,5);
 
     }
 }
