@@ -32,6 +32,7 @@
 #include <QDebug>
 #include <QProcess>
 #include <QDir>
+#include <QPropertyAnimation>
 
 #include <Windows.h>
 #include <ShellAPI.h>
@@ -52,8 +53,15 @@ int main(int argc, char *argv[])
     MainDialog main;
     main.show();
 
-//    QTipsWidget tips;
-//    tips.show();
+//    QSysMessagePanel msgpanel;
+//    msgpanel.anim_Show();
+
+//    QPropertyAnimation *anim = new QPropertyAnimation(&msgpanel,"pos");
+//    anim->setDuration(500);
+//    anim->setStartValue(QPoint(1000,0));
+//    anim->setEndValue(QPoint(800,0));
+//    anim->start();
+
 
     return a.exec();
 }

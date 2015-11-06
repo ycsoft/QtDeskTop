@@ -67,7 +67,8 @@ SOURCES += main.cpp\
     jsCore/qtipswidget.cpp \
     app/qaccountmgr.cpp \
     login/qutil.cpp \
-    login/qxmpppacketconsle.cpp
+    login/qxmpppacketconsle.cpp \
+    uiframe/qhfscroll.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -128,7 +129,8 @@ HEADERS  += maindialog.h \
     login/tcpserver.h \
     jsCore/qtipswidget.h \
     app/qaccountmgr.h \
-    login/qxmpppacketconsle.h
+    login/qxmpppacketconsle.h \
+    uiframe/qhfscroll.h
 
 RESOURCES += \
     res.qrc
