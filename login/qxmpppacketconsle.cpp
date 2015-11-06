@@ -94,21 +94,10 @@ void QXmppPacketConsle::logMessage(QXmppLogger::MessageType type,QString msg)
 }
 void QXmppPacketConsle::returnPressed()
 {
-//    QString data = ui->lineEdit->text();
-//    MainDialog::Instance()->getClient()->sendData(data.toUtf8());
+
 }
 
 void QXmppPacketConsle::saveHistory()
 {
-//    QString str = ui->textEdit->toPlainText();
-//    QString barejid = QXmppUtils::jidToBareJid(Session::Instance()->getJID());
-//    QFile f( barejid + ".history");
-//    if ( !f.open(QIODevice::Append))
-//    {
-//        f.close();
-//        return;
-//    }
-//    f.write(str.toLocal8Bit());
-//    f.flush();
-//    f.close();
+
 }

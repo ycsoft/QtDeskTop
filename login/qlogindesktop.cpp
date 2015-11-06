@@ -27,6 +27,7 @@ QLoginDesktop::QLoginDesktop(QWidget *parent) : QWidget(parent)
     m_login = this;
     QXmppPacketConsle *consle = new QXmppPacketConsle(this);
 
+    connect(m_client,SIGNAL(logMessage(QXmppLogger::MessageType,QString)),&MainDialog::ref(),SLOT(logMessage(QXmppLogger::MessageType,QString)));
     connect(m_client,SIGNAL(logMessage(QXmppLogger::MessageType,QString)),consle,SLOT(logMessage(QXmppLogger::MessageType,QString)));
     connect(m_client,SIGNAL(connected()),this,SLOT(connected()));
     connect(m_client,SIGNAL(disconnected()),this,SLOT(connectedError()));
