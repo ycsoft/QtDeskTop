@@ -25,6 +25,8 @@
 #include "uiframe/qhtmltips.h"
 #include "jsCore/qtipswidget.h"
 #include "app/qaccountmgr.h"
+#include "sysMsg/qhtmlviewsysmsgpanel.h"
+#include "softCenter/qaddbsapp.h"
 
 #include <QDebug>
 #include <QApplication>
@@ -52,7 +54,10 @@ int main(int argc, char *argv[])
 //    ShellExecuteA(0,"open",fname.toLocal8Bit().data(),NULL,NULL,SW_SHOW);
     MainDialog main;
     main.show();
-
+//    QAddBSApp ab;
+//    ab.show();
+//    QHtmlViewSysMsgPanel    msg;
+//    msg.anim_Show();
 //    QSysMessagePanel msgpanel;
 //    msgpanel.anim_Show();
 

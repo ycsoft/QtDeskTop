@@ -1,5 +1,19 @@
 ﻿#ifndef MAINDIALOG_H
 #define MAINDIALOG_H
+#include "skin/deskicon.h"
+#include "skin/framelesswin.h"
+
+#include "qproperty.h"
+#include "panel.h"
+#include "qtips.h"
+#include "winFactory/qwinfactory.h"
+#include "sysMsg/qhtmlviewsysmsgpanel.h"
+#include "screenOper/qscreenselector.h"
+#include "todo/qtodowidget.h"
+#include "todo/qtodomanager.h"
+#include "todo/qtodocontent.h"
+#include "uiframe/qsimplemode.h"
+#include "QXmppLogger.h"
 
 #include <QDialog>
 #include <QHBoxLayout>
@@ -16,20 +30,6 @@
 #include <QList>
 #include <QStackedWidget>
 #include <QLineEdit>
-
-#include "skin/deskicon.h"
-#include "skin/framelesswin.h"
-
-#include "qproperty.h"
-#include "panel.h"
-#include "qtips.h"
-#include "winFactory/qwinfactory.h"
-
-#include "screenOper/qscreenselector.h"
-#include "todo/qtodowidget.h"
-#include "todo/qtodomanager.h"
-#include "todo/qtodocontent.h"
-#include "uiframe/qsimplemode.h"
 
 #define     ROW_LIMIT      6
 #define     COL_LIMIT      10
@@ -85,7 +85,7 @@ public:
     {
         return m_task;
     }
-    QSysMessagePanel *getMsgWin()
+    QHtmlViewSysMsgPanel *getMsgWin()
     {
         return m_msgWin;
     }
@@ -98,6 +98,8 @@ public:
     //添加新的图标
     void addApp(QString icon,QString txt,QString path = "");
     void addApp(QPixmap &icon,QString txt,QString path = "");
+    //保存添加的应用
+    void saveApp(const QString &title, const QString &path);
 
     /**
      * @brief addNewTips
@@ -223,6 +225,13 @@ public slots:
 //    void showAll();
 //    void showToDo();
 //    void showDone();
+
+    /**
+     * @brief logMessage,XMPP报文监听
+     * @param type
+     * @param msg
+     */
+    void    logMessage(QXmppLogger::MessageType type,QString msg);
 signals:
     void sigShowMsg(QString);
 
@@ -342,7 +351,8 @@ private:
     //
     QAppIconPanel               *m_appiconpanel;
     //系统通知窗体
-    QSysMessagePanel            *m_msgWin;
+//    QSysMessagePanel            *m_msgWin;
+    QHtmlViewSysMsgPanel        *m_msgWin;
     QStringList                 m_applist;
     QScreenSelector             *m_screenSelector;
     QStackedWidget              *m_stacked;

@@ -14,13 +14,14 @@
 #include "uiframe/qdocker.h"
 #include "softCenter/qsoftcenter.h"
 #include "ipc/qipcmemory.h"
+#include "utils/qpacketparse.h"
+#include "softCenter/qaddbsapp.h"
 
 
 #include <QPainter>
 #include <QDateTime>
 #include <QProcess>
-#include <Windows.h>
-#include <ShlDisp.h>
+
 #include <QFileInfo>
 #include <QFileIconProvider>
 
@@ -31,6 +32,7 @@
 #include <QMessageBox>
 
 #include <Windows.h>
+#include <ShlDisp.h>
 #include <ShellAPI.h>
 
 MainDialog* MainDialog::m_mainDlg = NULL;
@@ -98,17 +100,20 @@ MainDialog::~MainDialog()
     delete ui;
     delete m_prop;
 
-//    QFile   file("app-list.txt");
-//    if ( file.open( QIODevice::WriteOnly))
-//    {
-//        QStringList keys = m_applist;
-//        for ( int i = 0; i < keys.count(); ++i)
-//        {
-//            QString ctx = keys.at(i) + "=" + m_map_app[keys[i]] + "\n";
-//            file.write(ctx.toLocal8Bit().data());
-//        }
-//        file.close();
-//    }
+    QFile   file("app-list.txt");
+    if ( file.open( QIODevice::WriteOnly))
+    {
+        QStringList keys = m_applist;
+        file.write("1\n");
+        QString sline = tr("%1,%2\n").arg(0).arg(keys.count());
+        file.write(sline.toLocal8Bit());
+        for ( int i = 0; i < keys.count(); ++i)
+        {
+            QString ctx = keys.at(i) + "=" + m_map_app[keys[i]] + "\n";
+            file.write(ctx.toLocal8Bit().data());
+        }
+        file.close();
+    }
 }
 
 void MainDialog::addToTask(QString path)
@@ -221,9 +226,10 @@ QWidget*    MainDialog::createTaskBar()
     task->setLayout(taskLay);
 
     //构建通知窗体
-    m_msgWin = dynamic_cast<QSysMessagePanel*>(
-                QWinFactory::ref().createWindow(QWinFactory::MsgPanel));
+//    m_msgWin = dynamic_cast<QSysMessagePanel*>(
+//                QWinFactory::ref().createWindow(QWinFactory::MsgPanel));
 
+    m_msgWin = new QHtmlViewSysMsgPanel();
     //构建应用选择窗体
     m_screenSelector =(QScreenSelector *)
             QWinFactory::ref().createWindow(QWinFactory::ScreenSelector);
@@ -314,18 +320,28 @@ void MainDialog::createMenu( QWidget *parent)
 {
     m_menu = new QMenu(parent);
 
-    QAction *create = new QAction(LOCAL("添加快捷方式"),parent);
+    QAddBSApp *bs = new QAddBSApp();
+
+
+    QAction *create = new QAction(LOCAL("添加CS应用"),parent);
+    QAction *bscreate = new QAction(LOCAL("添加BS应用"),parent);
     QAction *changeMode = new QAction(LOCAL("切换精简模式"),parent);
     QAction *prop = new QAction(LOCAL("属性"),parent);
     QAction *exit = new QAction(LOCAL("退出"),parent);
 
+    connect(bscreate,SIGNAL(triggered()),bs,SLOT(show()));
     connect( create, SIGNAL(triggered()),this,SLOT(action_add_app()));
     connect(changeMode,SIGNAL(triggered()),this,SLOT(switch_simple()));
     connect(prop,SIGNAL(triggered()),this,SLOT(action_prop()));
     connect(exit,SIGNAL(triggered()),qApp,SLOT(quit()));
 
-    m_menu->addAction(create);
-    m_menu->addAction(changeMode);
+    QMenu *cs = new QMenu(parent);
+    cs->setTitle(LOCAL("添加应用"));
+    cs->addAction(create);
+    cs->addAction(bscreate);
+    m_menu->addMenu(cs);
+//    m_menu->addAction(create);
+//    m_menu->addAction(changeMode);
     m_menu->addAction(prop);
     m_menu->addSeparator();
     m_menu->addAction(exit);
@@ -795,8 +811,9 @@ void MainDialog::setUi3()
     connect(m_todoWidget,SIGNAL(clicked()),this,SLOT(showToDoManager()));
 
     //构建通知窗体
-    m_msgWin = dynamic_cast<QSysMessagePanel*>(
-                QWinFactory::ref().createWindow(QWinFactory::MsgPanel));
+//    m_msgWin = dynamic_cast<QSysMessagePanel*>(
+//                QWinFactory::ref().createWindow(QWinFactory::MsgPanel));
+    m_msgWin = new QHtmlViewSysMsgPanel();
 }
 
 //测试用，本函数未正式使用
@@ -864,4 +881,37 @@ void MainDialog::setUi2()
 
     right_panel->setMenu(right_menu);
 
+}
+
+void MainDialog::logMessage(QXmppLogger::MessageType type, QString msg)
+{
+    if ( type != QXmppLogger::ReceivedMessage && type != QXmppLogger::SentMessage)
+    {
+        return;
+    }
+    if ( type == QXmppLogger::ReceivedMessage )
+    {
+        qDebug()<<"MainDialog Recv:"<<msg;
+        QPacketParse parse(msg,this);
+        if ( parse.getPackType() == QPacketParse::Unknown )
+        {
+            return;
+        }
+        void *result = NULL;
+        int ret = parse.prcessCommand(msg,&result);
+        if ( QPacketParse::SysMsg == ret)
+        {
+            SystemMsg *msg = (SystemMsg*)result;
+            m_msgWin->addMessage(msg->title,msg->msg);
+            m_msgWin->anim_Show();
+        }
+    }else
+    {
+        qDebug()<<"MainDialog Sent:"<<msg;
+    }
+}
+void MainDialog::saveApp(const QString &title, const QString &path)
+{
+    m_applist.push_back(title);
+    m_map_app[title] = path;
 }
