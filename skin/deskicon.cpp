@@ -1,4 +1,5 @@
 ﻿#include "deskicon.h"
+#include "jsCore/qjscore.h"
 
 #include <QVBoxLayout>
 #include <QPainter>
@@ -99,6 +100,11 @@ void DeskIcon::mouseDoubleClickEvent(QMouseEvent *evt)
     {
         QString txt = m_lb_txt->text();
         emit dbclick(txt);
+        if (m_path.indexOf("http") >= 0)
+        {
+            m_path += "?code=" + QJSCore::ref()->getDCode();
+            qDebug()<<"URL:"<<m_path;
+        }
         ShellExecuteA(this->winId(),"open",m_path.toLocal8Bit().data(),NULL,NULL,SW_SHOWNORMAL);
     }
 }
