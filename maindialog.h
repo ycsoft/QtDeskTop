@@ -85,6 +85,11 @@ public:
     {
         return m_task;
     }
+    QSysMessagePanel *getMsgWin()
+    {
+        return m_msgWin;
+    }
+
     //构建图形界面
     void setUi();
     void setUi2();

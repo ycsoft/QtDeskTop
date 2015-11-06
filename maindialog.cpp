@@ -542,7 +542,13 @@ void MainDialog::mouseReleaseEvent(QMouseEvent *)
 }
 void MainDialog::mouseMoveEvent(QMouseEvent *evt)
 {
+    int padding = 5;
     m_movePoint = evt->pos();
+    int width = QAppUtils::ref().getScreenWid();
+    if ( pos().x() + padding >= width )
+    {
+        m_msgWin->anim_Show();
+    }
     update();
 }
 
@@ -787,6 +793,10 @@ void MainDialog::setUi3()
     m_done->setWindowFlags(m_done->windowFlags() | Qt::WindowStaysOnTopHint);
 
     connect(m_todoWidget,SIGNAL(clicked()),this,SLOT(showToDoManager()));
+
+    //构建通知窗体
+    m_msgWin = dynamic_cast<QSysMessagePanel*>(
+                QWinFactory::ref().createWindow(QWinFactory::MsgPanel));
 }
 
 //测试用，本函数未正式使用
