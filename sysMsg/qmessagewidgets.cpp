@@ -10,6 +10,7 @@ QMessageWidgets::QMessageWidgets(QWidget *parent) : QNoFrameWin(parent)
     initUI();
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
+    setMinimumHeight(100);
 }
 
 void QMessageWidgets::setMessage(const QString &msg)
@@ -29,8 +30,7 @@ void QMessageWidgets::initUI()
     hline->setFrameShadow(QFrame::Sunken);
     gridLay->addWidget(hline,0,0,1,1);
     gridLay->addWidget(m_lbmsg,1,0,1,1);
-
-    setTitleStyle("font: 75 12pt \"Aharoni\";");
+    setTitleStyle("font: 75 14pt \"Aharoni\";color: rgb(215, 185, 255);");
 }
 
 void QMessageWidgets::mouseMoveEvent(QMouseEvent *)

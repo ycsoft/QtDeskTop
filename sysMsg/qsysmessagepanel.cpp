@@ -17,7 +17,8 @@ QSysMessagePanel::QSysMessagePanel(QWidget *parent) : QWidget(parent)
     setMinimumHeight(QAppUtils::ref().getScreenHei() - QAppUtils::ref().getTaskBarHeight());
     setMaximumHeight(QAppUtils::ref().getScreenHei() - QAppUtils::ref().getTaskBarHeight());
     setWindowFlags(Qt::FramelessWindowHint);
-//    setAttribute(Qt::WA_TranslucentBackground);
+
+    addMessage(LOCAL("通知"),LOCAL("下午大扫除，请大家注意，不要早退，不要迟到哦...........一定要记住哦亲"));
     addMessage(LOCAL("通知"),LOCAL("下午大扫除，请大家注意，不要早退，不要迟到哦...........一定要记住哦亲"));
     addMessage(LOCAL("国土资源部公告"),LOCAL("为方便申请人和社会公众及时了解申请项目的受理、办理进展和结果，"
                                       "自2015年8月1日起，国土资源部在部门户网站开通行政审批信息网上公开查询服务平台"));
@@ -64,13 +65,10 @@ void QSysMessagePanel::initUI()
     vlayMsg->addStretch();
 
     QAppUtils::ref().getScreenSize(width,height);
-    center->setMinimumSize(width/4.1,height/1.3);
-    scroll->setBackgroundRole(QPalette::NoRole);
+    center->setMinimumSize(width/4.1,height - 60);
+    scroll->setBackgroundRole(QPalette::Dark);
     scroll->setWidget(center);
-    scroll->setAttribute(Qt::WA_TranslucentBackground);
-    scroll->setMinimumSize(width/4,height/1.2);
-    scroll->setWindowFlags(Qt::FramelessWindowHint);
-    scroll->setFrameShadow( QFrame::Plain );
+    scroll->setMinimumHeight(height-60);
 
     lbtitle->setStyleSheet("font: 75 14pt \"Times New Roman\";");
     lbtitle ->setText(LOCAL("系统通知"));
@@ -84,6 +82,7 @@ void QSysMessagePanel::initUI()
     vlay->addWidget(headw);
     vlay->addWidget(scroll);
     vlay->addStretch();
+    m_lay->setSpacing(10);
 }
 
 void QSysMessagePanel::enterEvent(QEvent *evt)
