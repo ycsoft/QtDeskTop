@@ -68,7 +68,10 @@ SOURCES += main.cpp\
     app/qaccountmgr.cpp \
     login/qutil.cpp \
     login/qxmpppacketconsle.cpp \
-    uiframe/qhfscroll.cpp
+    uiframe/qhfscroll.cpp \
+    utils/qpacketparse.cpp \
+    sysMsg/qhtmlviewsysmsgpanel.cpp \
+    softCenter/qaddbsapp.cpp
 
 HEADERS  += maindialog.h \
     ui_maindialog.h \
@@ -130,7 +133,10 @@ HEADERS  += maindialog.h \
     jsCore/qtipswidget.h \
     app/qaccountmgr.h \
     login/qxmpppacketconsle.h \
-    uiframe/qhfscroll.h
+    uiframe/qhfscroll.h \
+    utils/qpacketparse.h \
+    sysMsg/qhtmlviewsysmsgpanel.h \
+    softCenter/qaddbsapp.h
 
 RESOURCES += \
     res.qrc
