@@ -6,6 +6,7 @@
 #include "utils/qapputils.h"
 #include "utils/defines.h"
 #include "uiframe/qhtmldock.h"
+#include "maindialog.h"
 #include "winFactory/qwinfactory.h"
 
 #include <QPainter>
@@ -37,6 +38,8 @@ QAppIconPanel::QAppIconPanel(QWidget *parent) : QWidget(parent)
     }
     m_menu = NULL;
 
+    m_press = false;
+    setMouseTracking(true);
 }
 void QAppIconPanel::addDock()
 {
@@ -105,7 +108,7 @@ void QAppIconPanel::mousePressEvent(QMouseEvent *evt)
     if ( evt->button() == Qt::LeftButton )
     {
         m_press = true;
-        m_presssPoint = evt->pos();
+        m_presssPoint = evt->globalPos();
     }
 }
 void QAppIconPanel::mouseReleaseEvent(QMouseEvent *)
@@ -115,6 +118,21 @@ void QAppIconPanel::mouseReleaseEvent(QMouseEvent *)
 }
 void QAppIconPanel::mouseMoveEvent(QMouseEvent *evt)
 {
-    m_movePoint = evt->pos();
+    qDebug()<<"Move: "<<evt->globalPos().x();
+    int padding = 5;
+    m_movePoint = evt->globalPos();
+    static bool bshow = false;
+    int width = QAppUtils::ref().getScreenWid();
+    if ( evt->globalPos().x() + padding >= width )
+    {
+        bshow = true;
+        qDebug()<<"msgwin show";
+        MainDialog::ref().getMsgWin()->anim_Show();
+    }else if( bshow&&width - evt->globalPos().x() > MainDialog::ref().getMsgWin()->width())
+    {
+        bshow = false;
+        MainDialog::ref().getMsgWin()->anim_Hide();
+    }
+
     update();
 }

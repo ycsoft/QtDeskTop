@@ -50,6 +50,8 @@ void QNoFrameWin::paintEvent(QPaintEvent *)
 
     style()->drawPrimitive(QStyle::PE_Widget,&opt,&painter,this);
 
+//    painter.fillRect(rect(),QColor(100,30,200,30));
+
 }
 
 void QNoFrameWin::setWindowTitle(const QString &title)
