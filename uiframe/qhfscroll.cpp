@@ -6,7 +6,7 @@
 
 QHFScroll::QHFScroll(QWidget *parent) : QScrollArea(parent)
 {
-    setAttribute(Qt::WA_TranslucentBackground);
+//    setAttribute(Qt::WA_TranslucentBackground);
 //    setStyleSheet("QScrollArea {background-color:transparent;}");
 //    viewport()->setStyleSheet("{background-color:transparent;}");
 }
