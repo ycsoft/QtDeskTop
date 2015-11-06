@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>系统通知</title>
+<script src="res/jquery-1.11.3.min.js" type="text/javascript"></script>
+</head>
+<style>
+html,body{
+	width:100%; height:100%; margin:0px; overflow:hidden; background-color:rgba(0,0,0,0.5); color:#FFF;
+}
+header{
+	width:100%; height:80px;
+	font:Georgia, "Times New Roman", Times, serif; font-size:20px; font-weight:bolder;
+	text-align:center; padding:40px 0px 0px 0px;
+}
+#top_line{
+	position:absolute; top:80px; width:100%;
+}
+.msglist{
+	position:absolute; width:100%; bottom:10px; top:95px; overflow-y:hidden;
+}
+.msg{
+	position:relative; width:100%;min-height:100px; overflow-x:hidden; overflow-y:hidden; display:block;margin:5px 0px 5px 0px;
+	text-align:center; padding-bottom:5px; border:thin; border-color:#000;
+}
+h5{
+	position:relative; bottom:15px;
+}
+span{
+	font-size:12px; position:absolute; top:30px; bottom:5px;left:5px; right:5px; text-align:left;
+	text-indent:2em;overflow-y:hidden;
+}
+a{
+	color:#666;
+}
+</style>
+
+<script type="text/javascript">
+var msgCount = 0;
+$(document).ready(function(e) {
+    	
+	Msg.addMessage('国库处','应上级领导要求，下周开始全面实施系统升级工作');	
+	$('#clean').click(function(e) {
+        $('.msglist').html('');
+
+    });
+	$('#hide').click(function(e) {
+        Msg.anim_Hide();
+    });
+	
+});
+function	addMessage(title,msg)
+{
+	var html = $('.msglist').html();
+	var nmsg = '<div class="msg"><h5>'+title+'<a href="#" style=" color:;float:right; margin-right:20px">隐藏</a></h5><span>'+msg+'</span></div>'
+	$('.msglist').html(html + nmsg);
+	msgCount = msgCount + 1;
+	if (msgCount > 5)
+	{
+		$('.msglist').css('overflow-y','scroll');
+	}
+	$('.msg a').click(function(e) {
+        var msg = $(this).parent('h5').parent('div');
+		msg.css('display','none');
+    });
+}
+</script>
+
+<header>系统通知<a href="#" id="clean" style="float:right; font-size:12px; text-decoration:none; padding-right:30px;">全部清除</a><br>
+<a href="#" id="hide" style="float:right; font-size:12px; text-decoration:none; padding-right:30px;">隐藏</a>
+</header>
+<hr id="top_line">
+<div class="msglist"><!--div class="msg"><h5>预算处通知</h5><span>应越南共产党中央委员会总书记阮富仲、越南社会主义共和国主席张晋创邀请，中国共产党中央委员会总书记、中华人民共和国主席习近平</span></div-->
+</div>
+<body>
+</body>
+</html>
