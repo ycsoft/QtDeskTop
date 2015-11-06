@@ -56,6 +56,10 @@ void QAppIconPanel::addApp(QPixmap &pix,QString title, QString path)
     int x,y;
     DeskIcon *dkicon = new DeskIcon(this);
 
+    if ( path.indexOf("http://") >= 0 )
+    {
+        pix = QPixmap("html/images/ie.png");
+    }
     dkicon->setIcon(pix);
 
     if ( m_currow > ROW_LIMIT )
@@ -118,20 +122,20 @@ void QAppIconPanel::mouseReleaseEvent(QMouseEvent *)
 }
 void QAppIconPanel::mouseMoveEvent(QMouseEvent *evt)
 {
-    qDebug()<<"Move: "<<evt->globalPos().x();
     int padding = 5;
     m_movePoint = evt->globalPos();
-    static bool bshow = false;
+    QHtmlViewSysMsgPanel *msgWin = MainDialog::ref().getMsgWin();
+
+//    static bool bshow = false;
     int width = QAppUtils::ref().getScreenWid();
-    if ( evt->globalPos().x() + padding >= width )
+    if ( evt->globalPos().x() + padding >= width  && !msgWin->isVisible())
     {
-        bshow = true;
-        qDebug()<<"msgwin show";
-        MainDialog::ref().getMsgWin()->anim_Show();
-    }else if( bshow&&width - evt->globalPos().x() > MainDialog::ref().getMsgWin()->width())
+        //bshow = true;
+        msgWin->anim_Show();
+    }else if( msgWin->isVisible() &&width - evt->globalPos().x() > msgWin->width())
     {
-        bshow = false;
-        MainDialog::ref().getMsgWin()->anim_Hide();
+        //bshow = false;
+        msgWin->anim_Hide();
     }
 
     update();
