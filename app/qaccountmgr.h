@@ -12,6 +12,8 @@ class QAccountMgr : public QDialog
     Q_OBJECT
 public:
     explicit QAccountMgr(QWidget *parent = 0);
+
+    void        reload();
 signals:
 
 protected:

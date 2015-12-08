@@ -1,19 +1,20 @@
-﻿#include "qaccountmgr.h"
-
+﻿#include "qshenhe.h"
+#include "utils/qapputils.h"
 #include <QVBoxLayout>
 
-QAccountMgr::QAccountMgr(QWidget *parent) : QDialog(parent)
+QShenhe::QShenhe(QWidget *parent) : QDialog(parent)
 {
     initUI();
-    resize(800,600);
-    setWindowTitle(QString::fromLocal8Bit("账务系统"));
-}
-void QAccountMgr::reload()
-{
-    m_web->load(QUrl("html/shenhe.html"));
+    int wid,hei;
+    QAppUtils::ref().getScreenSize(wid,hei);
+    resize(wid,hei- 100);
 }
 
-void QAccountMgr::initUI()
+QShenhe::~QShenhe()
+{
+
+}
+void QShenhe::initUI()
 {
     QWidget *center = new QWidget(this);
     QVBoxLayout *vlay = new QVBoxLayout(center);

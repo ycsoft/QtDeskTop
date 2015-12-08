@@ -1,19 +1,23 @@
-﻿#include "qaccountmgr.h"
+﻿#include "qtianbao.h"
+#include "utils/qapputils.h"
 
 #include <QVBoxLayout>
 
-QAccountMgr::QAccountMgr(QWidget *parent) : QDialog(parent)
+QTianBao::QTianBao(QWidget *parent) : QDialog(parent)
 {
     initUI();
-    resize(800,600);
-    setWindowTitle(QString::fromLocal8Bit("账务系统"));
-}
-void QAccountMgr::reload()
-{
-    m_web->load(QUrl("html/shenhe.html"));
+    int wid,hei;
+    QAppUtils::ref().getScreenSize(wid,hei);
+    resize(wid,hei - 100);
 }
 
-void QAccountMgr::initUI()
+QTianBao::~QTianBao()
+{
+
+}
+
+
+void QTianBao::initUI()
 {
     QWidget *center = new QWidget(this);
     QVBoxLayout *vlay = new QVBoxLayout(center);
@@ -26,5 +30,5 @@ void QAccountMgr::initUI()
     vlay->addWidget(m_web);
     mainLay->addWidget(center);
 
-    m_web->load(QUrl("html/shenhe.html"));
+    m_web->load(QUrl("html/tianbao.html"));
 }
